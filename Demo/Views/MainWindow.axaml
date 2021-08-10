@@ -3,7 +3,7 @@
         xmlns:vm="using:Demo.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
+        mc:Ignorable="d" d:DesignWidth="840" d:DesignHeight="480"
         x:Class="Demo.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel" x:CompileBindings="True"
         MinWidth="640" MinHeight="480"
@@ -16,11 +16,11 @@
   <DockPanel>
     <Grid Name="HeaderGrid" DockPanel.Dock="Top">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="150"/>
+        <ColumnDefinition Width="{Binding Column1Width, Mode=TwoWay}"/>
         <ColumnDefinition Width="1"/>
-        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="{Binding Column2Width, Mode=TwoWay}"/>
         <ColumnDefinition Width="1"/>
-        <ColumnDefinition Width="200"/>
+        <ColumnDefinition Width="{Binding Column3Width, Mode=TwoWay}"/>
       </Grid.ColumnDefinitions>
       <Panel Grid.Column="0" Margin="6" Background="Transparent">
         <TextBlock Text="Column1" />
@@ -31,6 +31,7 @@
         <TextBlock Text="Column2" />
       </Panel>
       <Separator Grid.Column="3" DockPanel.Dock="Top" Background="Gray" Width="1"/>
+      <GridSplitter Grid.Column="3" DockPanel.Dock="Top" Background="Transparent" ResizeDirection="Columns"/>
       <Panel Grid.Column="4" Margin="6" Background="Transparent">
         <TextBlock Text="Column3" />
       </Panel>
@@ -45,11 +46,11 @@
           <DataTemplate DataType="vm:ItemViewModel">
             <Grid Name="ItemGrid">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="{Binding $parent[ItemsRepeater].DataContext.Column1Width}" x:CompileBindings="False"/>
                 <ColumnDefinition Width="1"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="{Binding $parent[ItemsRepeater].DataContext.Column2Width}" x:CompileBindings="False"/>
                 <ColumnDefinition Width="1"/>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="{Binding $parent[ItemsRepeater].DataContext.Column3Width}" x:CompileBindings="False"/>
               </Grid.ColumnDefinitions>
               <Grid.Styles>
                 <Style Selector="Grid">
