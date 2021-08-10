@@ -30,13 +30,13 @@
               <ColumnDefinition Width="{Binding Columns[2].Width, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
             </Grid.ColumnDefinitions>
             <Panel Grid.Column="0" Margin="6" Background="Transparent">
-              <Label Content="{Binding Columns[0].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+              <ContentControl Content="{Binding Columns[0].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
             </Panel>
             <Panel Grid.Column="2" Margin="6" Background="Transparent">
-              <Label Content="{Binding Columns[1].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" /> 
+              <ContentControl Content="{Binding Columns[1].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" /> 
             </Panel>
             <Panel Grid.Column="4" Margin="6" Background="Transparent">
-              <Label Content="{Binding Columns[2].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+              <ContentControl Content="{Binding Columns[2].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
             </Panel>
           </Grid>
           <!-- Rows -->
@@ -64,16 +64,16 @@
                       </Style>
                     </Grid.Styles>
                     <Panel Grid.Column="0" Margin="6" Background="Transparent">
-                      <ContentPresenter Content="{Binding }"
-                                        ContentTemplate="{Binding Columns[0].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}"/>
+                      <ContentControl Content="{Binding .}"
+                                      ContentTemplate="{Binding Columns[0].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}"/>
                     </Panel>
                     <Panel Grid.Column="2" Margin="6" Background="Transparent">
-                      <ContentPresenter Content="{Binding }"
-                                        ContentTemplate="{Binding Columns[1].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}"/>
+                      <ContentControl Content="{Binding .}"
+                                      ContentTemplate="{Binding Columns[1].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}"/>
                     </Panel>
                     <Panel Grid.Column="4" Margin="6" Background="Transparent">
-                      <ContentPresenter Content="{Binding }"
-                                        ContentTemplate="{Binding Columns[2].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}"/>
+                      <ContentControl Content="{Binding .}"
+                                      ContentTemplate="{Binding Columns[2].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}"/>
                     </Panel>
                   </Grid>
                 </DataTemplate>
