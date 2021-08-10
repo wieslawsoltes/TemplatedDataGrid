@@ -85,8 +85,14 @@
           <Separator Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Background="Gray" Width="1"/>
           <Separator Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Background="Gray" Width="1"/>
           <!-- Splitters -->
-          <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Background="Transparent" ResizeDirection="Columns"/>
-          <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Background="Transparent" ResizeDirection="Columns"/>
+          <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" 
+                        Background="Transparent" 
+                        ResizeDirection="Columns"
+                        IsEnabled="{TemplateBinding CanUserResizeColumns}"/>
+          <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" 
+                        Background="Transparent" 
+                        ResizeDirection="Columns"
+                        IsEnabled="{TemplateBinding CanUserResizeColumns}"/>
         </Grid>
       </ControlTemplate>
     </Setter>

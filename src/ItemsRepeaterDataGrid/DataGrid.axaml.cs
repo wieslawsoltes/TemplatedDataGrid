@@ -16,6 +16,9 @@ namespace ItemsRepeaterDataGrid
         public static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGrid, object?>(nameof(SelectedItem));
 
+        public static readonly StyledProperty<bool> CanUserResizeColumnsProperty = 
+            AvaloniaProperty.Register<DataGrid, bool>(nameof(CanUserResizeColumns));
+
         public AvaloniaList<DataGridColumn> Columns
         {
             get => GetValue(ColumnsProperty);
@@ -32,6 +35,12 @@ namespace ItemsRepeaterDataGrid
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
+        }
+
+        public bool CanUserResizeColumns
+        {
+            get => GetValue(CanUserResizeColumnsProperty);
+            set => SetValue(CanUserResizeColumnsProperty, value);
         }
     }
 }

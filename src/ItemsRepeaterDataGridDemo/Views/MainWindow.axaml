@@ -15,7 +15,8 @@
     <vm:MainWindowViewModel />
   </Design.DataContext>
 
-  <g:DataGrid Items="{Binding Items}">
+  <g:DataGrid Items="{Binding Items}" 
+              CanUserResizeColumns="True">
     <g:DataGrid.Columns>
       <!-- Column1 -->
       <g:DataGridTemplateColumn Header="Column1" Width="150">
