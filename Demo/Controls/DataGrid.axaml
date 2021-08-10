@@ -30,13 +30,13 @@
               <ColumnDefinition Width="{Binding Columns[2].Width, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Static GridLength.Auto}}"/>
             </Grid.ColumnDefinitions>
             <Panel Grid.Column="0" Margin="6" Background="Transparent">
-              <ContentControl Content="{Binding Columns[0].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" />
+              <ContentControl Content="{Binding Columns[0].Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" />
             </Panel>
             <Panel Grid.Column="2" Margin="6" Background="Transparent">
-              <ContentControl Content="{Binding Columns[1].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" /> 
+              <ContentControl Content="{Binding Columns[1].Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" /> 
             </Panel>
             <Panel Grid.Column="4" Margin="6" Background="Transparent">
-              <ContentControl Content="{Binding Columns[2].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" />
+              <ContentControl Content="{Binding Columns[2].Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" />
             </Panel>
           </Grid>
           <!-- Rows -->
