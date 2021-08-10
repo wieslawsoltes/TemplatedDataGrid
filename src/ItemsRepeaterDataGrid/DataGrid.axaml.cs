@@ -10,8 +10,8 @@ namespace ItemsRepeaterDataGrid
         public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGrid, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
 
-        public static readonly StyledProperty<IEnumerable> ItemsProperty = 
-            AvaloniaProperty.Register<DataGrid, IEnumerable>(nameof(Items));
+        public static readonly StyledProperty<IEnumerable?> ItemsProperty = 
+            AvaloniaProperty.Register<DataGrid, IEnumerable?>(nameof(Items));
 
         public static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGrid, object?>(nameof(SelectedItem));
@@ -25,7 +25,7 @@ namespace ItemsRepeaterDataGrid
             set => SetValue(ColumnsProperty, value);
         }
 
-        public IEnumerable Items
+        public IEnumerable? Items
         {
             get => GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
