@@ -1,0 +1,64 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Demo.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
+        x:Class="Demo.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel" x:CompileBindings="True"
+        MinWidth="640" MinHeight="480"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Demo">
+  <Design.DataContext>
+    <vm:MainWindowViewModel />
+  </Design.DataContext>
+  <DockPanel>
+    <Grid DockPanel.Dock="Top" ColumnDefinitions="150,1,*,1,200">
+      <Panel Grid.Column="0" Margin="6" Background="Transparent">
+        <TextBlock Text="Column1" />
+      </Panel>
+      <Separator Grid.Column="1" DockPanel.Dock="Top" Background="Gray" Width="1"/>
+      <Panel Grid.Column="2" Margin="6" Background="Transparent">
+        <TextBlock Text="Column2" />
+      </Panel>
+      <Separator Grid.Column="3" DockPanel.Dock="Top" Background="Gray" Width="1"/>
+      <Panel Grid.Column="4" Margin="6" Background="Transparent">
+        <TextBlock Text="Column3" />
+      </Panel>
+    </Grid>
+    <Separator DockPanel.Dock="Top" Background="Gray" Height="1"/>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+      <ItemsRepeater Items="{Binding Items}">
+        <ItemsRepeater.Layout>
+          <StackLayout Orientation="Vertical"/>
+        </ItemsRepeater.Layout>
+        <ItemsRepeater.ItemTemplate>
+          <DataTemplate DataType="vm:ItemViewModel">
+            <Grid ColumnDefinitions="150,1,*,1,200">
+              <Grid.Styles>
+                <Style Selector="Grid">
+                  <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style Selector="Grid:pointerover">
+                  <Setter Property="Background" Value="LightGray"/>
+                </Style>
+              </Grid.Styles>
+              <Panel Grid.Column="0" Margin="6" Background="Transparent">
+                <TextBlock Text="{Binding Column1}" />
+              </Panel>
+              <Separator Grid.Column="1" DockPanel.Dock="Top" Background="Gray" Width="1"/>
+              <Panel Grid.Column="2" Margin="6" Background="Transparent">
+                <TextBlock Text="{Binding Column2}" />
+              </Panel>
+              <Separator Grid.Column="3" DockPanel.Dock="Top" Background="Gray" Width="1"/>
+              <Panel Grid.Column="4" Margin="6" Background="Transparent">
+                <TextBlock Text="{Binding Column3}" />
+              </Panel>
+            </Grid>
+          </DataTemplate>
+        </ItemsRepeater.ItemTemplate>
+      </ItemsRepeater>
+    </ScrollViewer>
+  </DockPanel>
+</Window>
