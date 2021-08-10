@@ -1,0 +1,95 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="using:Demo.Controls">
+  <Design.PreviewWith>
+    <c:DataGrid/>
+  </Design.PreviewWith>
+  <Style Selector="c|DataGrid">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding Columns[0].Width, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="{Binding Columns[1].Width, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="{Binding Columns[2].Width, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+          </Grid.ColumnDefinitions>
+          <!-- Header -->
+          <Grid Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="5">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="{Binding Columns[0].Width, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+              <ColumnDefinition Width="1"/>
+              <ColumnDefinition Width="{Binding Columns[1].Width, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+              <ColumnDefinition Width="1"/>
+              <ColumnDefinition Width="{Binding Columns[2].Width, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+            </Grid.ColumnDefinitions>
+            <Panel Grid.Column="0" Margin="6" Background="Transparent">
+              <Label Content="{Binding Columns[0].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+            </Panel>
+            <Panel Grid.Column="2" Margin="6" Background="Transparent">
+              <Label Content="{Binding Columns[1].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" /> 
+            </Panel>
+            <Panel Grid.Column="4" Margin="6" Background="Transparent">
+              <Label Content="{Binding Columns[2].Header, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+            </Panel>
+          </Grid>
+          <!-- Rows -->
+          <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ItemsRepeater Items="{TemplateBinding Items}">
+              <ItemsRepeater.Layout>
+                <StackLayout Orientation="Vertical"/>
+              </ItemsRepeater.Layout>
+              <ItemsRepeater.ItemTemplate>
+                <DataTemplate>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="{Binding Columns[0].Width, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}" x:CompileBindings="False"/>
+                      <ColumnDefinition Width="1"/>
+                      <ColumnDefinition Width="{Binding Columns[1].Width, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}" x:CompileBindings="False"/>
+                      <ColumnDefinition Width="1"/>
+                      <ColumnDefinition Width="{Binding Columns[2].Width, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}" x:CompileBindings="False"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Styles>
+                      <Style Selector="Grid">
+                        <Setter Property="Background" Value="Transparent"/>
+                      </Style>
+                      <Style Selector="Grid:pointerover">
+                        <Setter Property="Background" Value="LightGray"/>
+                      </Style>
+                    </Grid.Styles>
+                    <Panel Grid.Column="0" Margin="6" Background="Transparent">
+                      <ContentPresenter Content="{Binding }"
+                                        ContentTemplate="{Binding Columns[0].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}"/>
+                    </Panel>
+                    <Panel Grid.Column="2" Margin="6" Background="Transparent">
+                      <ContentPresenter Content="{Binding }"
+                                        ContentTemplate="{Binding Columns[1].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}"/>
+                    </Panel>
+                    <Panel Grid.Column="4" Margin="6" Background="Transparent">
+                      <ContentPresenter Content="{Binding }"
+                                        ContentTemplate="{Binding Columns[2].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}}"/>
+                    </Panel>
+                  </Grid>
+                </DataTemplate>
+              </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+          </ScrollViewer>
+          <!-- Lines -->
+          <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Background="Gray" Height="1"/>
+          <Separator Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Background="Gray" Width="1"/>
+          <Separator Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Background="Gray" Width="1"/>
+          <!-- Splitters -->
+          <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" DockPanel.Dock="Top" Background="Transparent" ResizeDirection="Columns"/>
+          <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" DockPanel.Dock="Top" Background="Transparent" ResizeDirection="Columns"/>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>
+

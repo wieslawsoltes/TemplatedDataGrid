@@ -1,9 +1,9 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Demo.ViewModels"
-        xmlns:vmd="using:Demo.ViewModels.DataGrid"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:c="clr-namespace:Demo.Controls"
         mc:Ignorable="d" d:DesignWidth="840" d:DesignHeight="480"
         x:Class="Demo.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel" x:CompileBindings="True"
@@ -14,85 +14,34 @@
   <Design.DataContext>
     <vm:MainWindowViewModel />
   </Design.DataContext>
-  <DockPanel>
-    <!-- DataGrid -->
-    <Grid DataContext="{Binding DataGrid}">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="1"/>
-        <RowDefinition Height="*"/>
-      </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="{Binding Columns[0].Width, Mode=TwoWay}"/>
-        <ColumnDefinition Width="1"/>
-        <ColumnDefinition Width="{Binding Columns[1].Width, Mode=TwoWay}"/>
-        <ColumnDefinition Width="1"/>
-        <ColumnDefinition Width="{Binding Columns[2].Width, Mode=TwoWay}"/>
-      </Grid.ColumnDefinitions>
-      <!-- Header -->
-      <Grid Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="5">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="{Binding Columns[0].Width, Mode=OneWay}"/>
-          <ColumnDefinition Width="1"/>
-          <ColumnDefinition Width="{Binding Columns[1].Width, Mode=OneWay}"/>
-          <ColumnDefinition Width="1"/>
-          <ColumnDefinition Width="{Binding Columns[2].Width, Mode=OneWay}"/>
-        </Grid.ColumnDefinitions>
-        <Panel Grid.Column="0" Margin="6" Background="Transparent">
-          <TextBlock Text="Column1" />
-        </Panel>
-        <Panel Grid.Column="2" Margin="6" Background="Transparent">
-          <TextBlock Text="Column2" />
-        </Panel>
-        <Panel Grid.Column="4" Margin="6" Background="Transparent">
-          <TextBlock Text="Column3" />
-        </Panel>
-      </Grid>
-      <!-- Rows -->
-      <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <ItemsRepeater Items="{Binding Items}">
-          <ItemsRepeater.Layout>
-            <StackLayout Orientation="Vertical"/>
-          </ItemsRepeater.Layout>
-          <ItemsRepeater.ItemTemplate>
-            <DataTemplate DataType="vm:ItemViewModel">
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="{Binding $parent[ItemsRepeater].DataContext.Columns[0].Width, Mode=OneWay}" x:CompileBindings="False"/>
-                  <ColumnDefinition Width="1"/>
-                  <ColumnDefinition Width="{Binding $parent[ItemsRepeater].DataContext.Columns[1].Width, Mode=OneWay}" x:CompileBindings="False"/>
-                  <ColumnDefinition Width="1"/>
-                  <ColumnDefinition Width="{Binding $parent[ItemsRepeater].DataContext.Columns[2].Width, Mode=OneWay}" x:CompileBindings="False"/>
-                </Grid.ColumnDefinitions>
-                <Grid.Styles>
-                  <Style Selector="Grid">
-                    <Setter Property="Background" Value="Transparent"/>
-                  </Style>
-                  <Style Selector="Grid:pointerover">
-                    <Setter Property="Background" Value="LightGray"/>
-                  </Style>
-                </Grid.Styles>
-                <Panel Grid.Column="0" Margin="6" Background="Transparent">
-                  <TextBlock Text="{Binding Column1}" />
-                </Panel>
-                <Panel Grid.Column="2" Margin="6" Background="Transparent">
-                  <TextBlock Text="{Binding Column2}" />
-                </Panel>
-                <Panel Grid.Column="4" Margin="6" Background="Transparent">
-                  <TextBlock Text="{Binding Column3}" />
-                </Panel>
-              </Grid>
-            </DataTemplate>
-          </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
-      </ScrollViewer>
-      <!-- Lines -->
-      <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Background="Gray" Height="1"/>
-      <Separator Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Background="Gray" Width="1"/>
-      <Separator Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Background="Gray" Width="1"/>
-      <!-- Splitters -->
-      <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" DockPanel.Dock="Top" Background="Transparent" ResizeDirection="Columns"/>
-      <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" DockPanel.Dock="Top" Background="Transparent" ResizeDirection="Columns"/>
-    </Grid>
-  </DockPanel>
+
+  <c:DataGrid Items="{Binding Items}">
+    <c:DataGrid.Columns>
+      <!-- Column1 -->
+      <c:DataGridTemplateColumn Header="Column1" Width="150">
+        <c:DataGridTemplateColumn.CellTemplate>
+          <DataTemplate DataType="vm:ItemViewModel">
+            <TextBlock Text="{Binding Column1}" />
+          </DataTemplate>
+        </c:DataGridTemplateColumn.CellTemplate>
+      </c:DataGridTemplateColumn>
+      <!-- Column2 -->
+      <c:DataGridTemplateColumn Header="Column2" Width="*">
+        <c:DataGridTemplateColumn.CellTemplate>
+          <DataTemplate DataType="vm:ItemViewModel">
+            <TextBlock Text="{Binding Column2}" />
+          </DataTemplate>
+        </c:DataGridTemplateColumn.CellTemplate>
+      </c:DataGridTemplateColumn>
+      <!-- Column3 -->
+      <c:DataGridTemplateColumn Header="Column3" Width="200">
+        <c:DataGridTemplateColumn.CellTemplate>
+          <DataTemplate DataType="vm:ItemViewModel">
+            <TextBlock Text="{Binding Column3}" />
+          </DataTemplate>
+        </c:DataGridTemplateColumn.CellTemplate>
+      </c:DataGridTemplateColumn>
+    </c:DataGrid.Columns>
+  </c:DataGrid>
+
 </Window>

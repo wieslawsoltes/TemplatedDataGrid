@@ -7,5 +7,6 @@
   </Application.DataTemplates>
   <Application.Styles>
     <FluentTheme Mode="Light" />
+    <StyleInclude Source="/Controls/DataGrid.axaml"></StyleInclude>
   </Application.Styles>
 </Application>
