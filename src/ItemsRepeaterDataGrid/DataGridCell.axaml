@@ -1,0 +1,15 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:g="using:ItemsRepeaterDataGrid">
+  <Design.PreviewWith>
+    <g:DataGridCell />
+  </Design.PreviewWith>
+  <Style Selector="g|DataGridCell">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentControl Content="{Binding}"
+                        ContentTemplate="{TemplateBinding CellTemplate}"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>

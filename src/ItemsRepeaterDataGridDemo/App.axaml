@@ -7,6 +7,9 @@
   </Application.DataTemplates>
   <Application.Styles>
     <FluentTheme Mode="Light" />
-    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGrid.axaml"></StyleInclude>
+    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGridCell.axaml"/>
+    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGridRow.axaml"/>
+    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGridColumnHeader.axaml"/>
+    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGrid.axaml"/>
   </Application.Styles>
 </Application>

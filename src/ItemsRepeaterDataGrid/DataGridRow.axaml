@@ -1,0 +1,45 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:g="using:ItemsRepeaterDataGrid">
+  <Design.PreviewWith>
+    <g:DataGridRow />
+  </Design.PreviewWith>
+  <Style Selector="g|DataGridRow">
+    <Setter Property="Template">
+      <ControlTemplate>
+
+        <!-- PART_Root -->
+        <Grid Name="PART_Root">
+
+          <!-- TODO: Generate ColumnDefinitions -->
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding Columns[0].Width, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type g:DataGrid}}, FallbackValue={x:Static GridLength.Auto}}"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="{Binding Columns[1].Width, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type g:DataGrid}}, FallbackValue={x:Static GridLength.Auto}}"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="{Binding Columns[2].Width, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type g:DataGrid}}, FallbackValue={x:Static GridLength.Auto}}"/>
+          </Grid.ColumnDefinitions>
+
+          <!-- TODO: Generate DataGridCell's -->
+          <!-- DataGridCell -->
+          <g:DataGridCell Grid.Column="0" 
+                          CellTemplate="{Binding Columns[0].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type g:DataGrid}}, FallbackValue={x:Null}}"/>
+          <!-- DataGridCell -->
+          <g:DataGridCell Grid.Column="2" 
+                          CellTemplate="{Binding Columns[1].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type g:DataGrid}}, FallbackValue={x:Null}}"/>
+          <!-- DataGridCell -->
+          <g:DataGridCell Grid.Column="4" 
+                          CellTemplate="{Binding Columns[2].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type g:DataGrid}}, FallbackValue={x:Null}}"/>
+
+        </Grid>
+
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="g|DataGridRow /template/ Grid#PART_Root">
+    <Setter Property="Background" Value="Transparent"/>
+  </Style>
+  <Style Selector="g|DataGridRow:pointerover /template/ Grid#PART_Root">
+    <Setter Property="Background" Value="LightGray"/>
+  </Style>
+</Styles>

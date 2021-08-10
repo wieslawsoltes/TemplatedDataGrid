@@ -11,10 +11,20 @@
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/avalonia-logo.ico"
         Title="ItemsRepeaterDataGridDemo">
+
   <Design.DataContext>
     <vm:MainWindowViewModel />
   </Design.DataContext>
 
+  <Window.Styles>
+    <Style Selector="g|DataGridCell">
+      <Setter Property="Margin" Value="6"/>
+    </Style>
+    <Style Selector="g|DataGridColumnHeader">
+      <Setter Property="Margin" Value="6"/>
+    </Style>
+  </Window.Styles>
+  
   <g:DataGrid Items="{Binding Items}" 
               CanUserResizeColumns="True">
     <g:DataGrid.Columns>
@@ -22,7 +32,7 @@
       <g:DataGridTemplateColumn Header="Column1" Width="150">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Text="{Binding Column1}" />
+            <TextBlock Margin="6" Text="{Binding Column1}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
@@ -30,7 +40,7 @@
       <g:DataGridTemplateColumn Header="Column2" Width="*">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Text="{Binding Column2}" />
+            <TextBlock Margin="6" Text="{Binding Column2}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
@@ -38,7 +48,7 @@
       <g:DataGridTemplateColumn Header="Column3" Width="200">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Text="{Binding Column3}" />
+            <TextBlock Margin="6" Text="{Binding Column3}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>

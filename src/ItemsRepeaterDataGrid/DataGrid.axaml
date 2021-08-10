@@ -1,18 +1,22 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:c="using:ItemsRepeaterDataGrid">
+        xmlns:g="using:ItemsRepeaterDataGrid">
   <Design.PreviewWith>
-    <c:DataGrid/>
+    <g:DataGrid/>
   </Design.PreviewWith>
-  <Style Selector="c|DataGrid">
+  <Style Selector="g|DataGrid">
     <Setter Property="Template">
       <ControlTemplate>
-        <Grid>
+
+        <Grid Name="PART_Root">
+
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="*"/>
           </Grid.RowDefinitions>
+ 
+          <!-- TODO: Generate ColumnDefinitions -->
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{Binding Columns[0].Width, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Static GridLength.Auto}}"/>
             <ColumnDefinition Width="1"/>
@@ -20,8 +24,12 @@
             <ColumnDefinition Width="1"/>
             <ColumnDefinition Width="{Binding Columns[2].Width, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Static GridLength.Auto}}"/>
           </Grid.ColumnDefinitions>
-          <!-- Header -->
-          <Grid Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="5">
+
+          <!-- DataGridColumnHeadersPresenter -->
+
+          <Grid Name="PART_ColumnHeaders" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="5">
+
+            <!-- TODO: Generate ColumnDefinitions -->
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="{Binding Columns[0].Width, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Static GridLength.Auto}}"/>
               <ColumnDefinition Width="1"/>
@@ -29,62 +37,46 @@
               <ColumnDefinition Width="1"/>
               <ColumnDefinition Width="{Binding Columns[2].Width, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Static GridLength.Auto}}"/>
             </Grid.ColumnDefinitions>
-            <Panel Grid.Column="0" Margin="6" Background="Transparent">
-              <ContentControl Content="{Binding Columns[0].Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" />
-            </Panel>
-            <Panel Grid.Column="2" Margin="6" Background="Transparent">
-              <ContentControl Content="{Binding Columns[1].Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" /> 
-            </Panel>
-            <Panel Grid.Column="4" Margin="6" Background="Transparent">
-              <ContentControl Content="{Binding Columns[2].Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}" />
-            </Panel>
+
+            <!-- TODO: Generate DataGridColumnHeader's -->
+            <!-- DataGridColumnHeader -->
+            <g:DataGridColumnHeader Grid.Column="0" 
+                                    Header="{Binding Columns[0].Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"/>
+
+            <!-- DataGridColumnHeader -->
+            <g:DataGridColumnHeader Grid.Column="2" 
+                                    Header="{Binding Columns[1].Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"/>
+
+            <!-- DataGridColumnHeader -->
+            <g:DataGridColumnHeader Grid.Column="4" 
+                                    Header="{Binding Columns[2].Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"/>
+
           </Grid>
-          <!-- Rows -->
-          <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <ItemsRepeater Items="{TemplateBinding Items}">
+
+          <!-- DataGridRowsPresenter -->
+          <ScrollViewer Name="PART_ScrollViewer"
+                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" 
+                        HorizontalScrollBarVisibility="Auto" 
+                        VerticalScrollBarVisibility="Auto">
+            <ItemsRepeater Name="PART_ItemsRepeater" 
+                           Items="{TemplateBinding Items}">
               <ItemsRepeater.Layout>
                 <StackLayout Orientation="Vertical"/>
               </ItemsRepeater.Layout>
               <ItemsRepeater.ItemTemplate>
                 <DataTemplate>
-                  <Grid>
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="{Binding Columns[0].Width, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}, FallbackValue={x:Static GridLength.Auto}}"/>
-                      <ColumnDefinition Width="1"/>
-                      <ColumnDefinition Width="{Binding Columns[1].Width, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}, FallbackValue={x:Static GridLength.Auto}}"/>
-                      <ColumnDefinition Width="1"/>
-                      <ColumnDefinition Width="{Binding Columns[2].Width, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}, FallbackValue={x:Static GridLength.Auto}}"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.Styles>
-                      <Style Selector="Grid">
-                        <Setter Property="Background" Value="Transparent"/>
-                      </Style>
-                      <Style Selector="Grid:pointerover">
-                        <Setter Property="Background" Value="LightGray"/>
-                      </Style>
-                    </Grid.Styles>
-                    <Panel Grid.Column="0" Margin="6" Background="Transparent">
-                      <ContentControl Content="{Binding .}"
-                                      ContentTemplate="{Binding Columns[0].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}, FallbackValue={x:Null}}"/>
-                    </Panel>
-                    <Panel Grid.Column="2" Margin="6" Background="Transparent">
-                      <ContentControl Content="{Binding .}"
-                                      ContentTemplate="{Binding Columns[1].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}, FallbackValue={x:Null}}"/>
-                    </Panel>
-                    <Panel Grid.Column="4" Margin="6" Background="Transparent">
-                      <ContentControl Content="{Binding .}"
-                                      ContentTemplate="{Binding Columns[2].CellTemplate, RelativeSource={RelativeSource AncestorType={x:Type c:DataGrid}}, FallbackValue={x:Null}}"/>
-                    </Panel>
-                  </Grid>
+                  <g:DataGridRow/>
                 </DataTemplate>
               </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
           </ScrollViewer>
-          <!-- Lines -->
+
+          <!-- TODO: Generate Separator's -->
           <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Background="Gray" Height="1"/>
           <Separator Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Background="Gray" Width="1"/>
           <Separator Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Background="Gray" Width="1"/>
-          <!-- Splitters -->
+
+          <!-- TODO: Generate GridSplitter's -->
           <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" 
                         Background="Transparent" 
                         ResizeDirection="Columns"
@@ -93,7 +85,9 @@
                         Background="Transparent" 
                         ResizeDirection="Columns"
                         IsEnabled="{TemplateBinding CanUserResizeColumns}"/>
+
         </Grid>
+
       </ControlTemplate>
     </Setter>
   </Style>

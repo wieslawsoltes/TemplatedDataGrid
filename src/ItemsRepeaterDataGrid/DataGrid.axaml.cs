@@ -42,5 +42,11 @@ namespace ItemsRepeaterDataGrid
             get => GetValue(CanUserResizeColumnsProperty);
             set => SetValue(CanUserResizeColumnsProperty, value);
         }
+
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+            
+        }
     }
 }
