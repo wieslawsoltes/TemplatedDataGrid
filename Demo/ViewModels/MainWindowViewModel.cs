@@ -47,11 +47,13 @@ namespace Demo.ViewModels
             _column2Width = GridLength.Parse("*");
             _column3Width = GridLength.Parse("200");
 
+            int totalItems = 100_000;
+
             Task.Run(() =>
             {
                 var items = new List<ItemViewModel>();
 
-                for (var i = 0; i < 100_000; i++)
+                for (var i = 0; i < totalItems; i++)
                 {
                     var item = new ItemViewModel()
                     {
