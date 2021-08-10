@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using ReactiveUI;
 
 namespace Demo.ViewModels
@@ -16,39 +18,26 @@ namespace Demo.ViewModels
 
         public MainWindowViewModel()
         {
-            _items = new ObservableCollection<ItemViewModel>()
-            {
-                // new ItemViewModel()
-                // {
-                //     Column1 = "Test 1-1",
-                //     Column2 = "Test 1-2",
-                //     Column3 = "Test 1-3"
-                // },
-                // new ItemViewModel()
-                // {
-                //     Column1 = "Test 2-1",
-                //     Column2 = "Test 2-2",
-                //     Column3 = "Test 2-3"
-                // },
-                // new ItemViewModel()
-                // {
-                //     Column1 = "Test 3-1",
-                //     Column2 = "Test 3-2",
-                //     Column3 = "Test 3-3"
-                // },
-            };
+            _items = new ObservableCollection<ItemViewModel>();
 
-            for (var i = 0; i < 100_000; i++)
+            Task.Run(() =>
             {
-                var item = new ItemViewModel()
+                var items = new List<ItemViewModel>();
+
+                for (var i = 0; i < 100_000; i++)
                 {
-                    Column1 = $"Test {i}-1",
-                    Column2 = $"Test {i}-2",
-                    Column3 = $"Test {i}-3"
-                };
+                    var item = new ItemViewModel()
+                    {
+                        Column1 = $"Test {i}-1",
+                        Column2 = $"Test {i}-2",
+                        Column3 = $"Test {i}-3"
+                    };
 
-                _items.Add(item);
-            }
+                    items.Add(item);
+                }
+
+                Items = new ObservableCollection<ItemViewModel>(items);
+            });
         }
     }
 }
