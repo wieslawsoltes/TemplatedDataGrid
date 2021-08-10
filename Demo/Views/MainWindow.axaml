@@ -43,7 +43,7 @@
         </ItemsRepeater.Layout>
         <ItemsRepeater.ItemTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <Grid>
+            <Grid Name="ItemGrid">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="1"/>
