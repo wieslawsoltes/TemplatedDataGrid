@@ -1,6 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:c="using:Demo.Controls">
+        xmlns:c="using:ItemsRepeaterDataGrid">
   <Design.PreviewWith>
     <c:DataGrid/>
   </Design.PreviewWith>

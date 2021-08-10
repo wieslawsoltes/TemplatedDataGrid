@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Demo.ViewModels;
-using Demo.Views;
+using ItemsRepeaterDataGridDemo.ViewModels;
+using ItemsRepeaterDataGridDemo.Views;
 
-namespace Demo
+namespace ItemsRepeaterDataGridDemo
 {
     public class App : Application
     {

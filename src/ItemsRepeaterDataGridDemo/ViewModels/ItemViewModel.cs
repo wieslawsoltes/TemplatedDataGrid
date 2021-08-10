@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace Demo.ViewModels
+namespace ItemsRepeaterDataGridDemo.ViewModels
 {
     public class ItemViewModel : ViewModelBase
     {

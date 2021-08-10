@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using ReactiveUI;
 
-namespace Demo.ViewModels
+namespace ItemsRepeaterDataGridDemo.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

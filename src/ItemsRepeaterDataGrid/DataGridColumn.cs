@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 
-namespace Demo.Controls
+namespace ItemsRepeaterDataGrid
 {
     public class DataGridColumn : AvaloniaObject
     {

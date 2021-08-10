@@ -1,47 +1,47 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Demo.ViewModels"
+        xmlns:vm="using:ItemsRepeaterDataGridDemo.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:c="clr-namespace:Demo.Controls"
+        xmlns:g="clr-namespace:ItemsRepeaterDataGrid;assembly=ItemsRepeaterDataGrid"
         mc:Ignorable="d" d:DesignWidth="840" d:DesignHeight="480"
-        x:Class="Demo.Views.MainWindow"
+        x:Class="ItemsRepeaterDataGridDemo.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel" x:CompileBindings="True"
         MinWidth="640" MinHeight="480"
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Demo">
+        Title="ItemsRepeaterDataGridDemo">
   <Design.DataContext>
     <vm:MainWindowViewModel />
   </Design.DataContext>
 
-  <c:DataGrid Items="{Binding Items}">
-    <c:DataGrid.Columns>
+  <g:DataGrid Items="{Binding Items}">
+    <g:DataGrid.Columns>
       <!-- Column1 -->
-      <c:DataGridTemplateColumn Header="Column1" Width="150">
-        <c:DataGridTemplateColumn.CellTemplate>
+      <g:DataGridTemplateColumn Header="Column1" Width="150">
+        <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Text="{Binding Column1}" />
           </DataTemplate>
-        </c:DataGridTemplateColumn.CellTemplate>
-      </c:DataGridTemplateColumn>
+        </g:DataGridTemplateColumn.CellTemplate>
+      </g:DataGridTemplateColumn>
       <!-- Column2 -->
-      <c:DataGridTemplateColumn Header="Column2" Width="*">
-        <c:DataGridTemplateColumn.CellTemplate>
+      <g:DataGridTemplateColumn Header="Column2" Width="*">
+        <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Text="{Binding Column2}" />
           </DataTemplate>
-        </c:DataGridTemplateColumn.CellTemplate>
-      </c:DataGridTemplateColumn>
+        </g:DataGridTemplateColumn.CellTemplate>
+      </g:DataGridTemplateColumn>
       <!-- Column3 -->
-      <c:DataGridTemplateColumn Header="Column3" Width="200">
-        <c:DataGridTemplateColumn.CellTemplate>
+      <g:DataGridTemplateColumn Header="Column3" Width="200">
+        <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Text="{Binding Column3}" />
           </DataTemplate>
-        </c:DataGridTemplateColumn.CellTemplate>
-      </c:DataGridTemplateColumn>
-    </c:DataGrid.Columns>
-  </c:DataGrid>
+        </g:DataGridTemplateColumn.CellTemplate>
+      </g:DataGridTemplateColumn>
+    </g:DataGrid.Columns>
+  </g:DataGrid>
 
 </Window>

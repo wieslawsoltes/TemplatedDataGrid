@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using Demo.ViewModels;
+using ItemsRepeaterDataGridDemo.ViewModels;
 
-namespace Demo
+namespace ItemsRepeaterDataGridDemo
 {
     public class ViewLocator : IDataTemplate
     {

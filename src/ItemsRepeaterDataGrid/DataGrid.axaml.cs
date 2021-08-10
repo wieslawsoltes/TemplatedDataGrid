@@ -3,7 +3,7 @@ using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls.Primitives;
 
-namespace Demo.Controls
+namespace ItemsRepeaterDataGrid
 {
     public class DataGrid : TemplatedControl
     {

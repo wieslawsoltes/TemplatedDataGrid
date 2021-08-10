@@ -2,11 +2,15 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <IsPackable>False</IsPackable>
     <Nullable>enable</Nullable>
+    <RootNamespace>ItemsRepeaterDataGridDemo</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
@@ -14,5 +18,8 @@
     <PackageReference Include="Avalonia.Desktop" Version="0.10.6" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.6" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ItemsRepeaterDataGrid\ItemsRepeaterDataGrid.csproj" />
   </ItemGroup>
 </Project>

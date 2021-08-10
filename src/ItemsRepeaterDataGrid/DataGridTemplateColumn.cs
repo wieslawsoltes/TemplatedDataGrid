@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls.Templates;
 using Avalonia.Metadata;
 
-namespace Demo.Controls
+namespace ItemsRepeaterDataGrid
 {
     public class DataGridTemplateColumn : DataGridColumn
     {
