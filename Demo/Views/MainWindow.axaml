@@ -14,11 +14,19 @@
     <vm:MainWindowViewModel />
   </Design.DataContext>
   <DockPanel>
-    <Grid DockPanel.Dock="Top" ColumnDefinitions="150,1,*,1,200">
+    <Grid Name="HeaderGrid" DockPanel.Dock="Top">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="150"/>
+        <ColumnDefinition Width="1"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="1"/>
+        <ColumnDefinition Width="200"/>
+      </Grid.ColumnDefinitions>
       <Panel Grid.Column="0" Margin="6" Background="Transparent">
         <TextBlock Text="Column1" />
       </Panel>
       <Separator Grid.Column="1" DockPanel.Dock="Top" Background="Gray" Width="1"/>
+      <GridSplitter Grid.Column="1" DockPanel.Dock="Top" Background="Transparent" ResizeDirection="Columns"/>
       <Panel Grid.Column="2" Margin="6" Background="Transparent">
         <TextBlock Text="Column2" />
       </Panel>
@@ -35,7 +43,14 @@
         </ItemsRepeater.Layout>
         <ItemsRepeater.ItemTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <Grid ColumnDefinitions="150,1,*,1,200">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="200"/>
+              </Grid.ColumnDefinitions>
               <Grid.Styles>
                 <Style Selector="Grid">
                   <Setter Property="Background" Value="Transparent"/>
