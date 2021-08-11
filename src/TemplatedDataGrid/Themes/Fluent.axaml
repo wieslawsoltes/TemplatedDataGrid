@@ -13,7 +13,7 @@
     </Setter>
   </Style>
   <Style Selector="g|DataGrid /template/ Grid#PART_Root > Separator">
-    <Setter Property="Background" Value="Gray" />
+    <Setter Property="Background" Value="{DynamicResource SystemBaseMediumLowColor}" />
   </Style>
   <Style Selector="g|DataGrid /template/ Grid#PART_Root > GridSplitter">
     <Setter Property="Background" Value="Transparent" />
