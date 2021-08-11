@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.Primitives;
 
-namespace ItemsRepeaterDataGrid
+namespace TemplatedDataGrid
 {
     public class DataGridColumnHeader : TemplatedControl
     {

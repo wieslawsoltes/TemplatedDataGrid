@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Avalonia;
 using ReactiveUI;
 
-namespace ItemsRepeaterDataGridDemo.ViewModels
+namespace TemplatedDataGridDemo.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

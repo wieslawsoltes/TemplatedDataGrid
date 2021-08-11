@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using ReactiveUI;
 
-namespace ItemsRepeaterDataGridDemo.ViewModels
+namespace TemplatedDataGridDemo.ViewModels
 {
     public class ItemViewModel : ViewModelBase
     {

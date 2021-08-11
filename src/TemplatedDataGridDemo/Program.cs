@@ -1,9 +1,9 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.ReactiveUI;
-using ItemsRepeaterDataGrid;
+using TemplatedDataGrid;
 
-namespace ItemsRepeaterDataGridDemo
+namespace TemplatedDataGridDemo
 {
     class Program
     {

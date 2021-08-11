@@ -4,7 +4,7 @@ using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 
-namespace ItemsRepeaterDataGrid
+namespace TemplatedDataGrid
 {
     public class DataGridColumnHeadersPresenter : TemplatedControl
     {

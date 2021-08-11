@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Avalonia.Controls;
 
-namespace ItemsRepeaterDataGrid
+namespace TemplatedDataGrid
 {
-    public static class GridExtensions
+    internal static class GridExtensions
     {
         public static void SetRowDefinitions(this Grid grid, IEnumerable<RowDefinition> rowDefinitions)
         {

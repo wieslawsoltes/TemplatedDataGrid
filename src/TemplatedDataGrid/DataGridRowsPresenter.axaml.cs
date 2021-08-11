@@ -5,7 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 
-namespace ItemsRepeaterDataGrid
+namespace TemplatedDataGrid
 {
     public class DataGridRowsPresenter : TemplatedControl
     {
@@ -67,7 +67,7 @@ namespace ItemsRepeaterDataGrid
             _listBox.ItemTemplate = new FuncDataTemplate<object>(
                 (_, _) => new DataGridRow()
                 {
-                    [!DataGridRow.ColumnsProperty] = this[!DataGrid.ColumnsProperty]
+                    [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty]
                 });
         }
     }

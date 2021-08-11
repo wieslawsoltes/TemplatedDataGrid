@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace ItemsRepeaterDataGridDemo.Views
+namespace TemplatedDataGridDemo.Views
 {
     public partial class MainWindow : Window
     {

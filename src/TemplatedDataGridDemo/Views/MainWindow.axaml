@@ -1,16 +1,16 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:ItemsRepeaterDataGridDemo.ViewModels"
+        xmlns:vm="using:TemplatedDataGridDemo.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:g="clr-namespace:ItemsRepeaterDataGrid;assembly=TemplatedDataGrid"
+        xmlns:g="clr-namespace:TemplatedDataGrid;assembly=TemplatedDataGrid"
         mc:Ignorable="d" d:DesignWidth="840" d:DesignHeight="480"
-        x:Class="ItemsRepeaterDataGridDemo.Views.MainWindow"
+        x:Class="TemplatedDataGridDemo.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel" x:CompileBindings="True"
         MinWidth="640" MinHeight="480"
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/avalonia-logo.ico"
-        Title="ItemsRepeaterDataGridDemo">
+        Title="TemplatedDataGridDemo">
 
   <Design.DataContext>
     <vm:MainWindowViewModel />
