@@ -3,7 +3,7 @@
         xmlns:vm="using:ItemsRepeaterDataGridDemo.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:g="clr-namespace:ItemsRepeaterDataGrid;assembly=ItemsRepeaterDataGrid"
+        xmlns:g="clr-namespace:ItemsRepeaterDataGrid;assembly=TemplatedDataGrid"
         mc:Ignorable="d" d:DesignWidth="840" d:DesignHeight="480"
         x:Class="ItemsRepeaterDataGridDemo.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel" x:CompileBindings="True"

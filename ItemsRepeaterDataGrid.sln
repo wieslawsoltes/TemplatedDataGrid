@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemsRepeaterDataGridDemo", "src\ItemsRepeaterDataGridDemo\ItemsRepeaterDataGridDemo.csproj", "{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemsRepeaterDataGrid", "src\ItemsRepeaterDataGrid\ItemsRepeaterDataGrid.csproj", "{941DBB36-F74A-442F-8D4D-F43E6B58F2A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplatedDataGrid", "src\TemplatedDataGrid\TemplatedDataGrid.csproj", "{941DBB36-F74A-442F-8D4D-F43E6B58F2A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

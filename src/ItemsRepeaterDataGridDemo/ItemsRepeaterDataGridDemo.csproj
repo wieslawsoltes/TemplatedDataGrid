@@ -20,6 +20,6 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ItemsRepeaterDataGrid\ItemsRepeaterDataGrid.csproj" />
+    <ProjectReference Include="..\TemplatedDataGrid\TemplatedDataGrid.csproj" />
   </ItemGroup>
 </Project>

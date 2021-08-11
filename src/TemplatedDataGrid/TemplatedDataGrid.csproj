@@ -20,7 +20,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>A DataGrid control based on ItemsRepeater panel.</Description>
-    <PackageId>ItemsRepeaterDataGrid</PackageId>
+    <PackageId>TemplatedDataGrid</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>datagrid;panel;control;xaml;axaml;avalonia;avaloniaui</PackageTags>
   </PropertyGroup>

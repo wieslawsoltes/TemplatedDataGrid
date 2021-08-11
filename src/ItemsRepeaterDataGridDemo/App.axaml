@@ -7,11 +7,11 @@
   </Application.DataTemplates>
   <Application.Styles>
     <FluentTheme Mode="Light" />
-    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGridCell.axaml"/>
-    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGridRow.axaml"/>
-    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGridColumnHeader.axaml"/>
-    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGridColumnHeadersPresenter.axaml"/>
-    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGridRowsPresenter.axaml"/>
-    <StyleInclude Source="avares://ItemsRepeaterDataGrid/DataGrid.axaml"/>
+    <StyleInclude Source="avares://TemplatedDataGrid/DataGridCell.axaml"/>
+    <StyleInclude Source="avares://TemplatedDataGrid/DataGridRow.axaml"/>
+    <StyleInclude Source="avares://TemplatedDataGrid/DataGridColumnHeader.axaml"/>
+    <StyleInclude Source="avares://TemplatedDataGrid/DataGridColumnHeadersPresenter.axaml"/>
+    <StyleInclude Source="avares://TemplatedDataGrid/DataGridRowsPresenter.axaml"/>
+    <StyleInclude Source="avares://TemplatedDataGrid/DataGrid.axaml"/>
   </Application.Styles>
 </Application>
