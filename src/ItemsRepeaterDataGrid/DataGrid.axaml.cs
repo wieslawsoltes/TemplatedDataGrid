@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#define USE_LISTBOX
+using System.Collections;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Collections;
@@ -14,9 +15,12 @@ namespace ItemsRepeaterDataGrid
         private List<Control> _rootChildren = new List<Control>();
         private Grid? _columnHeaders;
         private List<Control> _columnHeadersChildren = new List<Control>();
+#if !USE_LISTBOX
         private ScrollViewer? _scrollViewer;
         private ItemsRepeater? _itemsRepeater;
-
+#else
+        private ListBox? _listBox;
+#endif
         public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGrid, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
 
@@ -59,9 +63,12 @@ namespace ItemsRepeaterDataGrid
 
             _root = e.NameScope.Find<Grid>("PART_Root");
             _columnHeaders = e.NameScope.Find<Grid>("PART_ColumnHeaders");
+#if !USE_LISTBOX
             _scrollViewer = e.NameScope.Find<ScrollViewer>("PART_ScrollViewer");
             _itemsRepeater = e.NameScope.Find<ItemsRepeater>("PART_ItemsRepeater");
-
+#else
+            _listBox = e.NameScope.Find<ListBox>("PART_ListBox");
+#endif
             InvalidateRoot();
             InvalidateColumnHeaders();
             InvalidateScrollViewer();
@@ -138,7 +145,7 @@ namespace ItemsRepeaterDataGrid
             _rootChildren.Add(horizontalSeparator);
 
             // Set ItemsRepeater template
-
+#if !USE_LISTBOX
             if (_itemsRepeater is { })
             {
                 _itemsRepeater.ItemTemplate = new FuncDataTemplate<object>(
@@ -147,7 +154,16 @@ namespace ItemsRepeaterDataGrid
                         [!DataGridRow.ColumnsProperty] = this[!DataGrid.ColumnsProperty]
                     });
             }
-
+#else
+            if (_listBox is { })
+            {
+                _listBox.ItemTemplate = new FuncDataTemplate<object>(
+                    (_, _) => new DataGridRow()
+                    {
+                        [!DataGridRow.ColumnsProperty] = this[!DataGrid.ColumnsProperty]
+                    });
+            }
+#endif
             foreach (var columnIndex in splitterColumnIndexes)
             {
                 // Generate Root Horizontal Separator's
@@ -234,6 +250,7 @@ namespace ItemsRepeaterDataGrid
 
         private void InvalidateScrollViewer()
         {
+#if !USE_LISTBOX
             if (_scrollViewer is null)
             {
                 return;
@@ -244,6 +261,18 @@ namespace ItemsRepeaterDataGrid
             _scrollViewer.SetValue(Grid.RowProperty, 2);
             _scrollViewer.SetValue(Grid.ColumnProperty, 0);
             _scrollViewer.SetValue(Grid.ColumnSpanProperty,  columns.Count + (columns.Count - 1));
+#else
+            if (_listBox is null)
+            {
+                return;
+            }
+ 
+            var columns = Columns;
+
+            _listBox.SetValue(Grid.RowProperty, 2);
+            _listBox.SetValue(Grid.ColumnProperty, 0);
+            _listBox.SetValue(Grid.ColumnSpanProperty,  columns.Count + (columns.Count - 1));
+#endif
         }
     }
 }

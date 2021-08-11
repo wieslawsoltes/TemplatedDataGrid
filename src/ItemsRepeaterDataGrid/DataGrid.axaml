@@ -11,6 +11,7 @@
           <!-- DataGridColumnHeadersPresenter -->
           <Grid Name="PART_ColumnHeaders" />
           <!-- DataGridRowsPresenter -->
+          <!-- NOTE: If !USE_LISTBOX
           <ScrollViewer Name="PART_ScrollViewer">
             <ItemsRepeater Name="PART_ItemsRepeater" Items="{TemplateBinding Items}">
               <ItemsRepeater.Layout>
@@ -18,6 +19,26 @@
               </ItemsRepeater.Layout>
             </ItemsRepeater>
           </ScrollViewer>
+          -->
+          <ListBox Name="PART_ListBox" Items="{TemplateBinding Items}" SelectedItem="{TemplateBinding SelectedItem}">
+            <ListBox.Styles>
+              <Style Selector="ListBox">
+                <Setter Property="Background" Value="Transparent"/>
+              </Style>
+            </ListBox.Styles>
+            <ListBox.Styles>
+              <Style Selector="ListBoxItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+              </Style>
+            </ListBox.Styles>
+            <ListBox.ItemsPanel>
+              <ItemsPanelTemplate>
+                <VirtualizingStackPanel Orientation="Vertical"/>
+              </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+          </ListBox>
         </Grid>
       </ControlTemplate>
     </Setter>

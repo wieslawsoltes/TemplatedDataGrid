@@ -11,10 +11,12 @@
       </ControlTemplate>
     </Setter>
   </Style>
+  <!-- NOTE: If !USE_LISTBOX
   <Style Selector="g|DataGridRow /template/ Grid#PART_Root">
     <Setter Property="Background" Value="Transparent" />
   </Style>
   <Style Selector="g|DataGridRow:pointerover /template/ Grid#PART_Root">
     <Setter Property="Background" Value="LightGray" />
   </Style>
+  -->
 </Styles>
