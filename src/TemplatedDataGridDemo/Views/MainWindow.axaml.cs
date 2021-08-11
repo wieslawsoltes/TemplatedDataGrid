@@ -10,6 +10,7 @@ namespace TemplatedDataGridDemo.Views
         {
             InitializeComponent();
             this.AttachDevTools();
+            Renderer.DrawFps = true;
         }
 
         private void InitializeComponent()
