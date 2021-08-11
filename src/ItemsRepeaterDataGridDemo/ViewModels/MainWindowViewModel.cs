@@ -36,7 +36,7 @@ namespace ItemsRepeaterDataGridDemo.ViewModels
                         Column2 = $"Test {i}-2",
                         Column3 = $"Test {i}-3",
                         //Margin = new Thickness(0, rand.NextDouble() * 100, 0, rand.NextDouble() * 100)
-                        Margin = new Thickness(6)
+                        Margin = new Thickness(0)
                     };
 
                     items.Add(item);
