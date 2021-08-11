@@ -53,7 +53,7 @@
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
       <!-- Column4 -->
-      <!--
+
       <g:DataGridTemplateColumn Header="Column4" Width="100">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
@@ -61,9 +61,9 @@
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      -->
+  
       <!-- Column5 -->
-      <!--
+ 
       <g:DataGridTemplateColumn Header="Column5" Width="100">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
@@ -71,7 +71,7 @@
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      -->
+
     </g:DataGrid.Columns>
   </g:DataGrid>
 

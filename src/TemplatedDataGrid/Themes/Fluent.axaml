@@ -1,0 +1,81 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:g="using:TemplatedDataGrid">
+
+  <Style Selector="g|DataGrid">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root">
+          <g:DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"/>
+          <g:DataGridRowsPresenter Name="PART_RowsPresenter"/>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="g|DataGrid /template/ Grid#PART_Root > Separator">
+    <Setter Property="Background" Value="Gray" />
+  </Style>
+  <Style Selector="g|DataGrid /template/ Grid#PART_Root > GridSplitter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
+  <Style Selector="g|DataGridRowsPresenter">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ListBox Name="PART_ListBox" 
+                 Items="{TemplateBinding Items}" 
+                 SelectedItem="{TemplateBinding SelectedItem}"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="g|DataGridRowsPresenter /template/ ListBox#PART_ListBox">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="ItemsPanel">
+      <Setter.Value>
+        <ItemsPanelTemplate>
+          <VirtualizingStackPanel Orientation="Vertical"/>
+        </ItemsPanelTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style Selector="g|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem">
+    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    <Setter Property="Margin" Value="0"/>
+    <Setter Property="Padding" Value="0"/>
+  </Style>
+
+  <Style Selector="g|DataGridColumnHeadersPresenter">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="g|DataGridColumnHeader">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentControl Content="{TemplateBinding Header}" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="g|DataGridRow">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="g|DataGridCell">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentControl Content="{Binding}"
+                        ContentTemplate="{TemplateBinding CellTemplate}"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+</Styles>
+
