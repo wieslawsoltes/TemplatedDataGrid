@@ -1,11 +1,9 @@
-﻿#define USE_LISTBOX
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Controls.Templates;
 
 namespace ItemsRepeaterDataGrid
 {
@@ -13,14 +11,9 @@ namespace ItemsRepeaterDataGrid
     {
         private Grid? _root;
         private List<Control> _rootChildren = new List<Control>();
-        private Grid? _columnHeaders;
-        private List<Control> _columnHeadersChildren = new List<Control>();
-#if !USE_LISTBOX
-        private ScrollViewer? _scrollViewer;
-        private ItemsRepeater? _itemsRepeater;
-#else
-        private ListBox? _listBox;
-#endif
+        private DataGridColumnHeadersPresenter? _columnHeadersPresenter;
+        private DataGridRowsPresenter? _rowsPresenter;
+
         public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGrid, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
 
@@ -62,16 +55,12 @@ namespace ItemsRepeaterDataGrid
             base.OnApplyTemplate(e);
 
             _root = e.NameScope.Find<Grid>("PART_Root");
-            _columnHeaders = e.NameScope.Find<Grid>("PART_ColumnHeaders");
-#if !USE_LISTBOX
-            _scrollViewer = e.NameScope.Find<ScrollViewer>("PART_ScrollViewer");
-            _itemsRepeater = e.NameScope.Find<ItemsRepeater>("PART_ItemsRepeater");
-#else
-            _listBox = e.NameScope.Find<ListBox>("PART_ListBox");
-#endif
+            _columnHeadersPresenter = e.NameScope.Find<DataGridColumnHeadersPresenter>("PART_ColumnHeadersPresenter");
+            _rowsPresenter = e.NameScope.Find<DataGridRowsPresenter>("PART_RowsPresenter");
+
             InvalidateRoot();
-            InvalidateColumnHeaders();
-            InvalidateScrollViewer();
+            InvalidateColumnHeadersPresenter();
+            InvalidateRowsPresenter();
         }
 
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
@@ -81,8 +70,8 @@ namespace ItemsRepeaterDataGrid
             if (change.Property == ColumnsProperty)
             {
                 InvalidateRoot();
-                InvalidateColumnHeaders();
-                InvalidateScrollViewer();
+                InvalidateColumnHeadersPresenter();
+                InvalidateRowsPresenter();
             }
         }
 
@@ -100,7 +89,7 @@ namespace ItemsRepeaterDataGrid
 
             var columns = Columns;
  
-            //  Generate Root RowDefinitions
+            //  Generate RowDefinitions
 
             var rowDefinitions = new List<RowDefinition>();
 
@@ -108,7 +97,7 @@ namespace ItemsRepeaterDataGrid
             rowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Pixel)));
             rowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
 
-            // Generate Root ColumnDefinitions
+            // Generate ColumnDefinitions
 
             var columnDefinitions = new List<ColumnDefinition>();
             var splitterColumnIndexes = new List<int>();
@@ -134,7 +123,8 @@ namespace ItemsRepeaterDataGrid
             _root.SetRowDefinitions(rowDefinitions);
             _root.SetColumnDefinitions(columnDefinitions);
 
-            // Generate Root Vertical Separator's
+            // Generate Horizontal Separator's
+
             var horizontalSeparator = new Separator()
             {
                 Height = 1,
@@ -144,29 +134,11 @@ namespace ItemsRepeaterDataGrid
             };
             _rootChildren.Add(horizontalSeparator);
 
-            // Set ItemsRepeater template
-#if !USE_LISTBOX
-            if (_itemsRepeater is { })
-            {
-                _itemsRepeater.ItemTemplate = new FuncDataTemplate<object>(
-                    (_, _) => new DataGridRow()
-                    {
-                        [!DataGridRow.ColumnsProperty] = this[!DataGrid.ColumnsProperty]
-                    });
-            }
-#else
-            if (_listBox is { })
-            {
-                _listBox.ItemTemplate = new FuncDataTemplate<object>(
-                    (_, _) => new DataGridRow()
-                    {
-                        [!DataGridRow.ColumnsProperty] = this[!DataGrid.ColumnsProperty]
-                    });
-            }
-#endif
+            // Generate Vertical Separator's
+            // Generate GridSplitter's
+
             foreach (var columnIndex in splitterColumnIndexes)
             {
-                // Generate Root Horizontal Separator's
                 var verticalSeparator = new Separator()
                 {
                     Width = 1,
@@ -176,7 +148,6 @@ namespace ItemsRepeaterDataGrid
                 };
                 _rootChildren.Add(verticalSeparator);
 
-                // Generate Root GridSplitter's
                 var verticalGridSplitter = new GridSplitter()
                 {
                     Width = 1,
@@ -188,91 +159,42 @@ namespace ItemsRepeaterDataGrid
                 _rootChildren.Add(verticalGridSplitter);
             }
 
+            if (_columnHeadersPresenter is { })
+            {
+                _columnHeadersPresenter.SetValue(Grid.RowProperty, 0);
+                _columnHeadersPresenter.SetValue(Grid.ColumnProperty, 0);
+                _columnHeadersPresenter.SetValue(Grid.ColumnSpanProperty,  columns.Count + (columns.Count - 1));
+            }
+
+            if (_rowsPresenter is { })
+            {
+                _rowsPresenter.SetValue(Grid.RowProperty, 2);
+                _rowsPresenter.SetValue(Grid.ColumnProperty, 0);
+                _rowsPresenter.SetValue(Grid.ColumnSpanProperty,  columns.Count + (columns.Count - 1));
+            }
+
             foreach (var child in _rootChildren)
             {
                 _root.Children.Add(child);
             }
         }
 
-        private void InvalidateColumnHeaders()
+        private void InvalidateColumnHeadersPresenter()
         {
-            if (_columnHeaders is null)
+            if (_columnHeadersPresenter is { })
             {
-                return;
-            }
-
-            foreach (var child in _columnHeadersChildren)
-            {
-                _columnHeaders.Children.Remove(child);
-            }
-
-            var columns = Columns;
- 
-            // Generate ColumnHeaders ColumnDefinitions
-
-            var columnDefinitions = new List<ColumnDefinition>();
-
-            for (var i = 0; i < columns.Count; i++)
-            {
-                var column = columns[i];
-
-                var columnDefinition = new ColumnDefinition()
-                {
-                    [!ColumnDefinition.WidthProperty] = column[!DataGridColumn.WidthProperty]
-                };
-                columnDefinitions.Add(columnDefinition);
-
-                // Generate ColumnHeaders DataGridColumnHeader's
-                var columnHeader = new DataGridColumnHeader()
-                {
-                    [Grid.ColumnProperty] = columnDefinitions.Count - 1,
-                    [!DataGridColumnHeader.HeaderProperty] = column[!DataGridColumn.HeaderProperty]
-                };
-                _columnHeadersChildren.Add(columnHeader);
- 
-                if (i < columns.Count - 1)
-                {
-                    columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
-                }
-            }
-
-            _columnHeaders.SetColumnDefinitions(columnDefinitions);
-
-            _columnHeaders.SetValue(Grid.RowProperty, 0);
-            _columnHeaders.SetValue(Grid.ColumnProperty, 0);
-            _columnHeaders.SetValue(Grid.ColumnSpanProperty,  columns.Count + (columns.Count - 1));
-
-            foreach (var child in _columnHeadersChildren)
-            {
-                _columnHeaders.Children.Add(child);
+                _columnHeadersPresenter[!DataGridColumnHeadersPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
             }
         }
 
-        private void InvalidateScrollViewer()
+        private void InvalidateRowsPresenter()
         {
-#if !USE_LISTBOX
-            if (_scrollViewer is null)
+            if (_rowsPresenter is { })
             {
-                return;
+                _rowsPresenter[!DataGridRowsPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
+                _rowsPresenter[!DataGridRowsPresenter.ItemsProperty] = this[!DataGrid.ItemsProperty];
+                _rowsPresenter[!DataGridRowsPresenter.SelectedItemProperty] = this[!DataGrid.SelectedItemProperty];
             }
- 
-            var columns = Columns;
-
-            _scrollViewer.SetValue(Grid.RowProperty, 2);
-            _scrollViewer.SetValue(Grid.ColumnProperty, 0);
-            _scrollViewer.SetValue(Grid.ColumnSpanProperty,  columns.Count + (columns.Count - 1));
-#else
-            if (_listBox is null)
-            {
-                return;
-            }
- 
-            var columns = Columns;
-
-            _listBox.SetValue(Grid.RowProperty, 2);
-            _listBox.SetValue(Grid.ColumnProperty, 0);
-            _listBox.SetValue(Grid.ColumnSpanProperty,  columns.Count + (columns.Count - 1));
-#endif
         }
     }
 }

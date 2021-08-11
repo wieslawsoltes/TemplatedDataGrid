@@ -8,37 +8,8 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Grid Name="PART_Root">
-          <!-- DataGridColumnHeadersPresenter -->
-          <Grid Name="PART_ColumnHeaders" />
-          <!-- DataGridRowsPresenter -->
-          <!-- NOTE: If !USE_LISTBOX
-          <ScrollViewer Name="PART_ScrollViewer">
-            <ItemsRepeater Name="PART_ItemsRepeater" Items="{TemplateBinding Items}">
-              <ItemsRepeater.Layout>
-                <StackLayout Orientation="Vertical" />
-              </ItemsRepeater.Layout>
-            </ItemsRepeater>
-          </ScrollViewer>
-          -->
-          <ListBox Name="PART_ListBox" Items="{TemplateBinding Items}" SelectedItem="{TemplateBinding SelectedItem}">
-            <ListBox.Styles>
-              <Style Selector="ListBox">
-                <Setter Property="Background" Value="Transparent"/>
-              </Style>
-            </ListBox.Styles>
-            <ListBox.Styles>
-              <Style Selector="ListBoxItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
-              </Style>
-            </ListBox.Styles>
-            <ListBox.ItemsPanel>
-              <ItemsPanelTemplate>
-                <VirtualizingStackPanel Orientation="Vertical"/>
-              </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-          </ListBox>
+          <g:DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"/>
+          <g:DataGridRowsPresenter Name="PART_RowsPresenter"/>
         </Grid>
       </ControlTemplate>
     </Setter>
@@ -49,10 +20,4 @@
   <Style Selector="g|DataGrid /template/ Grid#PART_Root > GridSplitter">
     <Setter Property="Background" Value="Transparent" />
   </Style>
-  <!-- NOTE: If !USE_LISTBOX
-  <Style Selector="g|DataGrid /template/ ScrollViewer#PART_ScrollViewer">
-    <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
-    <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-  </Style>
-  -->
 </Styles>
