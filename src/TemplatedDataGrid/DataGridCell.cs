@@ -24,8 +24,8 @@ namespace TemplatedDataGrid
         [DependsOn(nameof(CellTemplate))]
         public object? Content
         {
-            get { return GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            get => GetValue(ContentProperty);
+            set => SetValue(ContentProperty, value);
         }
     }
 }
