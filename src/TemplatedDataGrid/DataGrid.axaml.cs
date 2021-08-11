@@ -73,6 +73,11 @@ namespace TemplatedDataGrid
                 InvalidateColumnHeadersPresenter();
                 InvalidateRowsPresenter();
             }
+
+            if (change.Property == ItemsProperty)
+            {
+                InvalidateRowsPresenter();
+            }
         }
 
         private void InvalidateRoot()
