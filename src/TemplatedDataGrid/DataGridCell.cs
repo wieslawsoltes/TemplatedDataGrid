@@ -7,11 +7,11 @@ namespace TemplatedDataGrid
 {
     public class DataGridCell : TemplatedControl
     {
-        public static readonly StyledProperty<object?> ContentProperty =
-            AvaloniaProperty.Register<DataGridCell, object?>(nameof(Content));
-
         public static readonly StyledProperty<IDataTemplate?> CellTemplateProperty = 
             AvaloniaProperty.Register<DataGridCell, IDataTemplate?>(nameof(CellTemplate));
+
+        public static readonly StyledProperty<object?> ContentProperty =
+            AvaloniaProperty.Register<DataGridCell, object?>(nameof(Content));
 
         [Content]
         public IDataTemplate? CellTemplate
