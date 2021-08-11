@@ -53,7 +53,7 @@ namespace ItemsRepeaterDataGrid
 
             var columns = Columns;
  
-            // Generate Root ColumnDefinitions
+            // Generate ColumnDefinitions
 
             var columnDefinitions = new List<ColumnDefinition>();
 
