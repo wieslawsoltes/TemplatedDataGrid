@@ -24,7 +24,7 @@
       <Setter Property="Margin" Value="6"/>
     </Style>
   </Window.Styles>
-  
+
   <g:DataGrid Items="{Binding Items}" 
               CanUserResizeColumns="True">
     <g:DataGrid.Columns>
