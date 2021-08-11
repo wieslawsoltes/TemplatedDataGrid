@@ -71,7 +71,7 @@
   <Style Selector="g|DataGridCell">
     <Setter Property="Template">
       <ControlTemplate>
-        <ContentControl Content="{Binding}"
+        <ContentControl Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding CellTemplate}"/>
       </ControlTemplate>
     </Setter>

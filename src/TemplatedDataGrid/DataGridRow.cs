@@ -74,6 +74,7 @@ namespace TemplatedDataGrid
                     var cell = new DataGridCell()
                     {
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
+                        [!DataGridCell.ContentProperty] = this[!DataGridRow.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = templateColumn[!DataGridTemplateColumn.CellTemplateProperty]
                     };
                     _rootChildren.Add(cell);
