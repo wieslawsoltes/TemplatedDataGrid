@@ -9,8 +9,6 @@ namespace TemplatedDataGrid
 {
     public class DataGridRowsPresenter : TemplatedControl
     {
-        private ListBox? _listBox;
-
         public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
 
@@ -20,6 +18,9 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
 
+        public static readonly StyledProperty<IDataTemplate> ItemTemplateProperty =
+            AvaloniaProperty.Register<ItemsControl, IDataTemplate>(nameof(ItemTemplate));
+ 
         public AvaloniaList<DataGridColumn> Columns
         {
             get => GetValue(ColumnsProperty);
@@ -38,13 +39,17 @@ namespace TemplatedDataGrid
             set => SetValue(SelectedItemProperty, value);
         }
 
+        public IDataTemplate ItemTemplate
+        {
+            get => GetValue(ItemTemplateProperty);
+            set => SetValue(ItemTemplateProperty, value);
+        }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
 
-            _listBox = e.NameScope.Find<ListBox>("PART_ListBox");
-
-            InvalidatePanel();
+            InvalidateItemTemplate();
         }
 
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
@@ -53,18 +58,13 @@ namespace TemplatedDataGrid
 
             if (change.Property == ColumnsProperty)
             {
-                InvalidatePanel();
+                InvalidateItemTemplate();
             }
         }
 
-        private void InvalidatePanel()
+        private void InvalidateItemTemplate()
         {
-            if (_listBox is null)
-            {
-                return;
-            }
-
-            _listBox.ItemTemplate = new FuncDataTemplate<object>(
+            ItemTemplate = new FuncDataTemplate<object>(
                 (_, _) => new DataGridRow()
                 {
                     [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty]

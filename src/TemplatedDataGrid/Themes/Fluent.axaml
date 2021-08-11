@@ -24,7 +24,8 @@
       <ControlTemplate>
         <ListBox Name="PART_ListBox" 
                  Items="{TemplateBinding Items}" 
-                 SelectedItem="{TemplateBinding SelectedItem}"/>
+                 SelectedItem="{TemplateBinding SelectedItem}"
+                 ItemTemplate="{TemplateBinding ItemTemplate}"/>
       </ControlTemplate>
     </Setter>
   </Style>
