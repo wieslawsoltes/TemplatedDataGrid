@@ -52,6 +52,16 @@
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
+      <!-- Column4 -->
+      <!--
+      <g:DataGridTemplateColumn Header="Column4" Width="100">
+        <g:DataGridTemplateColumn.CellTemplate>
+          <DataTemplate DataType="vm:ItemViewModel">
+            <TextBlock Margin="6" Text="Test" />
+          </DataTemplate>
+        </g:DataGridTemplateColumn.CellTemplate>
+      </g:DataGridTemplateColumn>
+      -->
     </g:DataGrid.Columns>
   </g:DataGrid>
 
