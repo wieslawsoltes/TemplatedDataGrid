@@ -49,8 +49,10 @@
   <Style Selector="g|DataGrid /template/ Grid#PART_Root > GridSplitter">
     <Setter Property="Background" Value="Transparent" />
   </Style>
+  <!-- NOTE: If !USE_LISTBOX
   <Style Selector="g|DataGrid /template/ ScrollViewer#PART_ScrollViewer">
     <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
     <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
   </Style>
+  -->
 </Styles>
