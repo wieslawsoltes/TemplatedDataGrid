@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Avalonia;
 using ReactiveUI;
 
@@ -21,29 +19,26 @@ namespace TemplatedDataGridDemo.ViewModels
         {
             _items = new ObservableCollection<ItemViewModel>();
 
-            int totalItems = 100_000;
+            int totalItems = 10_000;
 
-            Task.Run(() =>
+            //var rand = new Random();
+            var items = new List<ItemViewModel>();
+
+            for (var i = 0; i < totalItems; i++)
             {
-                //var rand = new Random();
-                var items = new List<ItemViewModel>();
-
-                for (var i = 0; i < totalItems; i++)
+                var item = new ItemViewModel()
                 {
-                    var item = new ItemViewModel()
-                    {
-                        Column1 = $"Test {i}-1",
-                        Column2 = $"Test {i}-2",
-                        Column3 = $"Test {i}-3",
-                        //Margin = new Thickness(0, rand.NextDouble() * 100, 0, rand.NextDouble() * 100)
-                        Margin = new Thickness(0)
-                    };
+                    Column1 = $"Test {i}-1",
+                    Column2 = $"Test {i}-2",
+                    Column3 = $"Test {i}-3",
+                    //Margin = new Thickness(0, rand.NextDouble() * 100, 0, rand.NextDouble() * 100)
+                    Margin = new Thickness(0)
+                };
 
-                    items.Add(item);
-                }
+                items.Add(item);
+            }
 
-                Items = new ObservableCollection<ItemViewModel>(items);
-            });
+            Items = new ObservableCollection<ItemViewModel>(items);
         }
     }
 }
