@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Avalonia;
 using ReactiveUI;
 
 namespace ItemsRepeaterDataGridDemo.ViewModels
@@ -23,6 +25,7 @@ namespace ItemsRepeaterDataGridDemo.ViewModels
 
             Task.Run(() =>
             {
+                //var rand = new Random();
                 var items = new List<ItemViewModel>();
 
                 for (var i = 0; i < totalItems; i++)
@@ -31,7 +34,9 @@ namespace ItemsRepeaterDataGridDemo.ViewModels
                     {
                         Column1 = $"Test {i}-1",
                         Column2 = $"Test {i}-2",
-                        Column3 = $"Test {i}-3"
+                        Column3 = $"Test {i}-3",
+                        //Margin = new Thickness(rand.NextDouble() * 12)
+                        Margin = new Thickness(6)
                     };
 
                     items.Add(item);

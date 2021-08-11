@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using Avalonia;
+using ReactiveUI;
 
 namespace ItemsRepeaterDataGridDemo.ViewModels
 {
@@ -7,6 +8,7 @@ namespace ItemsRepeaterDataGridDemo.ViewModels
         private string? _column1;
         private string? _column2;
         private string? _column3;
+        private Thickness _margin;
 
         public string? Column1
         {
@@ -24,6 +26,12 @@ namespace ItemsRepeaterDataGridDemo.ViewModels
         {
             get => _column3;
             set => this.RaiseAndSetIfChanged(ref _column3, value);
+        }
+
+        public Thickness Margin
+        {
+            get => _margin;
+            set => this.RaiseAndSetIfChanged(ref _margin, value);
         }
     }
 }

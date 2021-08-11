@@ -32,7 +32,7 @@
       <g:DataGridTemplateColumn Header="Column1" Width="150">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="6" Text="{Binding Column1}" />
+            <TextBlock Margin="{Binding Margin}" Text="{Binding Column1}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
@@ -40,7 +40,7 @@
       <g:DataGridTemplateColumn Header="Column2" Width="*">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="6" Text="{Binding Column2}" />
+            <TextBlock Margin="{Binding Margin}" Text="{Binding Column2}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
@@ -48,7 +48,7 @@
       <g:DataGridTemplateColumn Header="Column3" Width="200">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="6" Text="{Binding Column3}" />
+            <TextBlock Margin="{Binding Margin}" Text="{Binding Column3}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
