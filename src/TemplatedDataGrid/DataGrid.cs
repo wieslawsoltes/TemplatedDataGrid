@@ -156,6 +156,8 @@ namespace TemplatedDataGrid
                 var verticalGridSplitter = new GridSplitter()
                 {
                     Width = 1,
+                    ResizeBehavior = GridResizeBehavior.PreviousAndNext,
+                    ResizeDirection = GridResizeDirection.Columns,
                     [Grid.RowProperty] = 0,
                     [Grid.RowSpanProperty] = 3,
                     [Grid.ColumnProperty] = columnIndex,
