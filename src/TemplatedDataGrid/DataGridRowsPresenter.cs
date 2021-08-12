@@ -64,11 +64,13 @@ namespace TemplatedDataGrid
 
         private void InvalidateItemTemplate()
         {
-            ItemTemplate = new FuncDataTemplate<object>(
+            ItemTemplate = new FuncDataTemplate(
+                _ => true,
                 (_, _) => new DataGridRow()
                 {
                     [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty]
-                });
+                },
+                supportsRecycling: true);
         }
     }
 }
