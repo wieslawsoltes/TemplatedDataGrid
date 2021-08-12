@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
 
 namespace TemplatedDataGrid
 {
@@ -158,6 +159,8 @@ namespace TemplatedDataGrid
                     Width = 1,
                     ResizeBehavior = GridResizeBehavior.PreviousAndNext,
                     ResizeDirection = GridResizeDirection.Columns,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Stretch,
                     [Grid.RowProperty] = 0,
                     [Grid.RowSpanProperty] = 3,
                     [Grid.ColumnProperty] = columnIndex,
