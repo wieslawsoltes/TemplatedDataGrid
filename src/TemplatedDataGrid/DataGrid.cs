@@ -107,6 +107,7 @@ namespace TemplatedDataGrid
 
             var columnDefinitions = new List<ColumnDefinition>();
             var splitterColumnIndexes = new List<int>();
+            var splitterWidth = 7;
 
             for (var i = 0; i < columns.Count; i++)
             {
@@ -121,7 +122,7 @@ namespace TemplatedDataGrid
 
                 if (i < columns.Count - 1)
                 {
-                    columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
+                    columnDefinitions.Add(new ColumnDefinition(new GridLength(splitterWidth, GridUnitType.Pixel)));
                     splitterColumnIndexes.Add(columnDefinitions.Count - 1);
                 }
             }
@@ -134,6 +135,7 @@ namespace TemplatedDataGrid
             var horizontalSeparator = new Separator()
             {
                 Height = 1,
+                Margin = new Thickness(3, 0, 3, 0),
                 [Grid.RowProperty] = 1,
                 [Grid.ColumnProperty] = 0,
                 [Grid.ColumnSpanProperty] = columns.Count + (columns.Count - 1)
@@ -156,7 +158,8 @@ namespace TemplatedDataGrid
 
                 var verticalGridSplitter = new GridSplitter()
                 {
-                    Width = 1,
+                    Width = splitterWidth,
+                    MinWidth = splitterWidth,
                     ResizeBehavior = GridResizeBehavior.PreviousAndNext,
                     ResizeDirection = GridResizeDirection.Columns,
                     HorizontalAlignment = HorizontalAlignment.Center,
