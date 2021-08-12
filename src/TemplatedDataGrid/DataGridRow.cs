@@ -10,7 +10,7 @@ namespace TemplatedDataGrid
     public class DataGridRow : TemplatedControl
     {
         private Grid? _root;
-        private List<Control> _rootChildren = new List<Control>();
+        private readonly List<Control> _rootChildren = new List<Control>();
         private Visual? _bottomGridLine;
 
         internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 

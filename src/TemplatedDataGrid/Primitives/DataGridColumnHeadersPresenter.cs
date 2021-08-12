@@ -9,7 +9,7 @@ namespace TemplatedDataGrid.Primitives
     public class DataGridColumnHeadersPresenter : TemplatedControl
     {
         private Grid? _root;
-        private List<Control> _rootChildren = new List<Control>();
+        private readonly List<Control> _rootChildren = new List<Control>();
 
         internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());

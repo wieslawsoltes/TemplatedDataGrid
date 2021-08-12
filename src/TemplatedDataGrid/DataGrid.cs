@@ -13,7 +13,7 @@ namespace TemplatedDataGrid
     public class DataGrid : TemplatedControl
     {
         private Grid? _root;
-        private List<Control> _rootChildren = new List<Control>();
+        private readonly List<Control> _rootChildren = new List<Control>();
         private DataGridColumnHeadersPresenter? _columnHeadersPresenter;
         private DataGridRowsPresenter? _rowsPresenter;
 
