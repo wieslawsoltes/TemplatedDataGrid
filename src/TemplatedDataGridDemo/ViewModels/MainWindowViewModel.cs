@@ -20,7 +20,7 @@ namespace TemplatedDataGridDemo.ViewModels
         {
             _items = new ObservableCollection<ItemViewModel>();
 
-            int totalItems = 100_000;
+            int totalItems = 10_000;
             bool enableRandom = false;
             int randomSize = 100;
 
