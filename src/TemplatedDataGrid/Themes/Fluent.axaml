@@ -1,13 +1,14 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:g="using:TemplatedDataGrid">
+        xmlns:g="using:TemplatedDataGrid"
+        xmlns:p="clr-namespace:TemplatedDataGrid.Primitives">
 
   <Style Selector="g|DataGrid">
     <Setter Property="Template">
       <ControlTemplate>
         <Grid Name="PART_Root">
-          <g:DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"/>
-          <g:DataGridRowsPresenter Name="PART_RowsPresenter"/>
+          <p:DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"/>
+          <p:DataGridRowsPresenter Name="PART_RowsPresenter"/>
         </Grid>
       </ControlTemplate>
     </Setter>
@@ -20,7 +21,7 @@
     <Setter Property="Background" Value="Transparent" />
   </Style>
 
-  <Style Selector="g|DataGridRowsPresenter">
+  <Style Selector="p|DataGridRowsPresenter">
     <Setter Property="Template">
       <ControlTemplate>
         <ListBox Name="PART_ListBox" 
@@ -30,7 +31,7 @@
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="g|DataGridRowsPresenter /template/ ListBox#PART_ListBox">
+  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="ItemsPanel">
       <Setter.Value>
@@ -40,13 +41,13 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style Selector="g|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem">
+  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem">
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     <Setter Property="Margin" Value="0"/>
     <Setter Property="Padding" Value="0"/>
   </Style>
 
-  <Style Selector="g|DataGridColumnHeadersPresenter">
+  <Style Selector="p|DataGridColumnHeadersPresenter">
     <Setter Property="Template">
       <ControlTemplate>
         <Grid Name="PART_Root" />
