@@ -19,7 +19,6 @@
     <Setter Property="Background" Value="Transparent" />
   </Style>
 
-  <!--
   <Style Selector="g|DataGridRowsPresenter">
     <Setter Property="Template">
       <ControlTemplate>
@@ -45,8 +44,8 @@
     <Setter Property="Margin" Value="0"/>
     <Setter Property="Padding" Value="0"/>
   </Style>
-  -->
 
+  <!--
   <Style Selector="g|DataGridRowsPresenter">
     <Setter Property="Template">
       <ControlTemplate>
@@ -58,6 +57,7 @@
       </ControlTemplate>
     </Setter>
   </Style>
+  -->
 
   <Style Selector="g|DataGridColumnHeadersPresenter">
     <Setter Property="Template">
