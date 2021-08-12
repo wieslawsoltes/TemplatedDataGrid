@@ -9,15 +9,15 @@ namespace TemplatedDataGrid
 {
     public class DataGridRow : TemplatedControl
     {
-        private Grid? _root;
-        private readonly List<Control> _rootChildren = new List<Control>();
-        private Visual? _bottomGridLine;
-
         internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGridRow, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
 
         internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGridRow, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
+
+        private Grid? _root;
+        private readonly List<Control> _rootChildren = new List<Control>();
+        private Visual? _bottomGridLine;
 
         internal AvaloniaList<DataGridColumn> Columns
         {

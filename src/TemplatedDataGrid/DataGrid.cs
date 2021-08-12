@@ -12,11 +12,6 @@ namespace TemplatedDataGrid
 {
     public class DataGrid : TemplatedControl
     {
-        private Grid? _root;
-        private readonly List<Control> _rootChildren = new List<Control>();
-        private DataGridColumnHeadersPresenter? _columnHeadersPresenter;
-        private DataGridRowsPresenter? _rowsPresenter;
-
         public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGrid, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
 
@@ -31,6 +26,11 @@ namespace TemplatedDataGrid
 
         public static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGrid, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
+
+        private Grid? _root;
+        private readonly List<Control> _rootChildren = new List<Control>();
+        private DataGridColumnHeadersPresenter? _columnHeadersPresenter;
+        private DataGridRowsPresenter? _rowsPresenter;
 
         public AvaloniaList<DataGridColumn> Columns
         {
