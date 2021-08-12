@@ -63,11 +63,19 @@
     </Setter>
   </Style>
 
+  <Style Selector="p|DataGridCellsPresenter">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid Name="PART_Root" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
   <Style Selector="g|DataGridRow">
     <Setter Property="Template">
       <ControlTemplate>
-        <Grid RowDefinitions="*,1">
-          <Grid Name="PART_Root" />
+        <Grid Name="PART_Root" RowDefinitions="*,1">
+          <p:DataGridCellsPresenter Grid.Row="0" Name="PART_CellsPresenter"/>
           <Rectangle Grid.Row="1" Name="PART_BottomGridLine"/>
         </Grid>
       </ControlTemplate>
