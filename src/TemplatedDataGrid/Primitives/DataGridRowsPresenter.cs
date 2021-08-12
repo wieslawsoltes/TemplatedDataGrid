@@ -11,14 +11,14 @@ namespace TemplatedDataGrid.Primitives
         public static readonly StyledProperty<IDataTemplate> ItemTemplateProperty =
             AvaloniaProperty.Register<DataGridRowsPresenter, IDataTemplate>(nameof(ItemTemplate));
 
-        internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
-
-        internal static readonly StyledProperty<IEnumerable?> ItemsProperty = 
+        public static readonly StyledProperty<IEnumerable?> ItemsProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, IEnumerable?>(nameof(Items));
 
-        internal static readonly StyledProperty<object?> SelectedItemProperty = 
+        public static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
+
+        internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
+            AvaloniaProperty.Register<DataGridRowsPresenter, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
 
         internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
@@ -29,22 +29,22 @@ namespace TemplatedDataGrid.Primitives
             set => SetValue(ItemTemplateProperty, value);
         }
 
-        internal AvaloniaList<DataGridColumn> Columns
-        {
-            get => GetValue(ColumnsProperty);
-            set => SetValue(ColumnsProperty, value);
-        }
-
-        internal IEnumerable? Items
+        public IEnumerable? Items
         {
             get => GetValue(ItemsProperty);
             set => SetValue(ItemsProperty, value);
         }
 
-        internal object? SelectedItem
+        public object? SelectedItem
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
+        }
+
+        internal AvaloniaList<DataGridColumn> Columns
+        {
+            get => GetValue(ColumnsProperty);
+            set => SetValue(ColumnsProperty, value);
         }
 
         internal DataGridGridLinesVisibility GridLinesVisibility
