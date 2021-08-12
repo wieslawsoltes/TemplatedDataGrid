@@ -28,43 +28,38 @@
   <g:DataGrid Items="{Binding Items}" 
               CanUserResizeColumns="True">
     <g:DataGrid.Columns>
-      <!-- Column1 -->
-      <g:DataGridTemplateColumn Header="Column1" Width="150">
+      <g:DataGridTemplateColumn Header="Column1" Width="*">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Margin="{Binding Margin}" Text="{Binding Column1}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      <!-- Column2 -->
-      <g:DataGridTemplateColumn Header="Column2" Width="*">
+      <g:DataGridTemplateColumn Header="Column2" Width="3*">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Margin="{Binding Margin}" Text="{Binding Column2}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      <!-- Column3 -->
-      <g:DataGridTemplateColumn Header="Column3" Width="200">
+      <g:DataGridTemplateColumn Header="Column3" Width="*">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Margin="{Binding Margin}" Text="{Binding Column3}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      <!-- Column4 -->
-      <g:DataGridTemplateColumn Header="Column4" Width="100">
+      <g:DataGridTemplateColumn Header="Column4" Width="*">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="{Binding Margin}" Text="Test4" />
+            <TextBlock Margin="{Binding Margin}" Text="{Binding Column4}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      <!-- Column5 -->
-      <g:DataGridTemplateColumn Header="Column5" Width="100">
+      <g:DataGridTemplateColumn Header="Column5" Width="*">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="{Binding Margin}" Text="Test5" />
+            <TextBlock Margin="{Binding Margin}" Text="{Binding Column5}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
