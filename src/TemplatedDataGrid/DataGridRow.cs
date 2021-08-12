@@ -92,7 +92,8 @@ namespace TemplatedDataGrid
                 }
             }
 
-            _root.SetColumnDefinitions(columnDefinitions);
+            _root.ColumnDefinitions.Clear();
+            _root.ColumnDefinitions.AddRange(columnDefinitions);
 
             foreach (var child in _rootChildren)
             {

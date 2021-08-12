@@ -129,15 +129,18 @@ namespace TemplatedDataGrid
                 }
             }
 
-            _root.SetRowDefinitions(rowDefinitions);
-            _root.SetColumnDefinitions(columnDefinitions);
+            _root.RowDefinitions.Clear();
+            _root.RowDefinitions.AddRange(rowDefinitions);
+
+            _root.ColumnDefinitions.Clear();
+            _root.ColumnDefinitions.AddRange(columnDefinitions);
 
             // Generate Horizontal Separator's
 
             var horizontalSeparator = new Separator()
             {
                 Height = 1,
-                Margin = new Thickness(3, 0, 3, 0),
+                Margin = new Thickness(0, 0, 0, 0),
                 [Grid.RowProperty] = 1,
                 [Grid.ColumnProperty] = 0,
                 [Grid.ColumnSpanProperty] = columns.Count + (columns.Count - 1)
