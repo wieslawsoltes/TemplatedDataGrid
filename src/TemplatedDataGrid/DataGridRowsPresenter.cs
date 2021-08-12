@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Avalonia;
 using Avalonia.Collections;
-using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 
@@ -19,8 +18,11 @@ namespace TemplatedDataGrid
             AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
 
         public static readonly StyledProperty<IDataTemplate> ItemTemplateProperty =
-            AvaloniaProperty.Register<ItemsControl, IDataTemplate>(nameof(ItemTemplate));
- 
+            AvaloniaProperty.Register<DataGridRowsPresenter, IDataTemplate>(nameof(ItemTemplate));
+
+        public static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
+            AvaloniaProperty.Register<DataGridRowsPresenter, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
+
         public AvaloniaList<DataGridColumn> Columns
         {
             get => GetValue(ColumnsProperty);
@@ -43,6 +45,12 @@ namespace TemplatedDataGrid
         {
             get => GetValue(ItemTemplateProperty);
             set => SetValue(ItemTemplateProperty, value);
+        }
+
+        public DataGridGridLinesVisibility GridLinesVisibility
+        {
+            get => GetValue(GridLinesVisibilityProperty);
+            set => SetValue(GridLinesVisibilityProperty, value);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -68,7 +76,8 @@ namespace TemplatedDataGrid
                 _ => true,
                 (_, _) => new DataGridRow()
                 {
-                    [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty]
+                    [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty],
+                    [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]
                 },
                 supportsRecycling: true);
         }

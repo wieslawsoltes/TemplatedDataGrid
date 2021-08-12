@@ -14,6 +14,7 @@
   </Style>
   <Style Selector="g|DataGrid /template/ Grid#PART_Root > Separator">
     <Setter Property="Background" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Opacity" Value="0.4" />
   </Style>
   <Style Selector="g|DataGrid /template/ Grid#PART_Root > GridSplitter">
     <Setter Property="Background" Value="Transparent" />
@@ -64,9 +65,17 @@
   <Style Selector="g|DataGridRow">
     <Setter Property="Template">
       <ControlTemplate>
-        <Grid Name="PART_Root" />
+        <Grid RowDefinitions="*,1">
+          <Grid Name="PART_Root" />
+          <Rectangle Grid.Row="1" Name="PART_BottomGridLine"/>
+        </Grid>
       </ControlTemplate>
     </Setter>
+  </Style>
+  <Style Selector="g|DataGridRow /template/ Rectangle#PART_BottomGridLine">
+    <Setter Property="Height" Value="1" />
+    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Opacity" Value="0.4" />
   </Style>
 
   <Style Selector="g|DataGridCell">

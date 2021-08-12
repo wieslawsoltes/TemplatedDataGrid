@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -27,6 +28,9 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<bool> CanUserResizeColumnsProperty = 
             AvaloniaProperty.Register<DataGrid, bool>(nameof(CanUserResizeColumns));
 
+        public static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
+            AvaloniaProperty.Register<DataGrid, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
+
         public AvaloniaList<DataGridColumn> Columns
         {
             get => GetValue(ColumnsProperty);
@@ -49,6 +53,12 @@ namespace TemplatedDataGrid
         {
             get => GetValue(CanUserResizeColumnsProperty);
             set => SetValue(CanUserResizeColumnsProperty, value);
+        }
+
+        public DataGridGridLinesVisibility GridLinesVisibility
+        {
+            get => GetValue(GridLinesVisibilityProperty);
+            set => SetValue(GridLinesVisibilityProperty, value);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -95,6 +105,14 @@ namespace TemplatedDataGrid
 
             var columns = Columns;
  
+            var isHorizontalGridLineVisible = this
+                .GetObservable(DataGrid.GridLinesVisibilityProperty)
+                .Select(x => x.HasFlag(DataGridGridLinesVisibility.Horizontal));
+
+            var isVerticalGridLineVisible = this
+                .GetObservable(DataGrid.GridLinesVisibilityProperty)
+                .Select(x => x.HasFlag(DataGridGridLinesVisibility.Vertical));
+
             //  Generate RowDefinitions
 
             var rowDefinitions = new List<RowDefinition>();
@@ -152,14 +170,24 @@ namespace TemplatedDataGrid
 
             foreach (var columnIndex in splitterColumnIndexes)
             {
-                var verticalSeparator = new Separator()
+                var verticalColumnSeparator = new Separator()
                 {
                     Width = 1,
                     [Grid.RowProperty] = 0,
-                    [Grid.RowSpanProperty] = 3,
+                    [Grid.RowSpanProperty] = 1,
                     [Grid.ColumnProperty] = columnIndex
                 };
-                _rootChildren.Add(verticalSeparator);
+                _rootChildren.Add(verticalColumnSeparator);
+
+                var verticalRowSeparator = new Separator()
+                {
+                    Width = 1,
+                    [Grid.RowProperty] = 1,
+                    [Grid.RowSpanProperty] = 2,
+                    [Grid.ColumnProperty] = columnIndex,
+                    [!Separator.IsVisibleProperty] = isVerticalGridLineVisible.ToBinding()
+                };
+                _rootChildren.Add(verticalRowSeparator);
 
                 var verticalGridSplitter = new GridSplitter()
                 {
@@ -212,6 +240,7 @@ namespace TemplatedDataGrid
                 _rowsPresenter[!DataGridRowsPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
                 _rowsPresenter[!DataGridRowsPresenter.ItemsProperty] = this[!DataGrid.ItemsProperty];
                 _rowsPresenter[!DataGridRowsPresenter.SelectedItemProperty] = this[!DataGrid.SelectedItemProperty];
+                _rowsPresenter[!DataGridRowsPresenter.GridLinesVisibilityProperty] = this[!DataGrid.GridLinesVisibilityProperty];
             }
         }
     }

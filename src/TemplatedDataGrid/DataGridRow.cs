@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Shapes;
 
 namespace TemplatedDataGrid
 {
@@ -10,9 +12,13 @@ namespace TemplatedDataGrid
     {
         private Grid? _root;
         private List<Control> _rootChildren = new List<Control>();
+        private Visual? _bottomGridLine;
 
         public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGridRow, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
+
+        public static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
+            AvaloniaProperty.Register<DataGridRow, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
         public AvaloniaList<DataGridColumn> Columns
         {
@@ -20,13 +26,21 @@ namespace TemplatedDataGrid
             set => SetValue(ColumnsProperty, value);
         }
 
+        public DataGridGridLinesVisibility GridLinesVisibility
+        {
+            get => GetValue(GridLinesVisibilityProperty);
+            set => SetValue(GridLinesVisibilityProperty, value);
+        }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
 
             _root = e.NameScope.Find<Grid>("PART_Root");
+            _bottomGridLine = e.NameScope.Find<Visual>("PART_BottomGridLine");
 
             InvalidateRoot();
+            InvalidateBottomGridLine();
         }
 
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
@@ -99,6 +113,20 @@ namespace TemplatedDataGrid
             {
                 _root.Children.Add(child);
             }
+        }
+
+        private void InvalidateBottomGridLine()
+        {
+            if (_bottomGridLine is null)
+            {
+                return;
+            }
+
+            var isHorizontalGridLineVisible = this
+                .GetObservable(DataGridRow.GridLinesVisibilityProperty)
+                .Select(x => x.HasFlag(DataGridGridLinesVisibility.Horizontal));
+
+            _bottomGridLine[!Visual.IsVisibleProperty] = isHorizontalGridLineVisible.ToBinding();
         }
     }
 }

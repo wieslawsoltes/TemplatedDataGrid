@@ -37,7 +37,8 @@
   </Window.Styles>
 
   <g:DataGrid Items="{Binding Items}" 
-              CanUserResizeColumns="True">
+              CanUserResizeColumns="True"
+              GridLinesVisibility="All">
     <g:DataGrid.Columns>
       <g:DataGridTemplateColumn Header="Column1" Width="*" MinWidth="150">
         <g:DataGridTemplateColumn.CellTemplate>
