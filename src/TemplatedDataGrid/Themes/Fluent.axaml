@@ -45,20 +45,6 @@
     <Setter Property="Padding" Value="0"/>
   </Style>
 
-  <!--
-  <Style Selector="g|DataGridRowsPresenter">
-    <Setter Property="Template">
-      <ControlTemplate>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-          <ItemsRepeater Name="PART_ItemsRepeater" 
-                         Items="{TemplateBinding Items}" 
-                         ItemTemplate="{TemplateBinding ItemTemplate}"/>
-        </ScrollViewer>
-      </ControlTemplate>
-    </Setter>
-  </Style>
-  -->
-
   <Style Selector="g|DataGridColumnHeadersPresenter">
     <Setter Property="Template">
       <ControlTemplate>
