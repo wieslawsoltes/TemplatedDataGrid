@@ -8,38 +8,20 @@ namespace TemplatedDataGrid
 {
     public class DataGridRowsPresenter : TemplatedControl
     {
-        public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
-
-        public static readonly StyledProperty<IEnumerable?> ItemsProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, IEnumerable?>(nameof(Items));
-
-        public static readonly StyledProperty<object?> SelectedItemProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
-
         public static readonly StyledProperty<IDataTemplate> ItemTemplateProperty =
             AvaloniaProperty.Register<DataGridRowsPresenter, IDataTemplate>(nameof(ItemTemplate));
 
-        public static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
+        internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
+            AvaloniaProperty.Register<DataGridRowsPresenter, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
+
+        internal static readonly StyledProperty<IEnumerable?> ItemsProperty = 
+            AvaloniaProperty.Register<DataGridRowsPresenter, IEnumerable?>(nameof(Items));
+
+        internal static readonly StyledProperty<object?> SelectedItemProperty = 
+            AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
+
+        internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
-
-        public AvaloniaList<DataGridColumn> Columns
-        {
-            get => GetValue(ColumnsProperty);
-            set => SetValue(ColumnsProperty, value);
-        }
-
-        public IEnumerable? Items
-        {
-            get => GetValue(ItemsProperty);
-            set => SetValue(ItemsProperty, value);
-        }
-
-        public object? SelectedItem
-        {
-            get => GetValue(SelectedItemProperty);
-            set => SetValue(SelectedItemProperty, value);
-        }
 
         public IDataTemplate ItemTemplate
         {
@@ -47,7 +29,25 @@ namespace TemplatedDataGrid
             set => SetValue(ItemTemplateProperty, value);
         }
 
-        public DataGridGridLinesVisibility GridLinesVisibility
+        internal AvaloniaList<DataGridColumn> Columns
+        {
+            get => GetValue(ColumnsProperty);
+            set => SetValue(ColumnsProperty, value);
+        }
+
+        internal IEnumerable? Items
+        {
+            get => GetValue(ItemsProperty);
+            set => SetValue(ItemsProperty, value);
+        }
+
+        internal object? SelectedItem
+        {
+            get => GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
+
+        internal DataGridGridLinesVisibility GridLinesVisibility
         {
             get => GetValue(GridLinesVisibilityProperty);
             set => SetValue(GridLinesVisibilityProperty, value);

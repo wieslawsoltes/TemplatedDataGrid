@@ -14,19 +14,19 @@ namespace TemplatedDataGrid
         private List<Control> _rootChildren = new List<Control>();
         private Visual? _bottomGridLine;
 
-        public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
+        internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGridRow, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
 
-        public static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
+        internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGridRow, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
-        public AvaloniaList<DataGridColumn> Columns
+        internal AvaloniaList<DataGridColumn> Columns
         {
             get => GetValue(ColumnsProperty);
             set => SetValue(ColumnsProperty, value);
         }
 
-        public DataGridGridLinesVisibility GridLinesVisibility
+        internal DataGridGridLinesVisibility GridLinesVisibility
         {
             get => GetValue(GridLinesVisibilityProperty);
             set => SetValue(GridLinesVisibilityProperty, value);

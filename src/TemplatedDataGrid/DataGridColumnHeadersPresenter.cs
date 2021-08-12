@@ -11,10 +11,10 @@ namespace TemplatedDataGrid
         private Grid? _root;
         private List<Control> _rootChildren = new List<Control>();
 
-        public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
+        internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
             AvaloniaProperty.Register<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
 
-        public AvaloniaList<DataGridColumn> Columns
+        internal AvaloniaList<DataGridColumn> Columns
         {
             get => GetValue(ColumnsProperty);
             set => SetValue(ColumnsProperty, value);
