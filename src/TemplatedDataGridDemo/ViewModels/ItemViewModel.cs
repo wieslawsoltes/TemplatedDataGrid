@@ -8,6 +8,8 @@ namespace TemplatedDataGridDemo.ViewModels
         private string? _column1;
         private string? _column2;
         private string? _column3;
+        private string? _column4;
+        private string? _column5;
         private Thickness _margin;
 
         public string? Column1
@@ -26,6 +28,18 @@ namespace TemplatedDataGridDemo.ViewModels
         {
             get => _column3;
             set => this.RaiseAndSetIfChanged(ref _column3, value);
+        }
+
+        public string? Column4
+        {
+            get => _column4;
+            set => this.RaiseAndSetIfChanged(ref _column4, value);
+        }
+
+        public string? Column5
+        {
+            get => _column5;
+            set => this.RaiseAndSetIfChanged(ref _column5, value);
         }
 
         public Thickness Margin
