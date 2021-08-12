@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Avalonia;
 using ReactiveUI;
@@ -20,8 +21,10 @@ namespace TemplatedDataGridDemo.ViewModels
             _items = new ObservableCollection<ItemViewModel>();
 
             int totalItems = 100_000;
+            bool enableRandom = false;
+            int randomSize = 100;
 
-            //var rand = new Random();
+            var rand = new Random();
             var items = new List<ItemViewModel>();
 
             for (var i = 0; i < totalItems; i++)
@@ -33,8 +36,7 @@ namespace TemplatedDataGridDemo.ViewModels
                     Column3 = $"Test {i}-3",
                     Column4 = $"Test {i}-4",
                     Column5 = $"Test {i}-5",
-                    //Margin = new Thickness(0, rand.NextDouble() * 100, 0, rand.NextDouble() * 100)
-                    Margin = new Thickness(0)
+                    Margin = enableRandom ? new Thickness(0, rand.NextDouble() * randomSize, 0, rand.NextDouble() * randomSize) : new Thickness(0)
                 };
 
                 items.Add(item);
