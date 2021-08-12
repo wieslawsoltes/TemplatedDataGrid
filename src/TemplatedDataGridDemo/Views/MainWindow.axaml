@@ -28,35 +28,35 @@
   <g:DataGrid Items="{Binding Items}" 
               CanUserResizeColumns="True">
     <g:DataGrid.Columns>
-      <g:DataGridTemplateColumn Header="Column1" Width="*">
+      <g:DataGridTemplateColumn Header="Column1" Width="*" MinWidth="150">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Margin="{Binding Margin}" Text="{Binding Column1}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      <g:DataGridTemplateColumn Header="Column2" Width="3*">
+      <g:DataGridTemplateColumn Header="Column2" Width="3*" MinWidth="200">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Margin="{Binding Margin}" Text="{Binding Column2}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      <g:DataGridTemplateColumn Header="Column3" Width="*">
+      <g:DataGridTemplateColumn Header="Column3" Width="*" MinWidth="100">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Margin="{Binding Margin}" Text="{Binding Column3}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      <g:DataGridTemplateColumn Header="Column4" Width="*">
+      <g:DataGridTemplateColumn Header="Column4" Width="*" MinWidth="100">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Margin="{Binding Margin}" Text="{Binding Column4}" />
           </DataTemplate>
         </g:DataGridTemplateColumn.CellTemplate>
       </g:DataGridTemplateColumn>
-      <g:DataGridTemplateColumn Header="Column5" Width="*">
+      <g:DataGridTemplateColumn Header="Column5" Width="*" MinWidth="100">
         <g:DataGridTemplateColumn.CellTemplate>
           <DataTemplate DataType="vm:ItemViewModel">
             <TextBlock Margin="{Binding Margin}" Text="{Binding Column5}" />

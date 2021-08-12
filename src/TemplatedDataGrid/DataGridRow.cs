@@ -63,7 +63,9 @@ namespace TemplatedDataGrid
 
                 var columnDefinition = new ColumnDefinition()
                 {
-                    [!ColumnDefinition.WidthProperty] = column[!DataGridColumn.WidthProperty]
+                    [!ColumnDefinition.WidthProperty] = column[!DataGridColumn.WidthProperty],
+                    [!ColumnDefinition.MinWidthProperty] = column[!DataGridColumn.MinWidthProperty],
+                    [!ColumnDefinition.MaxWidthProperty] = column[!DataGridColumn.MaxWidthProperty]
                 };
                 columnDefinitions.Add(columnDefinition);
 
