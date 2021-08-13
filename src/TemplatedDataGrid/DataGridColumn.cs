@@ -23,6 +23,12 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<string?> SortMemberPathProperty = 
             AvaloniaProperty.Register<DataGridColumn, string?>(nameof(SortMemberPath));
 
+        public static readonly StyledProperty<bool> CanUserResizeProperty = 
+            AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserResize));
+
+        public static readonly StyledProperty<bool> CanUserReorderProperty = 
+            AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserReorder));
+
         public object? Header
         {
             get => GetValue(HeaderProperty);
@@ -57,6 +63,18 @@ namespace TemplatedDataGrid
         {
             get => GetValue(SortMemberPathProperty);
             set => SetValue(SortMemberPathProperty, value);
+        }
+
+        public bool CanUserResize
+        {
+            get => GetValue(CanUserSortProperty);
+            set => SetValue(CanUserSortProperty, value);
+        }
+
+        public bool CanUserReorder
+        {
+            get => GetValue(CanUserSortProperty);
+            set => SetValue(CanUserSortProperty, value);
         }
     }
 }
