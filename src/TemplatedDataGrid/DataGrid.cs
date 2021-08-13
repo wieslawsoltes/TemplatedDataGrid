@@ -5,6 +5,7 @@ using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Shapes;
 using Avalonia.Layout;
 using TemplatedDataGrid.Primitives;
 
@@ -105,10 +106,6 @@ namespace TemplatedDataGrid
             }
 
             var columns = Columns;
- 
-            var isHorizontalGridLineVisible = this
-                .GetObservable(DataGrid.GridLinesVisibilityProperty)
-                .Select(x => x.HasFlag(DataGridGridLinesVisibility.Horizontal));
 
             var isVerticalGridLineVisible = this
                 .GetObservable(DataGrid.GridLinesVisibilityProperty)
@@ -119,14 +116,13 @@ namespace TemplatedDataGrid
             var rowDefinitions = new List<RowDefinition>();
 
             rowDefinitions.Add(new RowDefinition(GridLength.Auto));
-            rowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Pixel)));
+            rowDefinitions.Add(new RowDefinition(GridLength.Auto));
             rowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
 
             // Generate ColumnDefinitions
 
             var columnDefinitions = new List<ColumnDefinition>();
             var splitterColumnIndexes = new List<int>();
-            var splitterWidth = 7;
 
             for (var i = 0; i < columns.Count; i++)
             {
@@ -143,7 +139,7 @@ namespace TemplatedDataGrid
 
                 if (i < columns.Count - 1)
                 {
-                    columnDefinitions.Add(new ColumnDefinition(new GridLength(splitterWidth, GridUnitType.Pixel)));
+                    columnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
                     splitterColumnIndexes.Add(columnDefinitions.Count - 1);
                 }
             }
@@ -154,50 +150,43 @@ namespace TemplatedDataGrid
             _root.ColumnDefinitions.Clear();
             _root.ColumnDefinitions.AddRange(columnDefinitions);
 
-            // Generate Horizontal Separator's
+            // Generate Horizontal Grid Lines
 
-            var horizontalSeparator = new Separator()
+            var horizontalColumnsGridLine = new Rectangle()
             {
-                Height = 1,
-                Margin = new Thickness(0, 0, 0, 0),
                 [Grid.RowProperty] = 1,
                 [Grid.ColumnProperty] = 0,
                 [Grid.ColumnSpanProperty] = columns.Count + (columns.Count - 1)
             };
-            _rootChildren.Add(horizontalSeparator);
+            ((IPseudoClasses)horizontalColumnsGridLine.Classes).Add(":horizontal");
+            _rootChildren.Add(horizontalColumnsGridLine);
 
-            // Generate Vertical Separator's
+            // Generate Vertical Grid Lines
             // Generate GridSplitter's
 
             foreach (var columnIndex in splitterColumnIndexes)
             {
-                var verticalColumnSeparator = new Separator()
+                var verticalColumnGridLine = new Rectangle()
                 {
-                    Width = 1,
                     [Grid.RowProperty] = 0,
                     [Grid.RowSpanProperty] = 1,
                     [Grid.ColumnProperty] = columnIndex
                 };
-                _rootChildren.Add(verticalColumnSeparator);
+                ((IPseudoClasses)verticalColumnGridLine.Classes).Add(":vertical");
+                _rootChildren.Add(verticalColumnGridLine);
 
-                var verticalRowSeparator = new Separator()
+                var verticalRowGridLine = new Rectangle()
                 {
-                    Width = 1,
                     [Grid.RowProperty] = 1,
                     [Grid.RowSpanProperty] = 2,
                     [Grid.ColumnProperty] = columnIndex,
-                    [!Separator.IsVisibleProperty] = isVerticalGridLineVisible.ToBinding()
+                    [!Rectangle.IsVisibleProperty] = isVerticalGridLineVisible.ToBinding()
                 };
-                _rootChildren.Add(verticalRowSeparator);
+                ((IPseudoClasses)verticalRowGridLine.Classes).Add(":vertical");
+                _rootChildren.Add(verticalRowGridLine);
 
                 var verticalGridSplitter = new GridSplitter()
                 {
-                    Width = splitterWidth,
-                    MinWidth = splitterWidth,
-                    ResizeBehavior = GridResizeBehavior.PreviousAndNext,
-                    ResizeDirection = GridResizeDirection.Columns,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Stretch,
                     [Grid.RowProperty] = 0,
                     [Grid.RowSpanProperty] = 3,
                     [Grid.ColumnProperty] = columnIndex,

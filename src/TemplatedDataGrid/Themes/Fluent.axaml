@@ -13,11 +13,25 @@
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="g|DataGrid /template/ Grid#PART_Root > Separator">
-    <Setter Property="Background" Value="{DynamicResource SystemBaseMediumLowColor}" />
+  <Style Selector="g|DataGrid /template/ Grid#PART_Root > Rectangle:horizontal">
+    <Setter Property="Height" Value="1" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Opacity" Value="0.4" />
+  </Style>
+  <Style Selector="g|DataGrid /template/ Grid#PART_Root > Rectangle:vertical">
+    <Setter Property="Width" Value="1" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
   <Style Selector="g|DataGrid /template/ Grid#PART_Root > GridSplitter">
+    <Setter Property="Width" Value="7" />
+    <Setter Property="MinWidth" Value="7" />
+    <Setter Property="ResizeBehavior" Value="PreviousAndNext" />
+    <Setter Property="ResizeDirection" Value="Columns" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
     <Setter Property="Background" Value="Transparent" />
   </Style>
 
@@ -87,7 +101,7 @@
   <Style Selector="g|DataGridRow">
     <Setter Property="Template">
       <ControlTemplate>
-        <Grid Name="PART_Root" RowDefinitions="*,1">
+        <Grid Name="PART_Root" RowDefinitions="*,Auto">
           <p:DataGridCellsPresenter Grid.Row="0" Name="PART_CellsPresenter"/>
           <Rectangle Grid.Row="1" Name="PART_BottomGridLine"/>
         </Grid>
