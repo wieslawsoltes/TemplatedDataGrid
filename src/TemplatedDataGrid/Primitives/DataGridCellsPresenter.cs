@@ -85,7 +85,7 @@ namespace TemplatedDataGrid.Primitives
                     {
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
-                        [!DataGridCell.CellTemplateProperty] = templateColumn[!DataGridTemplateColumn.CellTemplateProperty]
+                        [!DataGridCell.CellTemplateProperty] = templateColumn[!DataGridColumn.CellTemplateProperty]
                     };
                     _rootChildren.Add(cell);
                 }
