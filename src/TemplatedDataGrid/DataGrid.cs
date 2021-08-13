@@ -12,8 +12,10 @@ namespace TemplatedDataGrid
 {
     public class DataGrid : TemplatedControl
     {
-        public static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
-            AvaloniaProperty.Register<DataGrid, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
+        public static readonly DirectProperty<DataGrid, AvaloniaList<DataGridColumn>> ColumnsProperty =
+            AvaloniaProperty.RegisterDirect<DataGrid, AvaloniaList<DataGridColumn>>(
+                nameof(Columns), 
+                o => o.Columns);
 
         public static readonly StyledProperty<IEnumerable?> ItemsProperty = 
             AvaloniaProperty.Register<DataGrid, IEnumerable?>(nameof(Items));
@@ -30,15 +32,21 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<bool> IsReadOnlyProperty = 
             AvaloniaProperty.Register<DataGrid, bool>(nameof(IsReadOnly));
 
+        private AvaloniaList<DataGridColumn> _columns;
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
         private DataGridColumnHeadersPresenter? _columnHeadersPresenter;
         private DataGridRowsPresenter? _rowsPresenter;
 
+        public DataGrid()
+        {
+            _columns = new AvaloniaList<DataGridColumn>();
+        }
+
         public AvaloniaList<DataGridColumn> Columns
         {
-            get => GetValue(ColumnsProperty);
-            set => SetValue(ColumnsProperty, value);
+            get => _columns;
+            private set => SetAndRaise(ColumnsProperty, ref _columns, value);
         }
 
         public IEnumerable? Items

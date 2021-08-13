@@ -17,11 +17,16 @@ namespace TemplatedDataGrid.Primitives
         public static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
 
-        internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
+        internal static readonly DirectProperty<DataGridRowsPresenter, AvaloniaList<DataGridColumn>?> ColumnsProperty =
+            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, AvaloniaList<DataGridColumn>?>(
+                nameof(Columns), 
+                o => o.Columns, 
+                (o, v) => o.Columns = v);
 
         internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
+
+        private AvaloniaList<DataGridColumn>? _columns;
 
         public IDataTemplate ItemTemplate
         {
@@ -41,10 +46,10 @@ namespace TemplatedDataGrid.Primitives
             set => SetValue(SelectedItemProperty, value);
         }
 
-        internal AvaloniaList<DataGridColumn> Columns
+        internal AvaloniaList<DataGridColumn>? Columns
         {
-            get => GetValue(ColumnsProperty);
-            set => SetValue(ColumnsProperty, value);
+            get => _columns;
+            set => SetAndRaise(ColumnsProperty, ref _columns, value);
         }
 
         internal DataGridGridLinesVisibility GridLinesVisibility

@@ -8,16 +8,20 @@ namespace TemplatedDataGrid.Primitives
 {
     public class DataGridCellsPresenter : TemplatedControl
     {
-        internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
-            AvaloniaProperty.Register<DataGridCellsPresenter, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
+        internal static readonly DirectProperty<DataGridCellsPresenter, AvaloniaList<DataGridColumn>?> ColumnsProperty =
+            AvaloniaProperty.RegisterDirect<DataGridCellsPresenter, AvaloniaList<DataGridColumn>?>(
+                nameof(Columns), 
+                o => o.Columns, 
+                (o, v) => o.Columns = v);
 
+        private AvaloniaList<DataGridColumn>? _columns;
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
 
-        internal AvaloniaList<DataGridColumn> Columns
+        internal AvaloniaList<DataGridColumn>? Columns
         {
-            get => GetValue(ColumnsProperty);
-            set => SetValue(ColumnsProperty, value);
+            get => _columns;
+            set => SetAndRaise(ColumnsProperty, ref _columns, value);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -52,6 +56,10 @@ namespace TemplatedDataGrid.Primitives
             }
 
             var columns = Columns;
+            if (columns is null)
+            {
+                return;
+            }
  
             // Generate ColumnDefinitions
 

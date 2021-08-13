@@ -9,19 +9,23 @@ namespace TemplatedDataGrid
 {
     public class DataGridRow : TemplatedControl
     {
-        internal static readonly StyledProperty<AvaloniaList<DataGridColumn>> ColumnsProperty = 
-            AvaloniaProperty.Register<DataGridRow, AvaloniaList<DataGridColumn>>(nameof(Columns), new AvaloniaList<DataGridColumn>());
+        internal static readonly DirectProperty<DataGridRow, AvaloniaList<DataGridColumn>?> ColumnsProperty =
+            AvaloniaProperty.RegisterDirect<DataGridRow, AvaloniaList<DataGridColumn>?>(
+                nameof(Columns), 
+                o => o.Columns, 
+                (o, v) => o.Columns = v);
 
         internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGridRow, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
+        private AvaloniaList<DataGridColumn>? _columns;
         private DataGridCellsPresenter? _cellsPresenter;
         private Visual? _bottomGridLine;
 
-        internal AvaloniaList<DataGridColumn> Columns
+        internal AvaloniaList<DataGridColumn>? Columns
         {
-            get => GetValue(ColumnsProperty);
-            set => SetValue(ColumnsProperty, value);
+            get => _columns;
+            set => SetAndRaise(ColumnsProperty, ref _columns, value);
         }
 
         internal DataGridGridLinesVisibility GridLinesVisibility
@@ -55,7 +59,7 @@ namespace TemplatedDataGrid
         {
             if (_cellsPresenter is { })
             {
-                _cellsPresenter[!DataGridCellsPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
+                _cellsPresenter[!DataGridCellsPresenter.ColumnsProperty] = this[!DataGridRow.ColumnsProperty];
             }
         }
 
