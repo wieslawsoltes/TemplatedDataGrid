@@ -1,10 +1,15 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
+using Avalonia.Metadata;
 
 namespace TemplatedDataGrid
 {
     public abstract class DataGridColumn : AvaloniaObject
     {
+        public static readonly StyledProperty<IDataTemplate?> CellTemplateProperty = 
+            AvaloniaProperty.Register<DataGridColumn, IDataTemplate?>(nameof(CellTemplate));
+
         public static readonly StyledProperty<object?> HeaderProperty = 
             AvaloniaProperty.Register<DataGridColumn, object?>(nameof(Header));
 
@@ -28,6 +33,13 @@ namespace TemplatedDataGrid
 
         public static readonly StyledProperty<bool> CanUserReorderProperty = 
             AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserReorder));
+
+        [Content]
+        public IDataTemplate? CellTemplate
+        {
+            get => GetValue(CellTemplateProperty);
+            set => SetValue(CellTemplateProperty, value);
+        }
 
         public object? Header
         {
