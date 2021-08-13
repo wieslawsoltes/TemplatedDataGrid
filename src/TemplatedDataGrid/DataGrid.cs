@@ -116,7 +116,7 @@ namespace TemplatedDataGrid
             var rowDefinitions = new List<RowDefinition>();
 
             rowDefinitions.Add(new RowDefinition(GridLength.Auto));
-            rowDefinitions.Add(new RowDefinition(GridLength.Auto));
+            rowDefinitions.Add(new RowDefinition(new GridLength(0, GridUnitType.Pixel)));
             rowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
 
             // Generate ColumnDefinitions
@@ -139,7 +139,7 @@ namespace TemplatedDataGrid
 
                 if (i < columns.Count - 1)
                 {
-                    columnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+                    columnDefinitions.Add(new ColumnDefinition(new GridLength(0, GridUnitType.Pixel)));
                     splitterColumnIndexes.Add(columnDefinitions.Count - 1);
                 }
             }
