@@ -3,7 +3,7 @@ using Avalonia.Controls;
 
 namespace TemplatedDataGrid
 {
-    public class DataGridColumn : AvaloniaObject
+    public abstract class DataGridColumn : AvaloniaObject
     {
         public static readonly StyledProperty<object?> HeaderProperty = 
             AvaloniaProperty.Register<DataGridColumn, object?>(nameof(Header));
