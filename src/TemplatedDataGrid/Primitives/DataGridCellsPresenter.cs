@@ -91,7 +91,7 @@ namespace TemplatedDataGrid.Primitives
                 }
                 else
                 {
-                    // TODO: Add support of other column types.
+                    // TODO: Add support for other column types.
                 }
 
                 if (i < columns.Count - 1)
