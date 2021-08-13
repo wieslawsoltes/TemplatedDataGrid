@@ -93,6 +93,10 @@ namespace TemplatedDataGrid.Primitives
                 {
                     // TODO: Add support for text column.
                 }
+                else if (column is DataGridCheckBoxColumn checkBoxColumn)
+                {
+                    // TODO: Add support for checkbox column.
+                }
                 else
                 {
                     // TODO: Add support for other column types.
