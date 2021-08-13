@@ -31,11 +31,11 @@ namespace TemplatedDataGridDemo.ViewModels
             {
                 var item = new ItemViewModel()
                 {
-                    Column1 = $"Test {i}-1",
-                    Column2 = $"Test {i}-2",
-                    Column3 = $"Test {i}-3",
-                    Column4 = $"Test {i}-4",
-                    Column5 = $"Test {i}-5",
+                    Column1 = $"Template1 {i}-1",
+                    Column2 = $"Template2 {i}-2",
+                    Column3 = $"Template3 {i}-3",
+                    Column4 = rand.NextDouble() > 0.5,
+                    Column5 = $"Text {i}-5",
                     Margin = enableRandom ? new Thickness(0, rand.NextDouble() * randomSize, 0, rand.NextDouble() * randomSize) : new Thickness(0)
                 };
 

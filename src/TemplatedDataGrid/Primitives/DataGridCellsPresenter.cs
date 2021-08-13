@@ -91,15 +91,33 @@ namespace TemplatedDataGrid.Primitives
                 }
                 else if (column is DataGridTextColumn textColumn)
                 {
-                    // TODO: Add support for text column.
+                    var cell = new DataGridCell()
+                    {
+                        [Grid.ColumnProperty] = columnDefinitions.Count - 1,
+                        [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
+                        [!DataGridCell.CellTemplateProperty] = textColumn[!DataGridColumn.CellTemplateProperty]
+                    };
+                    _rootChildren.Add(cell);
                 }
                 else if (column is DataGridCheckBoxColumn checkBoxColumn)
                 {
-                    // TODO: Add support for checkbox column.
+                    var cell = new DataGridCell()
+                    {
+                        [Grid.ColumnProperty] = columnDefinitions.Count - 1,
+                        [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
+                        [!DataGridCell.CellTemplateProperty] = checkBoxColumn[!DataGridColumn.CellTemplateProperty]
+                    };
+                    _rootChildren.Add(cell);
                 }
                 else
                 {
-                    // TODO: Add support for other column types.
+                    var cell = new DataGridCell()
+                    {
+                        [Grid.ColumnProperty] = columnDefinitions.Count - 1,
+                        [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
+                        [!DataGridCell.CellTemplateProperty] = column[!DataGridColumn.CellTemplateProperty]
+                    };
+                    _rootChildren.Add(cell);
                 }
 
                 if (i < columns.Count - 1)

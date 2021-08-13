@@ -19,6 +19,12 @@
 
   <Window.Styles>
     <Style Selector="g|DataGridCell">
+      <Setter Property="VerticalAlignment" Value="Center"/>
+      <Setter Property="Padding" Value="6"/>
+    </Style>
+    <Style Selector="g|DataGridCell /template/ ContentControl > CheckBox">
+      <Setter Property="HorizontalAlignment" Value="Center"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
       <Setter Property="Padding" Value="6"/>
     </Style>
     <Style Selector="g|DataGridColumnHeader">
@@ -37,46 +43,44 @@
     </Style>-->
   </Window.Styles>
 
-  <g:DataGrid Items="{Binding Items}" 
-              CanUserResizeColumns="True"
-              GridLinesVisibility="All">
-    <g:DataGrid.Columns>
-      <g:DataGridTemplateColumn Header="Column1" Width="*" MinWidth="150">
-        <g:DataGridTemplateColumn.CellTemplate>
-          <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="{Binding Margin}" Text="{Binding Column1}" />
-          </DataTemplate>
-        </g:DataGridTemplateColumn.CellTemplate>
-      </g:DataGridTemplateColumn>
-      <g:DataGridTemplateColumn Header="Column2" Width="3*" MinWidth="200">
-        <g:DataGridTemplateColumn.CellTemplate>
-          <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="{Binding Margin}" Text="{Binding Column2}" />
-          </DataTemplate>
-        </g:DataGridTemplateColumn.CellTemplate>
-      </g:DataGridTemplateColumn>
-      <g:DataGridTemplateColumn Header="Column3" Width="*" MinWidth="100">
-        <g:DataGridTemplateColumn.CellTemplate>
-          <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="{Binding Margin}" Text="{Binding Column3}" />
-          </DataTemplate>
-        </g:DataGridTemplateColumn.CellTemplate>
-      </g:DataGridTemplateColumn>
-      <g:DataGridTemplateColumn Header="Column4" Width="*" MinWidth="100">
-        <g:DataGridTemplateColumn.CellTemplate>
-          <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="{Binding Margin}" Text="{Binding Column4}" />
-          </DataTemplate>
-        </g:DataGridTemplateColumn.CellTemplate>
-      </g:DataGridTemplateColumn>
-      <g:DataGridTemplateColumn Header="Column5" Width="*" MinWidth="100">
-        <g:DataGridTemplateColumn.CellTemplate>
-          <DataTemplate DataType="vm:ItemViewModel">
-            <TextBlock Margin="{Binding Margin}" Text="{Binding Column5}" />
-          </DataTemplate>
-        </g:DataGridTemplateColumn.CellTemplate>
-      </g:DataGridTemplateColumn>
-    </g:DataGrid.Columns>
-  </g:DataGrid>
+  <DockPanel>
+
+    <Label Content="{Binding Items.Count, StringFormat={}TemplatedDataGrid items: {0}}"
+           Margin="0"
+           Padding="6"
+           Opacity="0.5"
+           DockPanel.Dock="Top"/>
+
+    <g:DataGrid Items="{Binding Items}" 
+                CanUserResizeColumns="True"
+                GridLinesVisibility="All">
+      <g:DataGrid.Columns>
+        <g:DataGridTemplateColumn Header="Column1" Width="3*" MinWidth="150">
+          <g:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate DataType="vm:ItemViewModel">
+              <TextBlock Margin="{Binding Margin}" Text="{Binding Column1}" />
+            </DataTemplate>
+          </g:DataGridTemplateColumn.CellTemplate>
+        </g:DataGridTemplateColumn>
+        <g:DataGridTemplateColumn Header="Column2" Width="3*" MinWidth="200">
+          <g:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate DataType="vm:ItemViewModel">
+              <TextBlock Margin="{Binding Margin}" Text="{Binding Column2}" />
+            </DataTemplate>
+          </g:DataGridTemplateColumn.CellTemplate>
+        </g:DataGridTemplateColumn>
+        <g:DataGridTemplateColumn Header="Column3" Width="3*" MinWidth="100">
+          <g:DataGridTemplateColumn.CellTemplate>
+            <DataTemplate DataType="vm:ItemViewModel">
+              <TextBlock Margin="{Binding Margin}" Text="{Binding Column3}" />
+            </DataTemplate>
+          </g:DataGridTemplateColumn.CellTemplate>
+        </g:DataGridTemplateColumn>
+        <g:DataGridCheckBoxColumn Header="Column4" Width="1*" MinWidth="50" Binding="{Binding Column4}" x:DataType="vm:ItemViewModel"/>
+        <g:DataGridTextColumn Header="Column5" Width="1*" MinWidth="100" Binding="{Binding Column5}" x:DataType="vm:ItemViewModel"/>
+      </g:DataGrid.Columns>
+    </g:DataGrid>
+
+  </DockPanel>
 
 </Window>

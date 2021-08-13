@@ -8,7 +8,7 @@ namespace TemplatedDataGridDemo.ViewModels
         private string? _column1;
         private string? _column2;
         private string? _column3;
-        private string? _column4;
+        private bool? _column4;
         private string? _column5;
         private Thickness _margin;
 
@@ -30,7 +30,7 @@ namespace TemplatedDataGridDemo.ViewModels
             set => this.RaiseAndSetIfChanged(ref _column3, value);
         }
 
-        public string? Column4
+        public bool? Column4
         {
             get => _column4;
             set => this.RaiseAndSetIfChanged(ref _column4, value);
