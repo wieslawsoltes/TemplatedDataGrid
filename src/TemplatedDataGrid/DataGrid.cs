@@ -32,6 +32,9 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<bool> IsReadOnlyProperty = 
             AvaloniaProperty.Register<DataGrid, bool>(nameof(IsReadOnly));
 
+        public static readonly StyledProperty<bool> AutoGenerateColumnsProperty = 
+            AvaloniaProperty.Register<DataGrid, bool>(nameof(AutoGenerateColumns));
+
         private AvaloniaList<DataGridColumn> _columns;
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
@@ -77,6 +80,12 @@ namespace TemplatedDataGrid
         {
             get => GetValue(IsReadOnlyProperty);
             set => SetValue(IsReadOnlyProperty, value);
+        }
+
+        public bool AutoGenerateColumns
+        {
+            get => GetValue(AutoGenerateColumnsProperty);
+            set => SetValue(AutoGenerateColumnsProperty, value);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
