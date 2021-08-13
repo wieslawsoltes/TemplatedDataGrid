@@ -27,6 +27,9 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGrid, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
+        public static readonly StyledProperty<bool> IsReadOnlyProperty = 
+            AvaloniaProperty.Register<DataGrid, bool>(nameof(IsReadOnly));
+
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
         private DataGridColumnHeadersPresenter? _columnHeadersPresenter;
@@ -60,6 +63,12 @@ namespace TemplatedDataGrid
         {
             get => GetValue(GridLinesVisibilityProperty);
             set => SetValue(GridLinesVisibilityProperty, value);
+        }
+
+        public bool IsReadOnly
+        {
+            get => GetValue(IsReadOnlyProperty);
+            set => SetValue(IsReadOnlyProperty, value);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
