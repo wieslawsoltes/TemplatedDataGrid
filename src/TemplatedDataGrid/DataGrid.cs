@@ -23,6 +23,9 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGrid, object?>(nameof(SelectedItem));
 
+        public static readonly StyledProperty<bool> CanUserSortColumnsProperty = 
+            AvaloniaProperty.Register<DataGrid, bool>(nameof(CanUserSortColumns));
+
         public static readonly StyledProperty<bool> CanUserResizeColumnsProperty = 
             AvaloniaProperty.Register<DataGrid, bool>(nameof(CanUserResizeColumns));
 
@@ -62,6 +65,12 @@ namespace TemplatedDataGrid
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
+        }
+
+        public bool CanUserSortColumns
+        {
+            get => GetValue(CanUserSortColumnsProperty);
+            set => SetValue(CanUserSortColumnsProperty, value);
         }
 
         public bool CanUserResizeColumns
