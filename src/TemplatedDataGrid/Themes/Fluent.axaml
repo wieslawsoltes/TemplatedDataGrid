@@ -58,9 +58,22 @@
   <Style Selector="g|DataGridColumnHeader">
     <Setter Property="Template">
       <ControlTemplate>
-        <ContentControl Content="{TemplateBinding Header}" />
+        <Button Content="{TemplateBinding Header}" />
       </ControlTemplate>
     </Setter>
+  </Style>
+  <Style Selector="g|DataGridColumnHeader /template/ Button">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="{TemplateBinding Padding}" />
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+  <Style Selector="g|DataGridColumnHeader /template/ Button:pointerover">
+    <Setter Property="Background" Value="{DynamicResource SystemListLowColor}" />
+  </Style>
+  <Style Selector="g|DataGridColumnHeader /template/ Button:pressed">
+    <Setter Property="Background" Value="{DynamicResource SystemListMediumColor}" />
   </Style>
 
   <Style Selector="p|DataGridCellsPresenter">
@@ -91,7 +104,8 @@
     <Setter Property="Template">
       <ControlTemplate>
         <ContentControl Content="{TemplateBinding Content}"
-                        ContentTemplate="{TemplateBinding CellTemplate}"/>
+                        ContentTemplate="{TemplateBinding CellTemplate}"
+                        Padding="{TemplateBinding Padding}"/>
       </ControlTemplate>
     </Setter>
   </Style>
