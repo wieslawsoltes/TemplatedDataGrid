@@ -17,6 +17,12 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<double> MaxWidthProperty = 
             AvaloniaProperty.Register<DataGridColumn, double>(nameof(MaxWidth), double.PositiveInfinity);
 
+        public static readonly StyledProperty<bool> CanUserSortProperty = 
+            AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserSort));
+
+        public static readonly StyledProperty<string?> SortMemberPathProperty = 
+            AvaloniaProperty.Register<DataGridColumn, string?>(nameof(SortMemberPath));
+
         public object? Header
         {
             get => GetValue(HeaderProperty);
@@ -39,6 +45,18 @@ namespace TemplatedDataGrid
         {
             get => GetValue(MaxWidthProperty);
             set => SetValue(MaxWidthProperty, value);
+        }
+
+        public bool CanUserSort
+        {
+            get => GetValue(CanUserSortProperty);
+            set => SetValue(CanUserSortProperty, value);
+        }
+
+        public string? SortMemberPath
+        {
+            get => GetValue(SortMemberPathProperty);
+            set => SetValue(SortMemberPathProperty, value);
         }
     }
 }
