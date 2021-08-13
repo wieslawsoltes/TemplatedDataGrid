@@ -89,6 +89,10 @@ namespace TemplatedDataGrid.Primitives
                     };
                     _rootChildren.Add(cell);
                 }
+                else if (column is DataGridTextColumn textColumn)
+                {
+                    // TODO: Add support for text column.
+                }
                 else
                 {
                     // TODO: Add support for other column types.
