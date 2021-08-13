@@ -79,7 +79,7 @@ namespace TemplatedDataGrid.Primitives
  
                 if (i < columns.Count - 1)
                 {
-                    columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
+                    columnDefinitions.Add(new ColumnDefinition(new GridLength(0, GridUnitType.Pixel)));
                 }
             }
 
