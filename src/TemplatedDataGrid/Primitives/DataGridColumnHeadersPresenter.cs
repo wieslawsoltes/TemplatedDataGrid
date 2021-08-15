@@ -75,6 +75,12 @@ namespace TemplatedDataGrid.Primitives
                     [!ColumnDefinition.MinWidthProperty] = column[!DataGridColumn.MinWidthProperty],
                     [!ColumnDefinition.MaxWidthProperty] = column[!DataGridColumn.MaxWidthProperty]
                 };
+
+                if (column.Width == GridLength.Auto)
+                {
+                    columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
+                }
+
                 columnDefinitions.Add(columnDefinition);
 
                 // Generate DataGridColumnHeader's
