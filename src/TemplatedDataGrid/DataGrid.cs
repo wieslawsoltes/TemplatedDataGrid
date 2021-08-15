@@ -157,6 +157,7 @@ namespace TemplatedDataGrid
 
             var columnDefinitions = new List<ColumnDefinition>();
             var splitterColumnIndexes = new List<int>();
+            var isSharedSizeScope = false;
 
             for (var i = 0; i < columns.Count; i++)
             {
@@ -169,6 +170,12 @@ namespace TemplatedDataGrid
                     [!!ColumnDefinition.MaxWidthProperty] = column[!!DataGridColumn.MaxWidthProperty]
                 };
 
+                if (column.Width == GridLength.Auto)
+                {
+                    isSharedSizeScope = true;
+                    columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
+                }
+
                 columnDefinitions.Add(columnDefinition);
 
                 if (i < columns.Count - 1)
@@ -177,6 +184,8 @@ namespace TemplatedDataGrid
                     splitterColumnIndexes.Add(columnDefinitions.Count - 1);
                 }
             }
+
+            Grid.SetIsSharedSizeScope(_root, isSharedSizeScope);
 
             _root.RowDefinitions.Clear();
             _root.RowDefinitions.AddRange(rowDefinitions);
