@@ -162,6 +162,7 @@ namespace TemplatedDataGrid
             for (var i = 0; i < columns.Count; i++)
             {
                 var column = columns[i];
+                var isAutoWidth = column.Width == GridLength.Auto;
 
                 var columnDefinition = new ColumnDefinition()
                 {
@@ -170,7 +171,7 @@ namespace TemplatedDataGrid
                     [!!ColumnDefinition.MaxWidthProperty] = column[!!DataGridColumn.MaxWidthProperty]
                 };
 
-                if (column.Width == GridLength.Auto)
+                if (isAutoWidth)
                 {
                     isSharedSizeScope = true;
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
