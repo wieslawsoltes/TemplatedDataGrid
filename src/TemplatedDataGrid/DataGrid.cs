@@ -166,19 +166,15 @@ namespace TemplatedDataGrid
 
                 var columnDefinition = new ColumnDefinition()
                 {
+                    [!!ColumnDefinition.WidthProperty] = column[!!DataGridColumn.WidthProperty],
                     [!!ColumnDefinition.MinWidthProperty] = column[!!DataGridColumn.MinWidthProperty],
                     [!!ColumnDefinition.MaxWidthProperty] = column[!!DataGridColumn.MaxWidthProperty]
                 };
 
                 if (isAutoWidth)
                 {
-                    columnDefinition.Width = column.Width;
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
                     isSharedSizeScope = true;
-                }
-                else
-                {
-                    columnDefinition[!!ColumnDefinition.WidthProperty] = column[!!DataGridColumn.WidthProperty];
                 }
 
                 columnDefinitions.Add(columnDefinition);

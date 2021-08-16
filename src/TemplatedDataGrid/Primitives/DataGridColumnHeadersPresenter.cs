@@ -87,7 +87,6 @@ namespace TemplatedDataGrid.Primitives
 
             var columnDefinitions = new List<ColumnDefinition>();
             var splitterColumnIndexes = new List<int>();
-            var isSharedSizeScope = false;
 
             for (var i = 0; i < columns.Count; i++)
             {
@@ -96,19 +95,14 @@ namespace TemplatedDataGrid.Primitives
 
                 var columnDefinition = new ColumnDefinition()
                 {
+                    [!ColumnDefinition.WidthProperty] = column[!DataGridColumn.WidthProperty],
                     [!ColumnDefinition.MinWidthProperty] = column[!DataGridColumn.MinWidthProperty],
                     [!ColumnDefinition.MaxWidthProperty] = column[!DataGridColumn.MaxWidthProperty]
                 };
 
                 if (isAutoWidth)
                 {
-                    columnDefinition.Width = column.Width;
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
-                    isSharedSizeScope = true;
-                }
-                else
-                {
-                    columnDefinition[!ColumnDefinition.WidthProperty] = column[!DataGridColumn.WidthProperty];
                 }
 
                 columnDefinitions.Add(columnDefinition);
