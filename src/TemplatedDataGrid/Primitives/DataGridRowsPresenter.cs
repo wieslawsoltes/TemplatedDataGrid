@@ -23,10 +23,17 @@ namespace TemplatedDataGrid.Primitives
                 o => o.Columns, 
                 (o, v) => o.Columns = v);
 
+        internal static readonly DirectProperty<DataGridRowsPresenter, AvaloniaList<DataGridRow>> RowsProperty =
+            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, AvaloniaList<DataGridRow>>(
+                nameof(Rows), 
+                o => o.Rows, 
+                (o, v) => o.Rows = v);
+
         internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
         private AvaloniaList<DataGridColumn>? _columns;
+        private AvaloniaList<DataGridRow> _rows = new AvaloniaList<DataGridRow>();
 
         public IDataTemplate ItemTemplate
         {
@@ -50,6 +57,12 @@ namespace TemplatedDataGrid.Primitives
         {
             get => _columns;
             set => SetAndRaise(ColumnsProperty, ref _columns, value);
+        }
+
+        internal AvaloniaList<DataGridRow> Rows
+        {
+            get => _rows;
+            set => SetAndRaise(RowsProperty, ref _rows, value);
         }
 
         internal DataGridGridLinesVisibility GridLinesVisibility
@@ -77,12 +90,19 @@ namespace TemplatedDataGrid.Primitives
 
         private void InvalidateItemTemplate()
         {
+            _rows.Clear();
+
             ItemTemplate = new FuncDataTemplate(
                 _ => true,
-                (_, _) => new DataGridRow()
+                (_, _) =>
                 {
-                    [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty],
-                    [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]
+                    var row = new DataGridRow()
+                    {
+                        [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty],
+                        [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]
+                    };
+                    _rows.Add(row);
+                    return row;
                 },
                 supportsRecycling: true);
         }
