@@ -2,6 +2,51 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:g="using:TemplatedDataGrid"
         xmlns:p="clr-namespace:TemplatedDataGrid.Primitives">
+  <Styles.Resources>
+
+    <x:Double x:Key="ListAccentLowOpacity">0.6</x:Double>
+    <x:Double x:Key="ListAccentMediumOpacity">0.8</x:Double>
+
+    <StreamGeometry x:Key="DataGridSortIconDescendingPath">M1875 1011l-787 787v-1798h-128v1798l-787 -787l-90 90l941 941l941 -941z</StreamGeometry>
+    <StreamGeometry x:Key="DataGridSortIconAscendingPath">M1965 947l-941 -941l-941 941l90 90l787 -787v1798h128v-1798l787 787z</StreamGeometry>
+
+    <SolidColorBrush x:Key="DataGridGridLinesBrush" Color="{StaticResource SystemBaseMediumLowColor}" Opacity="0.4" />
+    <SolidColorBrush x:Key="DataGridDropLocationIndicatorBackground" Color="#3F4346" />
+    <SolidColorBrush x:Key="DataGridDisabledVisualElementBackground" Color="#8CFFFFFF" />
+    <SolidColorBrush x:Key="DataGridFillerGridLinesBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="DataGridCurrencyVisualPrimaryBrush" Color="Transparent" />
+    <StaticResource x:Key="DataGridColumnHeaderBackgroundColor" ResourceKey="SystemAltHighColor" />
+    <SolidColorBrush x:Key="DataGridColumnHeaderBackgroundBrush" Color="{StaticResource DataGridColumnHeaderBackgroundColor}" />
+    <StaticResource x:Key="DataGridScrollBarsSeparatorBackground" ResourceKey="SystemChromeLowColor" />
+    <StaticResource x:Key="DataGridColumnHeaderForegroundBrush" ResourceKey="SystemControlForegroundBaseMediumBrush" />
+    <StaticResource x:Key="DataGridColumnHeaderHoveredBackgroundColor" ResourceKey="SystemListLowColor" />
+    <StaticResource x:Key="DataGridColumnHeaderPressedBackgroundColor" ResourceKey="SystemListMediumColor" />
+    <StaticResource x:Key="DataGridColumnHeaderDraggedBackgroundBrush" ResourceKey="SystemControlBackgroundChromeMediumLowBrush" />
+    <StaticResource x:Key="DataGridColumnHeaderPointerOverBrush" ResourceKey="SystemControlHighlightListLowBrush" />
+    <StaticResource x:Key="DataGridColumnHeaderPressedBrush" ResourceKey="SystemControlHighlightListMediumBrush" />
+    <StaticResource x:Key="DataGridDetailsPresenterBackgroundBrush" ResourceKey="SystemControlBackgroundChromeMediumLowBrush" />
+    <StaticResource x:Key="DataGridFillerColumnGridLinesBrush" ResourceKey="DataGridFillerGridLinesBrush" />
+    <StaticResource x:Key="DataGridRowSelectedBackgroundColor" ResourceKey="SystemAccentColor" />
+    <StaticResource x:Key="DataGridRowSelectedBackgroundOpacity" ResourceKey="ListAccentLowOpacity" />
+    <StaticResource x:Key="DataGridRowSelectedHoveredBackgroundColor" ResourceKey="SystemAccentColor" />
+    <StaticResource x:Key="DataGridRowSelectedHoveredBackgroundOpacity" ResourceKey="ListAccentMediumOpacity" />
+    <StaticResource x:Key="DataGridRowSelectedUnfocusedBackgroundColor" ResourceKey="SystemAccentColor" />
+    <StaticResource x:Key="DataGridRowSelectedUnfocusedBackgroundOpacity" ResourceKey="ListAccentLowOpacity" />
+    <StaticResource x:Key="DataGridRowSelectedHoveredUnfocusedBackgroundColor" ResourceKey="SystemAccentColor" />
+    <StaticResource x:Key="DataGridRowSelectedHoveredUnfocusedBackgroundOpacity" ResourceKey="ListAccentMediumOpacity" />
+    <StaticResource x:Key="DataGridRowHeaderForegroundBrush" ResourceKey="SystemControlForegroundBaseMediumBrush" />
+    <StaticResource x:Key="DataGridRowHeaderBackgroundBrush" ResourceKey="SystemControlBackgroundAltHighBrush" />
+    <StaticResource x:Key="DataGridRowGroupHeaderBackgroundBrush" ResourceKey="SystemControlBackgroundChromeMediumBrush" />
+    <StaticResource x:Key="DataGridRowGroupHeaderHoveredBackgroundBrush" ResourceKey="SystemControlBackgroundListLowBrush" />
+    <StaticResource x:Key="DataGridRowGroupHeaderPressedBackgroundBrush" ResourceKey="SystemControlBackgroundListMediumBrush" />
+    <StaticResource x:Key="DataGridRowGroupHeaderForegroundBrush" ResourceKey="SystemControlForegroundBaseHighBrush" />
+    <StaticResource x:Key="DataGridRowInvalidBrush" ResourceKey="SystemErrorTextColor" />
+    <StaticResource x:Key="DataGridCellBackgroundBrush" ResourceKey="SystemControlTransparentBrush" />
+    <StaticResource x:Key="DataGridCellFocusVisualPrimaryBrush" ResourceKey="SystemControlFocusVisualPrimaryBrush" />
+    <StaticResource x:Key="DataGridCellFocusVisualSecondaryBrush" ResourceKey="SystemControlFocusVisualSecondaryBrush" />
+    <StaticResource x:Key="DataGridCellInvalidBrush" ResourceKey="SystemErrorTextColor" />
+
+  </Styles.Resources>
 
   <Style Selector="g|DataGrid">
     <Setter Property="Template">
@@ -21,7 +66,7 @@
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="Height" Value="1" />
     <Setter Property="Margin" Value="0" />
-    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
   <Style Selector="g|DataGrid /template/ Grid#PART_Root > Rectangle:vertical">
@@ -29,7 +74,7 @@
     <Setter Property="VerticalAlignment" Value="Stretch" />
     <Setter Property="Width" Value="1" />
     <Setter Property="Margin" Value="0" />
-    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
   <Style Selector="g|DataGrid /template/ Grid#PART_Root > GridSplitter">
@@ -80,7 +125,7 @@
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="Height" Value="1" />
     <Setter Property="Margin" Value="0" />
-    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
   <Style Selector="p|DataGridColumnHeadersPresenter /template/ Grid#PART_Root > Rectangle:vertical">
@@ -88,14 +133,35 @@
     <Setter Property="VerticalAlignment" Value="Stretch" />
     <Setter Property="Width" Value="1" />
     <Setter Property="Margin" Value="0" />
-    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
 
   <Style Selector="g|DataGridColumnHeader">
+    <Setter Property="Foreground" Value="{DynamicResource DataGridColumnHeaderForegroundBrush}" />
+    <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderBackgroundBrush}" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Button Content="{TemplateBinding Header}" />
+        <Button Name="PART_Button"
+                Background="{TemplateBinding Background}"
+                Foreground="{TemplateBinding Foreground}">
+          <Button.Content>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition MinWidth="32" Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <ContentPresenter Grid.Column="0" Content="{TemplateBinding Header}" />
+              <Path Name="SortIcon"
+                    Grid.Column="1"
+                    Fill="{TemplateBinding Foreground}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stretch="Uniform"
+                    Height="12" />
+            </Grid>
+          </Button.Content>
+        </Button>
       </ControlTemplate>
     </Setter>
   </Style>
@@ -112,11 +178,22 @@
     <Setter Property="CornerRadius" Value="0" />
   </Style>
   <Style Selector="g|DataGridColumnHeader /template/ Button:pointerover">
-    <Setter Property="Background" Value="{DynamicResource SystemListLowColor}" />
+    <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderHoveredBackgroundColor}" />
   </Style>
   <Style Selector="g|DataGridColumnHeader /template/ Button:pressed">
-    <Setter Property="Background" Value="{DynamicResource SystemListMediumColor}" />
+    <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderPressedBackgroundColor}" />
     <Setter Property="RenderTransform" Value="{x:Null}" /> 
+  </Style>
+  <Style Selector="g|DataGridColumnHeader /template/ Path#SortIcon">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  <Style Selector="g|DataGridColumnHeader:sortascending /template/ Path#SortIcon">
+    <Setter Property="IsVisible" Value="True" />
+    <Setter Property="Data" Value="{StaticResource DataGridSortIconAscendingPath}" />
+  </Style>
+  <Style Selector="g|DataGridColumnHeader:sortdescending /template/ Path#SortIcon">
+    <Setter Property="IsVisible" Value="True" />
+    <Setter Property="Data" Value="{StaticResource DataGridSortIconDescendingPath}" />
   </Style>
 
   <Style Selector="p|DataGridCellsPresenter">
@@ -141,7 +218,7 @@
     <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="Height" Value="1" />
-    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
 

@@ -15,7 +15,14 @@ namespace TemplatedDataGrid.Primitives
                 o => o.Columns, 
                 (o, v) => o.Columns = v);
 
+        internal static readonly DirectProperty<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumnHeader>> ColumnHeadersProperty =
+            AvaloniaProperty.RegisterDirect<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumnHeader>>(
+                nameof(ColumnHeaders), 
+                o => o.ColumnHeaders, 
+                (o, v) => o.ColumnHeaders = v);
+
         private AvaloniaList<DataGridColumn>? _columns;
+        private AvaloniaList<DataGridColumnHeader> _columnHeaders = new AvaloniaList<DataGridColumnHeader>();
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
 
@@ -25,6 +32,12 @@ namespace TemplatedDataGrid.Primitives
             set => SetAndRaise(ColumnsProperty, ref _columns, value);
         }
  
+        internal AvaloniaList<DataGridColumnHeader> ColumnHeaders
+        {
+            get => _columnHeaders;
+            set => SetAndRaise(ColumnHeadersProperty, ref _columnHeaders, value);
+        }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -55,6 +68,8 @@ namespace TemplatedDataGrid.Primitives
             {
                 _root.Children.Remove(child);
             }
+
+            _columnHeaders.Clear();
 
             var columns = Columns;
             if (columns is null)
@@ -115,8 +130,11 @@ namespace TemplatedDataGrid.Primitives
                 {
                     [Grid.RowProperty] = 0,
                     [Grid.ColumnProperty] = columnDefinitions.Count - 1,
-                    [!DataGridColumnHeader.HeaderProperty] = column[!DataGridColumn.HeaderProperty]
+                    [!DataGridColumnHeader.HeaderProperty] = column[!DataGridColumn.HeaderProperty],
+                    [!DataGridColumnHeader.ColumnHeadersProperty] = this[!DataGridColumnHeadersPresenter.ColumnHeadersProperty],
+                    [DataGridColumnHeader.ColumnProperty] = column
                 };
+                _columnHeaders.Add(columnHeader);
                 _rootChildren.Add(columnHeader);
  
                 if (i < columns.Count - 1)
