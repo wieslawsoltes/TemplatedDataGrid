@@ -102,7 +102,6 @@ namespace TemplatedDataGrid.Primitives
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = templateColumn[!DataGridColumn.CellTemplateProperty]
                     };
-                    _rootChildren.Add(cell);
                 }
                 else if (column is DataGridTextColumn textColumn)
                 {
@@ -112,7 +111,6 @@ namespace TemplatedDataGrid.Primitives
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = textColumn[!DataGridColumn.CellTemplateProperty]
                     };
-                    _rootChildren.Add(cell);
                 }
                 else if (column is DataGridCheckBoxColumn checkBoxColumn)
                 {
@@ -122,7 +120,6 @@ namespace TemplatedDataGrid.Primitives
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = checkBoxColumn[!DataGridColumn.CellTemplateProperty]
                     };
-                    _rootChildren.Add(cell);
                 }
                 else
                 {
@@ -132,7 +129,6 @@ namespace TemplatedDataGrid.Primitives
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = column[!DataGridColumn.CellTemplateProperty]
                     };
-                    _rootChildren.Add(cell);
                 }
 
                 _rootChildren.Add(cell);
