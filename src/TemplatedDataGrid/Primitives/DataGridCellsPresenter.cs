@@ -64,6 +64,7 @@ namespace TemplatedDataGrid.Primitives
             // Generate ColumnDefinitions
 
             var columnDefinitions = new List<ColumnDefinition>();
+            var isSharedSizeScope = false;
 
             for (var i = 0; i < columns.Count; i++)
             {
@@ -80,6 +81,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     columnDefinition.Width = column.Width;
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
+                    isSharedSizeScope = true;
                 }
                 else
                 {
@@ -90,9 +92,11 @@ namespace TemplatedDataGrid.Primitives
 
                 // Generate DataGridCell's
 
+                DataGridCell cell;
+
                 if (column is DataGridTemplateColumn templateColumn)
                 {
-                    var cell = new DataGridCell()
+                    cell = new DataGridCell()
                     {
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
@@ -102,7 +106,7 @@ namespace TemplatedDataGrid.Primitives
                 }
                 else if (column is DataGridTextColumn textColumn)
                 {
-                    var cell = new DataGridCell()
+                    cell = new DataGridCell()
                     {
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
@@ -112,7 +116,7 @@ namespace TemplatedDataGrid.Primitives
                 }
                 else if (column is DataGridCheckBoxColumn checkBoxColumn)
                 {
-                    var cell = new DataGridCell()
+                    cell = new DataGridCell()
                     {
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
@@ -122,7 +126,7 @@ namespace TemplatedDataGrid.Primitives
                 }
                 else
                 {
-                    var cell = new DataGridCell()
+                    cell = new DataGridCell()
                     {
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
@@ -130,6 +134,8 @@ namespace TemplatedDataGrid.Primitives
                     };
                     _rootChildren.Add(cell);
                 }
+
+                _rootChildren.Add(cell);
 
                 if (i < columns.Count - 1)
                 {
