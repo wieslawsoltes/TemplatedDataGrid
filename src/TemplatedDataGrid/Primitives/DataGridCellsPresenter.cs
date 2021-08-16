@@ -149,11 +149,13 @@ namespace TemplatedDataGrid.Primitives
                 _cells.Add(cell);
                 _rootChildren.Add(cell);
 
-                if (i < columns.Count - 1)
+                if (i < columns.Count)
                 {
                     columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
                 }
             }
+
+            columnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
 
             _root.ColumnDefinitions.Clear();
             _root.ColumnDefinitions.AddRange(columnDefinitions);

@@ -125,12 +125,14 @@ namespace TemplatedDataGrid.Primitives
                 _columnHeaders.Add(columnHeader);
                 _rootChildren.Add(columnHeader);
  
-                if (i < columns.Count - 1)
+                if (i < columns.Count)
                 {
                     columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
                     splitterColumnIndexes.Add(columnDefinitions.Count - 1);
                 }
             }
+
+            columnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
 
             // Generate Vertical Grid Lines
 

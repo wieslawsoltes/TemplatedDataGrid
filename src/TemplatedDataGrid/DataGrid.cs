@@ -183,12 +183,14 @@ namespace TemplatedDataGrid
 
                 columnDefinitions.Add(columnDefinition);
 
-                if (i < columns.Count - 1)
+                if (i < columns.Count)
                 {
                     columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
                     splitterColumnIndexes.Add(columnDefinitions.Count - 1);
                 }
             }
+
+            columnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
 
             Grid.SetIsSharedSizeScope(_panel, isSharedSizeScope);
 
