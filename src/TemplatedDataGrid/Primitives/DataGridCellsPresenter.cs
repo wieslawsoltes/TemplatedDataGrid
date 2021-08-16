@@ -14,7 +14,14 @@ namespace TemplatedDataGrid.Primitives
                 o => o.Columns, 
                 (o, v) => o.Columns = v);
 
+        internal static readonly DirectProperty<DataGridCellsPresenter, AvaloniaList<DataGridCell>> CellsProperty =
+            AvaloniaProperty.RegisterDirect<DataGridCellsPresenter, AvaloniaList<DataGridCell>>(
+                nameof(Cells), 
+                o => o.Cells, 
+                (o, v) => o.Cells = v);
+
         private AvaloniaList<DataGridColumn>? _columns;
+        private AvaloniaList<DataGridCell> _cells = new AvaloniaList<DataGridCell>();
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
 
@@ -22,6 +29,12 @@ namespace TemplatedDataGrid.Primitives
         {
             get => _columns;
             set => SetAndRaise(ColumnsProperty, ref _columns, value);
+        }
+
+        internal AvaloniaList<DataGridCell> Cells
+        {
+            get => _cells;
+            set => SetAndRaise(CellsProperty, ref _cells, value);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
@@ -54,6 +67,8 @@ namespace TemplatedDataGrid.Primitives
             {
                 _root.Children.Remove(child);
             }
+
+            _cells.Clear();
 
             var columns = Columns;
             if (columns is null)
@@ -131,6 +146,7 @@ namespace TemplatedDataGrid.Primitives
                     };
                 }
 
+                _cells.Add(cell);
                 _rootChildren.Add(cell);
 
                 if (i < columns.Count - 1)
