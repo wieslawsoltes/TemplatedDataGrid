@@ -82,7 +82,6 @@ namespace TemplatedDataGrid.Primitives
             var rowDefinitions = new List<RowDefinition>();
 
             rowDefinitions.Add(new RowDefinition(GridLength.Auto));
-            rowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Pixel)));
 
             // Generate ColumnDefinitions
 
@@ -128,21 +127,10 @@ namespace TemplatedDataGrid.Primitives
  
                 if (i < columns.Count - 1)
                 {
-                    columnDefinitions.Add(new ColumnDefinition(new GridLength(0, GridUnitType.Pixel)));
+                    columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
                     splitterColumnIndexes.Add(columnDefinitions.Count - 1);
                 }
             }
-
-            // Generate Horizontal Grid Lines
-
-            var horizontalColumnsGridLine = new Rectangle()
-            {
-                [Grid.RowProperty] = 1,
-                [Grid.ColumnProperty] = 0,
-                [Grid.ColumnSpanProperty] = columns.Count + (columns.Count - 1)
-            };
-            ((IPseudoClasses)horizontalColumnsGridLine.Classes).Add(":horizontal");
-            _rootChildren.Add(horizontalColumnsGridLine);
 
             // Generate Vertical Grid Lines
 

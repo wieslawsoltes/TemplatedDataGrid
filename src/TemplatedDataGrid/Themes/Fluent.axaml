@@ -54,6 +54,8 @@
         <Panel Name="PART_Panel">
           <DockPanel>
             <p:DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" DockPanel.Dock="Top"/>
+            <Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
+                       DockPanel.Dock="Top" />
             <p:DataGridRowsPresenter Name="PART_RowsPresenter"/>
           </DockPanel>
           <Grid Name="PART_Root"/>
@@ -61,7 +63,7 @@
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="g|DataGrid /template/ Grid#PART_Root > Rectangle:horizontal">
+  <Style Selector="g|DataGrid /template/ Rectangle#PART_ColumnHeadersAndRowsSeparator">
     <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="Height" Value="1" />
