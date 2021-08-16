@@ -40,11 +40,11 @@ namespace TemplatedDataGrid
             AvaloniaProperty.Register<DataGrid, bool>(nameof(AutoGenerateColumns));
 
         private AvaloniaList<DataGridColumn> _columns;
+        private Panel? _panel;
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
         private DataGridColumnHeadersPresenter? _columnHeadersPresenter;
         private DataGridRowsPresenter? _rowsPresenter;
-        private Panel _panel;
 
         public DataGrid()
         {
