@@ -64,6 +64,7 @@ namespace TemplatedDataGrid.Primitives
             // Generate ColumnDefinitions
 
             var columnDefinitions = new List<ColumnDefinition>();
+            var isSharedSizeScope = false;
 
             for (var i = 0; i < columns.Count; i++)
             {
@@ -80,6 +81,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     columnDefinition.Width = column.Width;
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
+                    isSharedSizeScope = true;
                 }
                 else
                 {
