@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Shapes;
 
 namespace TemplatedDataGrid.Primitives
 {
@@ -60,10 +61,29 @@ namespace TemplatedDataGrid.Primitives
             {
                 return;
             }
- 
+
+            //  Generate RowDefinitions
+
+            var rowDefinitions = new List<RowDefinition>();
+
+            rowDefinitions.Add(new RowDefinition(GridLength.Auto));
+            rowDefinitions.Add(new RowDefinition(new GridLength(0, GridUnitType.Pixel)));
+
+            // Generate Horizontal Grid Lines
+
+            var horizontalColumnsGridLine = new Rectangle()
+            {
+                [Grid.RowProperty] = 1,
+                [Grid.ColumnProperty] = 0,
+                [Grid.ColumnSpanProperty] = columns.Count + (columns.Count - 1)
+            };
+            ((IPseudoClasses)horizontalColumnsGridLine.Classes).Add(":horizontal");
+            _rootChildren.Add(horizontalColumnsGridLine);
+
             // Generate ColumnDefinitions
 
             var columnDefinitions = new List<ColumnDefinition>();
+            var splitterColumnIndexes = new List<int>();
             var isSharedSizeScope = false;
 
             for (var i = 0; i < columns.Count; i++)
@@ -93,6 +113,7 @@ namespace TemplatedDataGrid.Primitives
                 // Generate DataGridColumnHeader's
                 var columnHeader = new DataGridColumnHeader()
                 {
+                    [Grid.RowProperty] = 0,
                     [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                     [!DataGridColumnHeader.HeaderProperty] = column[!DataGridColumn.HeaderProperty]
                 };
@@ -101,8 +122,26 @@ namespace TemplatedDataGrid.Primitives
                 if (i < columns.Count - 1)
                 {
                     columnDefinitions.Add(new ColumnDefinition(new GridLength(0, GridUnitType.Pixel)));
+                    splitterColumnIndexes.Add(columnDefinitions.Count - 1);
                 }
             }
+
+            // Generate Vertical Grid Lines
+
+            foreach (var columnIndex in splitterColumnIndexes)
+            {
+                var verticalColumnGridLine = new Rectangle()
+                {
+                    [Grid.RowProperty] = 0,
+                    [Grid.RowSpanProperty] = 1,
+                    [Grid.ColumnProperty] = columnIndex
+                };
+                ((IPseudoClasses)verticalColumnGridLine.Classes).Add(":vertical");
+                _rootChildren.Add(verticalColumnGridLine);
+            }
+
+            _root.RowDefinitions.Clear();
+            _root.RowDefinitions.AddRange(rowDefinitions);
 
             _root.ColumnDefinitions.Clear();
             _root.ColumnDefinitions.AddRange(columnDefinitions);

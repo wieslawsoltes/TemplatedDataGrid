@@ -55,29 +55,29 @@
                 CanUserResizeColumns="True"
                 GridLinesVisibility="All">
       <g:DataGrid.Columns>
-        <g:DataGridTemplateColumn Header="Column1" Width="3*" MinWidth="150">
+        <g:DataGridTemplateColumn Header="Column1" Width="Auto" MinWidth="150">
           <g:DataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column1}" />
             </DataTemplate>
           </g:DataGridTemplateColumn.CellTemplate>
         </g:DataGridTemplateColumn>
-        <g:DataGridTemplateColumn Header="Column2" Width="3*" MinWidth="200">
+        <g:DataGridTemplateColumn Header="Column2" Width="*" MinWidth="200">
           <g:DataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column2}" />
             </DataTemplate>
           </g:DataGridTemplateColumn.CellTemplate>
         </g:DataGridTemplateColumn>
-        <g:DataGridTemplateColumn Header="Column3" Width="3*" MinWidth="100">
+        <g:DataGridTemplateColumn Header="Column3" Width="Auto" MinWidth="100">
           <g:DataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column3}" />
             </DataTemplate>
           </g:DataGridTemplateColumn.CellTemplate>
         </g:DataGridTemplateColumn>
-        <g:DataGridCheckBoxColumn Header="Column4" Width="1*" MinWidth="70" Binding="{Binding Column4}" x:DataType="vm:ItemViewModel"/>
-        <g:DataGridTextColumn Header="Column5" Width="1*" MinWidth="120" Binding="{Binding Column5}" x:DataType="vm:ItemViewModel"/>
+        <g:DataGridCheckBoxColumn Header="Column4" Width="Auto" MinWidth="70" Binding="{Binding Column4}" x:DataType="vm:ItemViewModel"/>
+        <g:DataGridTextColumn Header="Column5" Width="Auto" MinWidth="120" Binding="{Binding Column5}" x:DataType="vm:ItemViewModel"/>
       </g:DataGrid.Columns>
     </g:DataGrid>
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using Avalonia;
@@ -43,6 +44,7 @@ namespace TemplatedDataGrid
         private readonly List<Control> _rootChildren = new List<Control>();
         private DataGridColumnHeadersPresenter? _columnHeadersPresenter;
         private DataGridRowsPresenter? _rowsPresenter;
+        private Panel _panel;
 
         public DataGrid()
         {
@@ -101,6 +103,7 @@ namespace TemplatedDataGrid
         {
             base.OnApplyTemplate(e);
 
+            _panel = e.NameScope.Find<Panel>("PART_Panel");
             _root = e.NameScope.Find<Grid>("PART_Root");
             _columnHeadersPresenter = e.NameScope.Find<DataGridColumnHeadersPresenter>("PART_ColumnHeadersPresenter");
             _rowsPresenter = e.NameScope.Find<DataGridRowsPresenter>("PART_RowsPresenter");
@@ -129,7 +132,7 @@ namespace TemplatedDataGrid
 
         private void InvalidateRoot()
         {
-            if (_root is null)
+            if (_root is null || _panel is null)
             {
                 return;
             }
@@ -149,8 +152,6 @@ namespace TemplatedDataGrid
 
             var rowDefinitions = new List<RowDefinition>();
 
-            rowDefinitions.Add(new RowDefinition(GridLength.Auto));
-            rowDefinitions.Add(new RowDefinition(new GridLength(0, GridUnitType.Pixel)));
             rowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
 
             // Generate ColumnDefinitions
@@ -190,7 +191,7 @@ namespace TemplatedDataGrid
                 }
             }
 
-            Grid.SetIsSharedSizeScope(_root, isSharedSizeScope);
+            Grid.SetIsSharedSizeScope(_panel, isSharedSizeScope);
 
             _root.RowDefinitions.Clear();
             _root.RowDefinitions.AddRange(rowDefinitions);
@@ -198,31 +199,11 @@ namespace TemplatedDataGrid
             _root.ColumnDefinitions.Clear();
             _root.ColumnDefinitions.AddRange(columnDefinitions);
 
-            // Generate Horizontal Grid Lines
-
-            var horizontalColumnsGridLine = new Rectangle()
-            {
-                [Grid.RowProperty] = 1,
-                [Grid.ColumnProperty] = 0,
-                [Grid.ColumnSpanProperty] = columns.Count + (columns.Count - 1)
-            };
-            ((IPseudoClasses)horizontalColumnsGridLine.Classes).Add(":horizontal");
-            _rootChildren.Add(horizontalColumnsGridLine);
-
             // Generate Vertical Grid Lines
             // Generate GridSplitter's
 
             foreach (var columnIndex in splitterColumnIndexes)
             {
-                var verticalColumnGridLine = new Rectangle()
-                {
-                    [Grid.RowProperty] = 0,
-                    [Grid.RowSpanProperty] = 1,
-                    [Grid.ColumnProperty] = columnIndex
-                };
-                ((IPseudoClasses)verticalColumnGridLine.Classes).Add(":vertical");
-                _rootChildren.Add(verticalColumnGridLine);
-
                 var verticalRowGridLine = new Rectangle()
                 {
                     [Grid.RowProperty] = 1,

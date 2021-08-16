@@ -6,10 +6,13 @@
   <Style Selector="g|DataGrid">
     <Setter Property="Template">
       <ControlTemplate>
-        <Grid Name="PART_Root">
-          <p:DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"/>
-          <p:DataGridRowsPresenter Name="PART_RowsPresenter"/>
-        </Grid>
+        <Panel Name="PART_Panel">
+          <DockPanel>
+            <p:DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" DockPanel.Dock="Top"/>
+            <p:DataGridRowsPresenter Name="PART_RowsPresenter"/>
+          </DockPanel>
+          <Grid Name="PART_Root"/>
+        </Panel>
       </ControlTemplate>
     </Setter>
   </Style>
@@ -71,6 +74,22 @@
         <Grid Name="PART_Root" />
       </ControlTemplate>
     </Setter>
+  </Style>
+  <Style Selector="p|DataGridColumnHeadersPresenter /template/ Grid#PART_Root > Rectangle:horizontal">
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Height" Value="1" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Opacity" Value="0.4" />
+  </Style>
+  <Style Selector="p|DataGridColumnHeadersPresenter /template/ Grid#PART_Root > Rectangle:vertical">
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Width" Value="1" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="Fill" Value="{DynamicResource SystemBaseMediumLowColor}" />
+    <Setter Property="Opacity" Value="0.4" />
   </Style>
 
   <Style Selector="g|DataGridColumnHeader">
