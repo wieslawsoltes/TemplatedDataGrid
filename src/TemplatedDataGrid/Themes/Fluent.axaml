@@ -144,49 +144,37 @@
   <Style Selector="g|DataGridColumnHeader">
     <Setter Property="Foreground" Value="{DynamicResource DataGridColumnHeaderForegroundBrush}" />
     <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderBackgroundBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Button Name="PART_Button"
-                Background="{TemplateBinding Background}"
-                Foreground="{TemplateBinding Foreground}">
-          <Button.Content>
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition MinWidth="32" Width="Auto" />
-              </Grid.ColumnDefinitions>
-              <ContentPresenter Grid.Column="0" Content="{TemplateBinding Header}" />
-              <Path Name="SortIcon"
-                    Grid.Column="1"
-                    Fill="{TemplateBinding Foreground}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Stretch="Uniform"
-                    Height="12" />
-            </Grid>
-          </Button.Content>
-        </Button>
+        <Grid Name="PART_ColumnHeaderRoot" 
+              Background="{TemplateBinding Background}">
+          <Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                Margin="{TemplateBinding Padding}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition MinWidth="32" Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ContentPresenter Grid.Column="0" Content="{TemplateBinding Header}" />
+            <Path Name="SortIcon"
+                  Grid.Column="1"
+                  Fill="{TemplateBinding Foreground}"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Stretch="Uniform"
+                  Height="12" />
+          </Grid>
+          </Grid>
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="g|DataGridColumnHeader /template/ Button">
-    <Setter Property="HorizontalAlignment" Value="Stretch" />
-    <Setter Property="VerticalAlignment" Value="Stretch" />
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="Padding" Value="{TemplateBinding Padding}" />
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="RenderTransform" Value="{x:Null}" />
-    <Setter Property="Transitions" Value="{x:Null}" />
-  </Style>
-  <Style Selector="g|DataGridColumnHeader /template/ Button /template/ ContentPresenter#PART_ContentPresenter">
-    <Setter Property="CornerRadius" Value="0" />
-  </Style>
-  <Style Selector="g|DataGridColumnHeader /template/ Button:pointerover">
+  <Style Selector="g|DataGridColumnHeader:pointerover /template/ Grid#PART_ColumnHeaderRoot">
     <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderHoveredBackgroundColor}" />
   </Style>
-  <Style Selector="g|DataGridColumnHeader /template/ Button:pressed">
+  <Style Selector="g|DataGridColumnHeader:pressed /template/ Grid#PART_ColumnHeaderRoot">
     <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderPressedBackgroundColor}" />
-    <Setter Property="RenderTransform" Value="{x:Null}" /> 
   </Style>
   <Style Selector="g|DataGridColumnHeader /template/ Path#SortIcon">
     <Setter Property="IsVisible" Value="False" />
