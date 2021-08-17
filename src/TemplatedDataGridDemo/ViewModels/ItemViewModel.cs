@@ -47,5 +47,15 @@ namespace TemplatedDataGridDemo.ViewModels
             get => _margin;
             set => this.RaiseAndSetIfChanged(ref _margin, value);
         }
+
+        public ItemViewModel(string? column1, string? column2, string? column3, bool? column4, string? column5, Thickness margin)
+        {
+            _column1 = column1;
+            _column2 = column2;
+            _column3 = column3;
+            _column4 = column4;
+            _column5 = column5;
+            _margin = margin;
+        }
     }
 }

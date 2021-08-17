@@ -20,7 +20,7 @@ namespace TemplatedDataGridDemo.ViewModels
         {
             _items = new ObservableCollection<ItemViewModel>();
 
-            int totalItems = 100_000;
+            int totalItems = 10_000_000;
             bool enableRandom = false;
             int randomSize = 100;
 
@@ -29,15 +29,13 @@ namespace TemplatedDataGridDemo.ViewModels
 
             for (var i = 0; i < totalItems; i++)
             {
-                var item = new ItemViewModel()
-                {
-                    Column1 = $"Template1 {i}-1",
-                    Column2 = $"Template2 {i}-2",
-                    Column3 = $"Template3 {i}-3",
-                    Column4 = rand.NextDouble() > 0.5,
-                    Column5 = $"Text {i}-5",
-                    Margin = enableRandom ? new Thickness(0, rand.NextDouble() * randomSize, 0, rand.NextDouble() * randomSize) : new Thickness(0)
-                };
+                var item = new ItemViewModel(
+                    $"Template1 {i}-1",
+                    $"Template2 {i}-2",
+                    $"Template3 {i}-3",
+                    rand.NextDouble() > 0.5,
+                    $"Text {i}-5",
+                    enableRandom ? new Thickness(0, rand.NextDouble() * randomSize, 0, rand.NextDouble() * randomSize) : new Thickness(0));
 
                 items.Add(item);
             }
