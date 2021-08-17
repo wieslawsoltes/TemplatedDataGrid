@@ -5,6 +5,8 @@
     <IsPackable>True</IsPackable>
     <Nullable>enable</Nullable>
     <RootNamespace>TemplatedDataGrid</RootNamespace>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup>
     <AnalysisLevel>latest</AnalysisLevel>
