@@ -33,7 +33,6 @@ namespace TemplatedDataGrid
 
         private AvaloniaList<DataGridColumnHeader>? _columnHeaders;
         private DataGridColumn? _column;
-        private Grid? _columnHeaderRoot;
 
         public DataGridColumnHeader()
         {
