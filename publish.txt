@@ -1,4 +1,6 @@
 
 dotnet publish -c Release -r win7-x64 -f net5.0 -o ./artifacts/TemplatedDataGridDemo-win7-x64 .\src\TemplatedDataGridDemo\TemplatedDataGridDemo.csproj
 
+dotnet publish -c Release -r win7-x64 /p:Platform="x64" -f net5.0 -o ./artifacts/TemplatedDataGridDemo-win7-x64 .\src\TemplatedDataGridDemo\TemplatedDataGridDemo.csproj
+
 dotnet pack -c Release -o ./artifacts/NuGet .\src\TemplatedDataGrid\TemplatedDataGrid.csproj
