@@ -197,7 +197,6 @@ namespace TemplatedDataGrid
             _root.ColumnDefinitions.AddRange(columnDefinitions);
 
             // Generate Vertical Grid Lines
-            // Generate GridSplitter's
 
             foreach (var columnIndex in splitterColumnIndexes)
             {
@@ -210,15 +209,6 @@ namespace TemplatedDataGrid
                 };
                 ((IPseudoClasses)verticalRowGridLine.Classes).Add(":vertical");
                 _rootChildren.Add(verticalRowGridLine);
-
-                var verticalGridSplitter = new GridSplitter()
-                {
-                    [Grid.RowProperty] = 0,
-                    [Grid.RowSpanProperty] = 3,
-                    [Grid.ColumnProperty] = columnIndex,
-                    [!GridSplitter.IsEnabledProperty] = this[!DataGrid.CanUserResizeColumnsProperty]
-                };
-                _rootChildren.Add(verticalGridSplitter);
             }
 
             if (_columnHeadersPresenter is { })
