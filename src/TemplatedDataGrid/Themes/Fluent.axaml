@@ -166,7 +166,7 @@
                   Stretch="Uniform"
                   Height="12" />
           </Grid>
-          </Grid>
+        </Grid>
       </ControlTemplate>
     </Setter>
   </Style>
