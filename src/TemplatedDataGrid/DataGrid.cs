@@ -247,6 +247,8 @@ namespace TemplatedDataGrid
             {
                 _columnHeadersPresenter[!DataGridColumnHeadersPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
                 _columnHeadersPresenter[!DataGridColumnHeadersPresenter.ScrollProperty] = _rowsPresenter[!DataGridRowsPresenter.ScrollProperty];
+                _columnHeadersPresenter[!DataGridColumnHeadersPresenter.CanUserSortColumnsProperty] = this[!DataGrid.CanUserSortColumnsProperty];
+                _columnHeadersPresenter[!DataGridColumnHeadersPresenter.CanUserResizeColumnsProperty] = this[!DataGrid.CanUserResizeColumnsProperty];
             }
         }
 

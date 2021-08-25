@@ -27,6 +27,12 @@ namespace TemplatedDataGrid.Primitives
                 o => o.ColumnHeaders, 
                 (o, v) => o.ColumnHeaders = v);
 
+        internal static readonly StyledProperty<bool> CanUserSortColumnsProperty = 
+            AvaloniaProperty.Register<DataGridColumnHeadersPresenter, bool>(nameof(CanUserSortColumns));
+
+        internal static readonly StyledProperty<bool> CanUserResizeColumnsProperty = 
+            AvaloniaProperty.Register<DataGridColumnHeadersPresenter, bool>(nameof(CanUserResizeColumns));
+
         private IScrollable? _scroll;
         private AvaloniaList<DataGridColumn>? _columns;
         private AvaloniaList<DataGridColumnHeader> _columnHeaders = new AvaloniaList<DataGridColumnHeader>();
@@ -49,6 +55,18 @@ namespace TemplatedDataGrid.Primitives
         {
             get => _columnHeaders;
             set => SetAndRaise(ColumnHeadersProperty, ref _columnHeaders, value);
+        }
+
+        internal bool CanUserSortColumns
+        {
+            get => GetValue(CanUserSortColumnsProperty);
+            set => SetValue(CanUserSortColumnsProperty, value);
+        }
+        
+        internal bool CanUserResizeColumns
+        {
+            get => GetValue(CanUserResizeColumnsProperty);
+            set => SetValue(CanUserResizeColumnsProperty, value);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
