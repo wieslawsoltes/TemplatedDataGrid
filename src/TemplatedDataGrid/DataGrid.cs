@@ -205,6 +205,7 @@ namespace TemplatedDataGrid
                     [Grid.RowProperty] = 1,
                     [Grid.RowSpanProperty] = 2,
                     [Grid.ColumnProperty] = columnIndex,
+                    [Rectangle.IsHitTestVisibleProperty] = false,
                     [!Rectangle.IsVisibleProperty] = isVerticalGridLineVisible.ToBinding()
                 };
                 ((IPseudoClasses)verticalRowGridLine.Classes).Add(":vertical");
