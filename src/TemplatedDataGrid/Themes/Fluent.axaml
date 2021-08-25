@@ -79,15 +79,6 @@
     <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
-  <Style Selector="g|DataGrid /template/ Grid#PART_Root > GridSplitter">
-    <Setter Property="Width" Value="7" />
-    <Setter Property="MinWidth" Value="7" />
-    <Setter Property="ResizeBehavior" Value="PreviousAndNext" />
-    <Setter Property="ResizeDirection" Value="Columns" />
-    <Setter Property="HorizontalAlignment" Value="Center" />
-    <Setter Property="VerticalAlignment" Value="Stretch" />
-    <Setter Property="Background" Value="Transparent" />
-  </Style>
 
   <Style Selector="p|DataGridRowsPresenter">
     <Setter Property="Template">
@@ -139,6 +130,15 @@
     <Setter Property="Margin" Value="0" />
     <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
+  </Style>
+  <Style Selector="p|DataGridColumnHeadersPresenter /template/ Grid#PART_Root > GridSplitter">
+    <Setter Property="Width" Value="7" />
+    <Setter Property="MinWidth" Value="7" />
+    <Setter Property="ResizeBehavior" Value="PreviousAndNext" />
+    <Setter Property="ResizeDirection" Value="Columns" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="Background" Value="Transparent" />
   </Style>
 
   <Style Selector="g|DataGridColumnHeader">
