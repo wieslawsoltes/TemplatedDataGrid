@@ -243,9 +243,10 @@ namespace TemplatedDataGrid
 
         private void InvalidateColumnHeadersPresenter()
         {
-            if (_columnHeadersPresenter is { })
+            if (_columnHeadersPresenter is { } && _rowsPresenter is { })
             {
                 _columnHeadersPresenter[!DataGridColumnHeadersPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
+                _columnHeadersPresenter[!DataGridColumnHeadersPresenter.ScrollProperty] = _rowsPresenter[!DataGridRowsPresenter.ScrollProperty];
             }
         }
 

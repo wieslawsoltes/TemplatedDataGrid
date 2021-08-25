@@ -9,6 +9,12 @@ namespace TemplatedDataGrid.Primitives
 {
     public class DataGridColumnHeadersPresenter : TemplatedControl
     {
+        internal static readonly DirectProperty<DataGridColumnHeadersPresenter, IScrollable?> ScrollProperty =
+            AvaloniaProperty.RegisterDirect<DataGridColumnHeadersPresenter, IScrollable?>(
+                nameof(Scroll), 
+                o => o.Scroll, 
+                (o, v) => o.Scroll = v);
+        
         internal static readonly DirectProperty<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumn>?> ColumnsProperty =
             AvaloniaProperty.RegisterDirect<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumn>?>(
                 nameof(Columns), 
@@ -21,10 +27,17 @@ namespace TemplatedDataGrid.Primitives
                 o => o.ColumnHeaders, 
                 (o, v) => o.ColumnHeaders = v);
 
+        private IScrollable? _scroll;
         private AvaloniaList<DataGridColumn>? _columns;
         private AvaloniaList<DataGridColumnHeader> _columnHeaders = new AvaloniaList<DataGridColumnHeader>();
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
+
+        internal IScrollable? Scroll
+        {
+            get => _scroll;
+            set => SetAndRaise(ScrollProperty, ref _scroll, value);
+        }
 
         internal AvaloniaList<DataGridColumn>? Columns
         {
@@ -54,6 +67,35 @@ namespace TemplatedDataGrid.Primitives
             if (change.Property == ColumnsProperty)
             {
                 InvalidateRoot();
+            }
+
+            if (change.Property == ScrollProperty)
+            {
+                var oldScroll = change.OldValue.GetValueOrDefault<IScrollable?>();
+                if (oldScroll is { })
+                {
+                    if (oldScroll is ScrollViewer scrollViewer)
+                    {
+                        scrollViewer.ScrollChanged -= ScrollViewer_OnScrollChanged;
+                    }
+                }
+
+                var newScroll = change.NewValue.GetValueOrDefault<IScrollable?>();
+                if (newScroll is { })
+                {
+                    if (newScroll is ScrollViewer scrollViewer)
+                    {
+                        scrollViewer.ScrollChanged += ScrollViewer_OnScrollChanged;
+                    }
+                }
+            }
+        }
+
+        private void ScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (Scroll is { })
+            {
+                Margin = new Thickness(-Scroll.Offset.X, 0, 0, 0);
             }
         }
 

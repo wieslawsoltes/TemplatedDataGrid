@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Avalonia;
 using Avalonia.Collections;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 
@@ -17,6 +18,12 @@ namespace TemplatedDataGrid.Primitives
         public static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
 
+        internal static readonly DirectProperty<DataGridRowsPresenter, IScrollable?> ScrollProperty =
+            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, IScrollable?>(
+                nameof(Scroll), 
+                o => o.Scroll, 
+                (o, v) => o.Scroll = v);
+
         internal static readonly DirectProperty<DataGridRowsPresenter, AvaloniaList<DataGridColumn>?> ColumnsProperty =
             AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, AvaloniaList<DataGridColumn>?>(
                 nameof(Columns), 
@@ -32,8 +39,10 @@ namespace TemplatedDataGrid.Primitives
         internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
+        private IScrollable? _scroll;
         private AvaloniaList<DataGridColumn>? _columns;
         private AvaloniaList<DataGridRow> _rows = new AvaloniaList<DataGridRow>();
+        private ListBox? _listBox;
 
         public IDataTemplate ItemTemplate
         {
@@ -51,6 +60,12 @@ namespace TemplatedDataGrid.Primitives
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
+        }
+
+        internal IScrollable? Scroll
+        {
+            get => _scroll;
+            set => SetAndRaise(ScrollProperty, ref _scroll, value);
         }
 
         internal AvaloniaList<DataGridColumn>? Columns
@@ -74,6 +89,13 @@ namespace TemplatedDataGrid.Primitives
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
+
+            _listBox = e.NameScope.Find<ListBox>("PART_ListBox");
+
+            if (_listBox is { })
+            {
+                this[!ScrollProperty] = _listBox[!ListBox.ScrollProperty];
+            }
 
             InvalidateItemTemplate();
         }
