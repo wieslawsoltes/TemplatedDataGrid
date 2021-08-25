@@ -91,7 +91,7 @@ namespace TemplatedDataGrid.Primitives
             }
         }
 
-        private void ScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        private void ScrollViewer_OnScrollChanged(object? sender, ScrollChangedEventArgs e)
         {
             if (Scroll is { })
             {
