@@ -197,7 +197,8 @@ namespace TemplatedDataGrid.Primitives
                 {
                     [Grid.RowProperty] = 0,
                     [Grid.RowSpanProperty] = 1,
-                    [Grid.ColumnProperty] = columnIndex
+                    [Grid.ColumnProperty] = columnIndex,
+                    [Rectangle.IsHitTestVisibleProperty] = false
                 };
                 ((IPseudoClasses)verticalColumnGridLine.Classes).Add(":vertical");
                 _rootChildren.Add(verticalColumnGridLine);
