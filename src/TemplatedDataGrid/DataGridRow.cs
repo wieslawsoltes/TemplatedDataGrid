@@ -67,6 +67,11 @@ namespace TemplatedDataGrid
         {
             base.OnPropertyChanged(change);
 
+            if (change.Property == DataContextProperty)
+            {
+                UpdatePseudoClassesSelectedItem(SelectedItem);
+            }
+
             if (change.Property == SelectedItemProperty)
             {
                 UpdatePseudoClassesSelectedItem(change.NewValue.GetValueOrDefault<object?>());
