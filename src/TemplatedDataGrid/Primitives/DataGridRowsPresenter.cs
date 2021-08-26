@@ -95,6 +95,7 @@ namespace TemplatedDataGrid.Primitives
             if (_listBox is { })
             {
                 this[!ScrollProperty] = _listBox[!ListBox.ScrollProperty];
+                this[!!SelectedItemProperty] = _listBox[!!SelectingItemsControl.SelectedItemProperty];
             }
 
             InvalidateItemTemplate();
@@ -103,6 +104,11 @@ namespace TemplatedDataGrid.Primitives
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
         {
             base.OnPropertyChanged(change);
+
+            if (change.Property == SelectedItemProperty)
+            {
+                // TODO:
+            }
 
             if (change.Property == ColumnsProperty)
             {
@@ -120,6 +126,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     var row = new DataGridRow()
                     {
+                        [!DataGridRow.SelectedItemProperty] = this[!DataGridRowsPresenter.SelectedItemProperty],
                         [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty],
                         [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]
                     };

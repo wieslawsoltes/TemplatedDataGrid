@@ -85,7 +85,6 @@
       <ControlTemplate>
         <ListBox Name="PART_ListBox" 
                  Items="{TemplateBinding Items}" 
-                 SelectedItem="{TemplateBinding SelectedItem}"
                  ItemTemplate="{TemplateBinding ItemTemplate}"/>
       </ControlTemplate>
     </Setter>
@@ -106,6 +105,24 @@
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     <Setter Property="Margin" Value="0"/>
     <Setter Property="Padding" Value="0"/>
+  </Style>
+  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected:not(:focus) /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
   </Style>
 
   <Style Selector="p|DataGridColumnHeadersPresenter">
@@ -200,6 +217,7 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Grid Name="PART_Root" RowDefinitions="*,Auto">
+          <Rectangle Grid.Row="0" Name="BackgroundRectangle" />
           <p:DataGridCellsPresenter Grid.Row="0" Name="PART_CellsPresenter"/>
           <Rectangle Grid.Row="1" Name="PART_BottomGridLine"/>
         </Grid>
@@ -213,7 +231,30 @@
     <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
-
+  <Style Selector="g|DataGridRow /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{DynamicResource SystemControlTransparentBrush}" />
+  </Style>
+  <Style Selector="g|DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{DynamicResource SystemListLowColor}" />
+  </Style>
+  <Style Selector="g|DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{DynamicResource DataGridRowSelectedUnfocusedBackgroundColor}" />
+    <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedUnfocusedBackgroundOpacity}" />
+  </Style>
+  <Style Selector="g|DataGridRow:selected:pointerover /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{DynamicResource DataGridRowSelectedHoveredUnfocusedBackgroundColor}" />
+    <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedHoveredUnfocusedBackgroundOpacity}" />
+  </Style>
+  <Style Selector="g|DataGridRow:selected:focus /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{DynamicResource DataGridRowSelectedBackgroundColor}" />
+    <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedBackgroundOpacity}" />
+  </Style>
+  <Style Selector="g|DataGridRow:selected:pointerover:focus /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{DynamicResource DataGridRowSelectedHoveredBackgroundColor}" />
+    <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedHoveredBackgroundOpacity}" />
+  </Style>
+  
+  
   <Style Selector="g|DataGridCell">
     <Setter Property="Template">
       <ControlTemplate>

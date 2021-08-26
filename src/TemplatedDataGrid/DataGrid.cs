@@ -116,6 +116,11 @@ namespace TemplatedDataGrid
         {
             base.OnPropertyChanged(change);
 
+            if (change.Property == SelectedItemProperty)
+            {
+                // TODO:
+            }
+
             if (change.Property == ColumnsProperty)
             {
                 InvalidateRoot();
@@ -249,7 +254,7 @@ namespace TemplatedDataGrid
             {
                 _rowsPresenter[!DataGridRowsPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
                 _rowsPresenter[!DataGridRowsPresenter.ItemsProperty] = this[!DataGrid.ItemsProperty];
-                _rowsPresenter[!DataGridRowsPresenter.SelectedItemProperty] = this[!DataGrid.SelectedItemProperty];
+                _rowsPresenter[!!DataGridRowsPresenter.SelectedItemProperty] = this[!!DataGrid.SelectedItemProperty];
                 _rowsPresenter[!DataGridRowsPresenter.GridLinesVisibilityProperty] = this[!DataGrid.GridLinesVisibilityProperty];
             }
         }

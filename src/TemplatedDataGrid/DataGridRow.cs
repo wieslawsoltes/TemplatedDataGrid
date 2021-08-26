@@ -2,13 +2,18 @@
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
+using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using TemplatedDataGrid.Primitives;
 
 namespace TemplatedDataGrid
 {
+    [PseudoClasses(":selected")]
     public class DataGridRow : TemplatedControl
     {
+        internal static readonly StyledProperty<object?> SelectedItemProperty = 
+            AvaloniaProperty.Register<DataGridRow, object?>(nameof(SelectedItem));
+
         internal static readonly DirectProperty<DataGridRow, AvaloniaList<DataGridColumn>?> ColumnsProperty =
             AvaloniaProperty.RegisterDirect<DataGridRow, AvaloniaList<DataGridColumn>?>(
                 nameof(Columns), 
@@ -22,6 +27,12 @@ namespace TemplatedDataGrid
         private DataGridCellsPresenter? _cellsPresenter;
         private Visual? _bottomGridLine;
 
+        internal object? SelectedItem
+        {
+            get => GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
+
         internal AvaloniaList<DataGridColumn>? Columns
         {
             get => _columns;
@@ -34,6 +45,11 @@ namespace TemplatedDataGrid
             set => SetValue(GridLinesVisibilityProperty, value);
         }
 
+        public DataGridRow()
+        {
+            UpdatePseudoClassesSelectedItem(SelectedItem);
+        }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -43,12 +59,19 @@ namespace TemplatedDataGrid
 
             InvalidateCellsPresenter();
             InvalidateBottomGridLine();
+
+            UpdatePseudoClassesSelectedItem(SelectedItem);
         }
 
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
         {
             base.OnPropertyChanged(change);
 
+            if (change.Property == SelectedItemProperty)
+            {
+                UpdatePseudoClassesSelectedItem(change.NewValue.GetValueOrDefault<object?>());
+            }
+            
             if (change.Property == ColumnsProperty)
             {
                 InvalidateCellsPresenter();
@@ -59,6 +82,7 @@ namespace TemplatedDataGrid
         {
             if (_cellsPresenter is { })
             {
+                _cellsPresenter[!DataGridCellsPresenter.ColumnsProperty] = this[!DataGridRow.ColumnsProperty];
                 _cellsPresenter[!DataGridCellsPresenter.ColumnsProperty] = this[!DataGridRow.ColumnsProperty];
             }
         }
@@ -75,6 +99,11 @@ namespace TemplatedDataGrid
                 .Select(x => x.HasFlag(DataGridGridLinesVisibility.Horizontal));
 
             _bottomGridLine[!Visual.IsVisibleProperty] = isHorizontalGridLineVisible.ToBinding();
+        }
+
+        private void UpdatePseudoClassesSelectedItem(object? selectedItem)
+        {
+            PseudoClasses.Set(":selected", DataContext is { } && selectedItem == DataContext);
         }
     }
 }

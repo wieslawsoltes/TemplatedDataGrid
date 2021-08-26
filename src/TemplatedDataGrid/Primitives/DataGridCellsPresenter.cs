@@ -8,6 +8,9 @@ namespace TemplatedDataGrid.Primitives
 {
     public class DataGridCellsPresenter : TemplatedControl
     {
+        internal static readonly StyledProperty<object?> SelectedItemProperty = 
+            AvaloniaProperty.Register<DataGridCellsPresenter, object?>(nameof(SelectedItem));
+
         internal static readonly DirectProperty<DataGridCellsPresenter, AvaloniaList<DataGridColumn>?> ColumnsProperty =
             AvaloniaProperty.RegisterDirect<DataGridCellsPresenter, AvaloniaList<DataGridColumn>?>(
                 nameof(Columns), 
@@ -24,6 +27,12 @@ namespace TemplatedDataGrid.Primitives
         private AvaloniaList<DataGridCell> _cells = new AvaloniaList<DataGridCell>();
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
+
+        internal object? SelectedItem
+        {
+            get => GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
 
         internal AvaloniaList<DataGridColumn>? Columns
         {
@@ -49,6 +58,11 @@ namespace TemplatedDataGrid.Primitives
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
         {
             base.OnPropertyChanged(change);
+
+            if (change.Property == SelectedItemProperty)
+            {
+                // TODO:
+            }
 
             if (change.Property == ColumnsProperty)
             {
@@ -107,6 +121,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     cell = new DataGridCell()
                     {
+                        [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = templateColumn[!DataGridColumn.CellTemplateProperty]
@@ -125,6 +140,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     cell = new DataGridCell()
                     {
+                        [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = checkBoxColumn[!DataGridColumn.CellTemplateProperty]
@@ -134,6 +150,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     cell = new DataGridCell()
                     {
+                        [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = column[!DataGridColumn.CellTemplateProperty]
