@@ -15,7 +15,7 @@ namespace TemplatedDataGrid.Primitives
         public static readonly StyledProperty<IEnumerable?> ItemsProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, IEnumerable?>(nameof(Items));
 
-        public static readonly StyledProperty<object?> SelectedItemProperty = 
+        internal static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
 
         internal static readonly DirectProperty<DataGridRowsPresenter, IScrollable?> ScrollProperty =
@@ -56,7 +56,7 @@ namespace TemplatedDataGrid.Primitives
             set => SetValue(ItemsProperty, value);
         }
 
-        public object? SelectedItem
+        internal object? SelectedItem
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
