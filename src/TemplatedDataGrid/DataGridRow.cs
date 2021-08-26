@@ -14,6 +14,9 @@ namespace TemplatedDataGrid
         internal static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGridRow, object?>(nameof(SelectedItem));
 
+        internal static readonly StyledProperty<object?> SelectedCellProperty = 
+            AvaloniaProperty.Register<DataGridRow, object?>(nameof(SelectedCell));
+
         internal static readonly DirectProperty<DataGridRow, AvaloniaList<DataGridColumn>?> ColumnsProperty =
             AvaloniaProperty.RegisterDirect<DataGridRow, AvaloniaList<DataGridColumn>?>(
                 nameof(Columns), 
@@ -36,6 +39,12 @@ namespace TemplatedDataGrid
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
+        }
+
+        internal object? SelectedCell
+        {
+            get => GetValue(SelectedCellProperty);
+            set => SetValue(SelectedCellProperty, value);
         }
 
         internal AvaloniaList<DataGridColumn>? Columns
@@ -77,6 +86,11 @@ namespace TemplatedDataGrid
                 UpdatePseudoClassesSelectedItem(change.NewValue.GetValueOrDefault<object?>());
             }
 
+            if (change.Property == SelectedCellProperty)
+            {
+                // TODO:
+            }
+
             if (change.Property == ColumnsProperty)
             {
                 InvalidateCellsPresenter();
@@ -88,6 +102,7 @@ namespace TemplatedDataGrid
             if (_cellsPresenter is { })
             {
                 _cellsPresenter[!DataGridCellsPresenter.SelectedItemProperty] = this[!DataGridRow.SelectedItemProperty];
+                _cellsPresenter[!!DataGridCellsPresenter.SelectedCellProperty] = this[!!DataGridRow.SelectedCellProperty];
                 _cellsPresenter[!DataGridCellsPresenter.ColumnsProperty] = this[!DataGridRow.ColumnsProperty];
             }
         }

@@ -38,6 +38,9 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<bool> AutoGenerateColumnsProperty = 
             AvaloniaProperty.Register<DataGrid, bool>(nameof(AutoGenerateColumns));
 
+        public static readonly StyledProperty<object?> SelectedCellProperty = 
+            AvaloniaProperty.Register<DataGrid, object?>(nameof(SelectedCell));
+
         private AvaloniaList<DataGridColumn> _columns;
         private Panel? _panel;
         private Grid? _root;
@@ -98,6 +101,12 @@ namespace TemplatedDataGrid
             set => SetValue(AutoGenerateColumnsProperty, value);
         }
 
+        internal object? SelectedCell
+        {
+            get => GetValue(SelectedCellProperty);
+            set => SetValue(SelectedCellProperty, value);
+        }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -131,6 +140,11 @@ namespace TemplatedDataGrid
             if (change.Property == ItemsProperty)
             {
                 InvalidateRowsPresenter();
+            }
+
+            if (change.Property == SelectedCellProperty)
+            {
+                // TODO:
             }
         }
 
@@ -255,6 +269,7 @@ namespace TemplatedDataGrid
                 _rowsPresenter[!DataGridRowsPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
                 _rowsPresenter[!DataGridRowsPresenter.ItemsProperty] = this[!DataGrid.ItemsProperty];
                 _rowsPresenter[!!DataGridRowsPresenter.SelectedItemProperty] = this[!!DataGrid.SelectedItemProperty];
+                _rowsPresenter[!!DataGridRowsPresenter.SelectedCellProperty] = this[!!DataGrid.SelectedCellProperty];
                 _rowsPresenter[!DataGridRowsPresenter.GridLinesVisibilityProperty] = this[!DataGrid.GridLinesVisibilityProperty];
             }
         }

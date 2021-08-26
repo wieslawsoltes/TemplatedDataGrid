@@ -11,6 +11,9 @@ namespace TemplatedDataGrid.Primitives
         internal static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGridCellsPresenter, object?>(nameof(SelectedItem));
 
+        internal static readonly StyledProperty<object?> SelectedCellProperty = 
+            AvaloniaProperty.Register<DataGridCellsPresenter, object?>(nameof(SelectedCell));
+
         internal static readonly DirectProperty<DataGridCellsPresenter, AvaloniaList<DataGridColumn>?> ColumnsProperty =
             AvaloniaProperty.RegisterDirect<DataGridCellsPresenter, AvaloniaList<DataGridColumn>?>(
                 nameof(Columns), 
@@ -32,6 +35,12 @@ namespace TemplatedDataGrid.Primitives
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
+        }
+
+        internal object? SelectedCell
+        {
+            get => GetValue(SelectedCellProperty);
+            set => SetValue(SelectedCellProperty, value);
         }
 
         internal AvaloniaList<DataGridColumn>? Columns
@@ -60,6 +69,11 @@ namespace TemplatedDataGrid.Primitives
             base.OnPropertyChanged(change);
 
             if (change.Property == SelectedItemProperty)
+            {
+                // TODO:
+            }
+
+            if (change.Property == SelectedCellProperty)
             {
                 // TODO:
             }
@@ -122,6 +136,7 @@ namespace TemplatedDataGrid.Primitives
                     cell = new DataGridCell()
                     {
                         [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
+                        [!!DataGridCell.SelectedCellProperty] = this[!!DataGridCellsPresenter.SelectedCellProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = templateColumn[!DataGridColumn.CellTemplateProperty]
@@ -131,6 +146,8 @@ namespace TemplatedDataGrid.Primitives
                 {
                     cell = new DataGridCell()
                     {
+                        [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
+                        [!!DataGridCell.SelectedCellProperty] = this[!!DataGridCellsPresenter.SelectedCellProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = textColumn[!DataGridColumn.CellTemplateProperty]
@@ -141,6 +158,7 @@ namespace TemplatedDataGrid.Primitives
                     cell = new DataGridCell()
                     {
                         [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
+                        [!!DataGridCell.SelectedCellProperty] = this[!!DataGridCellsPresenter.SelectedCellProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = checkBoxColumn[!DataGridColumn.CellTemplateProperty]
@@ -151,6 +169,7 @@ namespace TemplatedDataGrid.Primitives
                     cell = new DataGridCell()
                     {
                         [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
+                        [!!DataGridCell.SelectedCellProperty] = this[!!DataGridCellsPresenter.SelectedCellProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
                         [!DataGridCell.CellTemplateProperty] = column[!DataGridColumn.CellTemplateProperty]

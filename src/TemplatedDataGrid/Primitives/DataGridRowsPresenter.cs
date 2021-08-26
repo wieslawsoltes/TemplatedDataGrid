@@ -18,6 +18,9 @@ namespace TemplatedDataGrid.Primitives
         internal static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
 
+        internal static readonly StyledProperty<object?> SelectedCellProperty = 
+            AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedCell));
+
         internal static readonly DirectProperty<DataGridRowsPresenter, IScrollable?> ScrollProperty =
             AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, IScrollable?>(
                 nameof(Scroll), 
@@ -60,6 +63,12 @@ namespace TemplatedDataGrid.Primitives
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
+        }
+
+        internal object? SelectedCell
+        {
+            get => GetValue(SelectedCellProperty);
+            set => SetValue(SelectedCellProperty, value);
         }
 
         internal IScrollable? Scroll
@@ -110,6 +119,11 @@ namespace TemplatedDataGrid.Primitives
                 // TODO:
             }
 
+            if (change.Property == SelectedCellProperty)
+            {
+                // TODO:
+            }
+
             if (change.Property == ColumnsProperty)
             {
                 InvalidateItemTemplate();
@@ -127,6 +141,7 @@ namespace TemplatedDataGrid.Primitives
                     var row = new DataGridRow()
                     {
                         [!DataGridRow.SelectedItemProperty] = this[!DataGridRowsPresenter.SelectedItemProperty],
+                        [!!DataGridRow.SelectedCellProperty] = this[!!DataGridRowsPresenter.SelectedCellProperty],
                         [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty],
                         [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]
                     };
