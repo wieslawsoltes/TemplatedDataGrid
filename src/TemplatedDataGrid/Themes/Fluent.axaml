@@ -54,11 +54,12 @@
         <Panel Name="PART_Panel">
           <DockPanel>
             <p:DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" DockPanel.Dock="Top"/>
-            <Rectangle Name="PART_ColumnHeadersAndRowsSeparator"
-                       DockPanel.Dock="Top" />
-            <p:DataGridRowsPresenter Name="PART_RowsPresenter"/>
+            <Rectangle Name="PART_ColumnHeadersAndRowsSeparator" DockPanel.Dock="Top" />
+            <Panel>
+              <p:DataGridRowsPresenter Name="PART_RowsPresenter"/>
+              <Grid Name="PART_Root"/>
+            </Panel>
           </DockPanel>
-          <Grid Name="PART_Root"/>
         </Panel>
       </ControlTemplate>
     </Setter>
