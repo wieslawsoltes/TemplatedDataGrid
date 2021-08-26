@@ -16,7 +16,7 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<object?> HeaderProperty = 
             AvaloniaProperty.Register<DataGridColumnHeader, object?>(nameof(Header));
 
-        public static readonly StyledProperty<bool> IsPressedProperty =
+        internal static readonly StyledProperty<bool> IsPressedProperty =
             AvaloniaProperty.Register<DataGridColumnHeader, bool>(nameof(IsPressed));
 
         internal static readonly DirectProperty<DataGridColumnHeader, AvaloniaList<DataGridColumnHeader>?> ColumnHeadersProperty =
@@ -45,7 +45,7 @@ namespace TemplatedDataGrid
             set => SetValue(HeaderProperty, value);
         }
 
-        public bool IsPressed
+        internal bool IsPressed
         {
             get => GetValue(IsPressedProperty);
             private set => SetValue(IsPressedProperty, value);
