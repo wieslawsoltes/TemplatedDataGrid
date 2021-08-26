@@ -255,14 +255,19 @@
     <Setter Property="Fill" Value="{DynamicResource DataGridRowSelectedHoveredBackgroundColor}" />
     <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedHoveredBackgroundOpacity}" />
   </Style>
-  
-  
+
   <Style Selector="g|DataGridCell">
+    <Setter Property="Background" Value="{DynamicResource DataGridCellBackgroundBrush}" />
     <Setter Property="Template">
       <ControlTemplate>
-        <ContentControl Content="{TemplateBinding Content}"
-                        ContentTemplate="{TemplateBinding CellTemplate}"
-                        Padding="{TemplateBinding Padding}"/>
+        <Grid x:Name="PART_CellRoot"
+              ColumnDefinitions="*,Auto"
+              Background="{TemplateBinding Background}">
+          <ContentControl Grid.Column="0" 
+                          Content="{TemplateBinding Content}"
+                          Margin="{TemplateBinding Padding}"
+                          ContentTemplate="{TemplateBinding CellTemplate}"/>
+        </Grid>
       </ControlTemplate>
     </Setter>
   </Style>
