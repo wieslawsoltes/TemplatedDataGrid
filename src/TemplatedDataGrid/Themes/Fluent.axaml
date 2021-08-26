@@ -90,6 +90,7 @@
     </Setter>
   </Style>
   <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox">
+    <Setter Property="VirtualizationMode" Value="Simple" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="(ScrollViewer.HorizontalScrollBarVisibility)" Value="Auto" />
     <Setter Property="(ScrollViewer.VerticalScrollBarVisibility)" Value="Auto" />
