@@ -71,7 +71,7 @@ namespace TemplatedDataGrid
             {
                 UpdatePseudoClassesSelectedItem(change.NewValue.GetValueOrDefault<object?>());
             }
-            
+
             if (change.Property == ColumnsProperty)
             {
                 InvalidateCellsPresenter();
