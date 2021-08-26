@@ -208,7 +208,7 @@ namespace TemplatedDataGrid
                 var verticalRowGridLine = new Rectangle()
                 {
                     [Grid.RowProperty] = 1,
-                    [Grid.RowSpanProperty] = 2,
+                    [Grid.RowSpanProperty] = 1,
                     [Grid.ColumnProperty] = columnIndex,
                     [Rectangle.IsHitTestVisibleProperty] = false,
                     [!Rectangle.IsVisibleProperty] = isVerticalGridLineVisible.ToBinding()
