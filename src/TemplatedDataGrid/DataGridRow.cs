@@ -27,6 +27,11 @@ namespace TemplatedDataGrid
         private DataGridCellsPresenter? _cellsPresenter;
         private Visual? _bottomGridLine;
 
+        public DataGridRow()
+        {
+            UpdatePseudoClassesSelectedItem(SelectedItem);
+        }
+
         internal object? SelectedItem
         {
             get => GetValue(SelectedItemProperty);
@@ -43,11 +48,6 @@ namespace TemplatedDataGrid
         {
             get => GetValue(GridLinesVisibilityProperty);
             set => SetValue(GridLinesVisibilityProperty, value);
-        }
-
-        public DataGridRow()
-        {
-            UpdatePseudoClassesSelectedItem(SelectedItem);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
