@@ -36,7 +36,7 @@ namespace TemplatedDataGrid
 
         public DataGridColumnHeader()
         {
-            UpdatePseudoClasses(IsPressed);
+            UpdatePseudoClassesIsPressed(IsPressed);
         }
 
         public object? Header
@@ -69,7 +69,7 @@ namespace TemplatedDataGrid
         {
             base.OnApplyTemplate(e);
 
-            UpdatePseudoClasses(CurrentSortingState);
+            UpdatePseudoClassesSortingState(CurrentSortingState);
         }
 
         protected override void OnPointerPressed(PointerPressedEventArgs e)
@@ -110,7 +110,7 @@ namespace TemplatedDataGrid
 
             if (change.Property == IsPressedProperty)
             {
-                UpdatePseudoClasses(change.NewValue.GetValueOrDefault<bool>());
+                UpdatePseudoClassesIsPressed(change.NewValue.GetValueOrDefault<bool>());
             }
         }
 
@@ -126,7 +126,7 @@ namespace TemplatedDataGrid
                 if (!Equals(columnHeader, this))
                 {
                     columnHeader.CurrentSortingState = null;
-                    columnHeader.UpdatePseudoClasses(columnHeader.CurrentSortingState);
+                    columnHeader.UpdatePseudoClassesSortingState(columnHeader.CurrentSortingState);
                 }
             }
 
@@ -134,15 +134,15 @@ namespace TemplatedDataGrid
                 ? ListSortDirection.Descending
                 : ListSortDirection.Ascending;
 
-            UpdatePseudoClasses(CurrentSortingState);
+            UpdatePseudoClassesSortingState(CurrentSortingState);
         }
 
-        private void UpdatePseudoClasses(bool isPressed)
+        private void UpdatePseudoClassesIsPressed(bool isPressed)
         {
             PseudoClasses.Set(":pressed", isPressed);
         }
 
-        private void UpdatePseudoClasses(ListSortDirection? sortingState)
+        private void UpdatePseudoClassesSortingState(ListSortDirection? sortingState)
         {
             PseudoClasses.Set(":sortascending", sortingState == ListSortDirection.Ascending);
             PseudoClasses.Set(":sortdescending", sortingState == ListSortDirection.Descending);
