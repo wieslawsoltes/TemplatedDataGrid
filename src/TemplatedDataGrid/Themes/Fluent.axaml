@@ -258,15 +258,21 @@
 
   <Style Selector="g|DataGridCell">
     <Setter Property="Background" Value="{DynamicResource DataGridCellBackgroundBrush}" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
     <Setter Property="Template">
       <ControlTemplate>
         <Grid x:Name="PART_CellRoot"
               ColumnDefinitions="*,Auto"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
               Background="{TemplateBinding Background}">
-          <ContentControl Grid.Column="0" 
+          <ContentControl Grid.Column="0"  
+                          ContentTemplate="{TemplateBinding CellTemplate}"
                           Content="{TemplateBinding Content}"
                           Margin="{TemplateBinding Padding}"
-                          ContentTemplate="{TemplateBinding CellTemplate}"/>
+                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
         </Grid>
       </ControlTemplate>
     </Setter>
