@@ -84,9 +84,7 @@
   <Style Selector="p|DataGridRowsPresenter">
     <Setter Property="Template">
       <ControlTemplate>
-        <ListBox Name="PART_ListBox" 
-                 Items="{TemplateBinding Items}" 
-                 ItemTemplate="{TemplateBinding ItemTemplate}"/>
+        <ListBox Name="PART_ListBox" />
       </ControlTemplate>
     </Setter>
   </Style>

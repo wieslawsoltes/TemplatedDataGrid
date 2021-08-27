@@ -9,11 +9,14 @@ namespace TemplatedDataGrid.Primitives
 {
     public class DataGridRowsPresenter : TemplatedControl
     {
-        public static readonly StyledProperty<IDataTemplate> ItemTemplateProperty =
+        internal static readonly StyledProperty<IDataTemplate> ItemTemplateProperty =
             AvaloniaProperty.Register<DataGridRowsPresenter, IDataTemplate>(nameof(ItemTemplate));
 
-        public static readonly StyledProperty<IEnumerable?> ItemsProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, IEnumerable?>(nameof(Items));
+        internal static readonly DirectProperty<DataGridRowsPresenter, IEnumerable?> ItemsProperty =
+            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, IEnumerable?>(
+                nameof(Items), 
+                o => o.Items, 
+                (o, v) => o.Items = v);
 
         internal static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
@@ -44,19 +47,20 @@ namespace TemplatedDataGrid.Primitives
 
         private IScrollable? _scroll;
         private AvaloniaList<DataGridColumn>? _columns;
+        private IEnumerable? _items;
         private AvaloniaList<DataGridRow> _rows = new AvaloniaList<DataGridRow>();
         private ListBox? _listBox;
 
-        public IDataTemplate ItemTemplate
+        internal IDataTemplate ItemTemplate
         {
             get => GetValue(ItemTemplateProperty);
             set => SetValue(ItemTemplateProperty, value);
         }
 
-        public IEnumerable? Items
+        internal IEnumerable? Items
         {
-            get => GetValue(ItemsProperty);
-            set => SetValue(ItemsProperty, value);
+            get => _items;
+            set => SetAndRaise(ItemsProperty, ref _items, value);
         }
 
         internal object? SelectedItem
@@ -103,8 +107,11 @@ namespace TemplatedDataGrid.Primitives
 
             if (_listBox is { })
             {
-                this[!ScrollProperty] = _listBox[!ListBox.ScrollProperty];
+                _listBox[!ItemsControl.ItemsProperty] = this[!ItemsProperty];
+                _listBox[!ItemsControl.ItemTemplateProperty] = this[!ItemTemplateProperty];
+
                 this[!!SelectedItemProperty] = _listBox[!!SelectingItemsControl.SelectedItemProperty];
+                this[!ScrollProperty] = _listBox[!ListBox.ScrollProperty];
             }
 
             InvalidateItemTemplate();

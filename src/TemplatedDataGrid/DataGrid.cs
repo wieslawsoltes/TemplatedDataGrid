@@ -17,8 +17,11 @@ namespace TemplatedDataGrid
                 nameof(Columns), 
                 o => o.Columns);
 
-        public static readonly StyledProperty<IEnumerable?> ItemsProperty = 
-            AvaloniaProperty.Register<DataGrid, IEnumerable?>(nameof(Items));
+        public static readonly DirectProperty<DataGrid, IEnumerable?> ItemsProperty =
+            AvaloniaProperty.RegisterDirect<DataGrid, IEnumerable?>(
+                nameof(Items), 
+                o => o.Items, 
+                (o, v) => o.Items = v);
 
         public static readonly StyledProperty<object?> SelectedItemProperty = 
             AvaloniaProperty.Register<DataGrid, object?>(nameof(SelectedItem));
@@ -42,6 +45,7 @@ namespace TemplatedDataGrid
             AvaloniaProperty.Register<DataGrid, object?>(nameof(SelectedCell));
 
         private AvaloniaList<DataGridColumn> _columns;
+        private IEnumerable? _items;
         private Panel? _panel;
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
@@ -61,8 +65,8 @@ namespace TemplatedDataGrid
 
         public IEnumerable? Items
         {
-            get => GetValue(ItemsProperty);
-            set => SetValue(ItemsProperty, value);
+            get => _items;
+            set => SetAndRaise(ItemsProperty, ref _items, value);
         }
 
         public object? SelectedItem
