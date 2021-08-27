@@ -4,6 +4,7 @@ using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
+using Avalonia.Data;
 
 namespace TemplatedDataGrid.Primitives
 {
@@ -18,11 +19,19 @@ namespace TemplatedDataGrid.Primitives
                 o => o.Items, 
                 (o, v) => o.Items = v);
 
-        internal static readonly StyledProperty<object?> SelectedItemProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedItem));
+        internal static readonly DirectProperty<DataGridRowsPresenter, object?> SelectedItemProperty =
+            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, object?>(
+                nameof(SelectedItem), 
+                o => o.SelectedItem, 
+                (o, v) => o.SelectedItem = v,
+                defaultBindingMode: BindingMode.TwoWay);
 
-        internal static readonly StyledProperty<object?> SelectedCellProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, object?>(nameof(SelectedCell));
+        internal static readonly DirectProperty<DataGridRowsPresenter, object?> SelectedCellProperty =
+            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, object?>(
+                nameof(SelectedCell), 
+                o => o.SelectedCell, 
+                (o, v) => o.SelectedCell = v,
+                defaultBindingMode: BindingMode.TwoWay);
 
         internal static readonly DirectProperty<DataGridRowsPresenter, IScrollable?> ScrollProperty =
             AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, IScrollable?>(
@@ -48,7 +57,9 @@ namespace TemplatedDataGrid.Primitives
         private IScrollable? _scroll;
         private AvaloniaList<DataGridColumn>? _columns;
         private IEnumerable? _items;
-        private AvaloniaList<DataGridRow> _rows = new AvaloniaList<DataGridRow>();
+        private object? _selectedItem;
+        private object? _selectedCell;
+        private AvaloniaList<DataGridRow> _rows = new ();
         private ListBox? _listBox;
 
         internal IDataTemplate ItemTemplate
@@ -65,14 +76,14 @@ namespace TemplatedDataGrid.Primitives
 
         internal object? SelectedItem
         {
-            get => GetValue(SelectedItemProperty);
-            set => SetValue(SelectedItemProperty, value);
+            get => _selectedItem;
+            set => SetAndRaise(SelectedItemProperty, ref _selectedItem, value);
         }
 
         internal object? SelectedCell
         {
-            get => GetValue(SelectedCellProperty);
-            set => SetValue(SelectedCellProperty, value);
+            get => _selectedCell;
+            set => SetAndRaise(SelectedCellProperty, ref _selectedCell, value);
         }
 
         internal IScrollable? Scroll

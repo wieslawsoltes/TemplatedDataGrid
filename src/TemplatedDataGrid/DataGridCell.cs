@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
+using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Metadata;
@@ -12,11 +13,19 @@ namespace TemplatedDataGrid
     [PseudoClasses(":pressed", ":selected")]
     public class DataGridCell : TemplatedControl
     {
-        internal static readonly StyledProperty<object?> SelectedItemProperty = 
-            AvaloniaProperty.Register<DataGridCell, object?>(nameof(SelectedItem));
+        internal static readonly DirectProperty<DataGridCell, object?> SelectedItemProperty =
+            AvaloniaProperty.RegisterDirect<DataGridCell, object?>(
+                nameof(SelectedItem), 
+                o => o.SelectedItem, 
+                (o, v) => o.SelectedItem = v,
+                defaultBindingMode: BindingMode.TwoWay);
 
-        internal static readonly StyledProperty<object?> SelectedCellProperty = 
-            AvaloniaProperty.Register<DataGridCell, object?>(nameof(SelectedCell));
+        internal static readonly DirectProperty<DataGridCell, object?> SelectedCellProperty =
+            AvaloniaProperty.RegisterDirect<DataGridCell, object?>(
+                nameof(SelectedCell), 
+                o => o.SelectedCell, 
+                (o, v) => o.SelectedCell = v,
+                defaultBindingMode: BindingMode.TwoWay);
 
         public static readonly StyledProperty<IDataTemplate?> CellTemplateProperty = 
             AvaloniaProperty.Register<DataGridCell, IDataTemplate?>(nameof(CellTemplate));
@@ -30,6 +39,9 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<VerticalAlignment> VerticalContentAlignmentProperty =
             AvaloniaProperty.Register<DataGridCell, VerticalAlignment>(nameof(VerticalContentAlignment));
 
+        private object? _selectedItem;
+        private object? _selectedCell;
+
         public DataGridCell()
         {
             UpdatePseudoClassesSelectedCell(SelectedCell);
@@ -37,14 +49,14 @@ namespace TemplatedDataGrid
 
         internal object? SelectedItem
         {
-            get => GetValue(SelectedItemProperty);
-            set => SetValue(SelectedItemProperty, value);
+            get => _selectedItem;
+            set => SetAndRaise(SelectedItemProperty, ref _selectedItem, value);
         }
 
         internal object? SelectedCell
         {
-            get => GetValue(SelectedCellProperty);
-            set => SetValue(SelectedCellProperty, value);
+            get => _selectedCell;
+            set => SetAndRaise(SelectedCellProperty, ref _selectedCell, value);
         }
 
         [Content]

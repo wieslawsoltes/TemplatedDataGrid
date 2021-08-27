@@ -4,6 +4,7 @@ using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data;
 using TemplatedDataGrid.Primitives;
 
 namespace TemplatedDataGrid
@@ -11,11 +12,19 @@ namespace TemplatedDataGrid
     [PseudoClasses(":selected")]
     public class DataGridRow : TemplatedControl
     {
-        internal static readonly StyledProperty<object?> SelectedItemProperty = 
-            AvaloniaProperty.Register<DataGridRow, object?>(nameof(SelectedItem));
+        internal static readonly DirectProperty<DataGridRow, object?> SelectedItemProperty =
+            AvaloniaProperty.RegisterDirect<DataGridRow, object?>(
+                nameof(SelectedItem), 
+                o => o.SelectedItem, 
+                (o, v) => o.SelectedItem = v,
+                defaultBindingMode: BindingMode.TwoWay);
 
-        internal static readonly StyledProperty<object?> SelectedCellProperty = 
-            AvaloniaProperty.Register<DataGridRow, object?>(nameof(SelectedCell));
+        internal static readonly DirectProperty<DataGridRow, object?> SelectedCellProperty =
+            AvaloniaProperty.RegisterDirect<DataGridRow, object?>(
+                nameof(SelectedCell), 
+                o => o.SelectedCell, 
+                (o, v) => o.SelectedCell = v,
+                defaultBindingMode: BindingMode.TwoWay);
 
         internal static readonly DirectProperty<DataGridRow, AvaloniaList<DataGridColumn>?> ColumnsProperty =
             AvaloniaProperty.RegisterDirect<DataGridRow, AvaloniaList<DataGridColumn>?>(
@@ -26,6 +35,8 @@ namespace TemplatedDataGrid
         internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<DataGridRow, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
+        private object? _selectedItem;
+        private object? _selectedCell;
         private AvaloniaList<DataGridColumn>? _columns;
         private DataGridCellsPresenter? _cellsPresenter;
         private Visual? _bottomGridLine;
@@ -37,14 +48,14 @@ namespace TemplatedDataGrid
 
         internal object? SelectedItem
         {
-            get => GetValue(SelectedItemProperty);
-            set => SetValue(SelectedItemProperty, value);
+            get => _selectedItem;
+            set => SetAndRaise(SelectedItemProperty, ref _selectedItem, value);
         }
 
         internal object? SelectedCell
         {
-            get => GetValue(SelectedCellProperty);
-            set => SetValue(SelectedCellProperty, value);
+            get => _selectedCell;
+            set => SetAndRaise(SelectedCellProperty, ref _selectedCell, value);
         }
 
         internal AvaloniaList<DataGridColumn>? Columns
