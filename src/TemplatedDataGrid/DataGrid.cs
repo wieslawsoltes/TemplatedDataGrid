@@ -38,7 +38,7 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<bool> AutoGenerateColumnsProperty = 
             AvaloniaProperty.Register<DataGrid, bool>(nameof(AutoGenerateColumns));
 
-        public static readonly StyledProperty<object?> SelectedCellProperty = 
+        internal static readonly StyledProperty<object?> SelectedCellProperty = 
             AvaloniaProperty.Register<DataGrid, object?>(nameof(SelectedCell));
 
         private AvaloniaList<DataGridColumn> _columns;
