@@ -158,7 +158,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     var row = new DataGridRow()
                     {
-                        [!DataGridRow.SelectedItemProperty] = this[!DataGridRowsPresenter.SelectedItemProperty],
+                        [!!DataGridRow.SelectedItemProperty] = this[!!DataGridRowsPresenter.SelectedItemProperty],
                         [!!DataGridRow.SelectedCellProperty] = this[!!DataGridRowsPresenter.SelectedCellProperty],
                         [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty],
                         [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]

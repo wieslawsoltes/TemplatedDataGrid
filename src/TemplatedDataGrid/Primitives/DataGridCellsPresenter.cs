@@ -146,7 +146,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     cell = new DataGridCell()
                     {
-                        [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
+                        [!!DataGridCell.SelectedItemProperty] = this[!!DataGridCellsPresenter.SelectedItemProperty],
                         [!!DataGridCell.SelectedCellProperty] = this[!!DataGridCellsPresenter.SelectedCellProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
@@ -157,7 +157,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     cell = new DataGridCell()
                     {
-                        [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
+                        [!!DataGridCell.SelectedItemProperty] = this[!!DataGridCellsPresenter.SelectedItemProperty],
                         [!!DataGridCell.SelectedCellProperty] = this[!!DataGridCellsPresenter.SelectedCellProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
@@ -168,7 +168,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     cell = new DataGridCell()
                     {
-                        [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
+                        [!!DataGridCell.SelectedItemProperty] = this[!!DataGridCellsPresenter.SelectedItemProperty],
                         [!!DataGridCell.SelectedCellProperty] = this[!!DataGridCellsPresenter.SelectedCellProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],
@@ -179,7 +179,7 @@ namespace TemplatedDataGrid.Primitives
                 {
                     cell = new DataGridCell()
                     {
-                        [!DataGridCell.SelectedItemProperty] = this[!DataGridCellsPresenter.SelectedItemProperty],
+                        [!!DataGridCell.SelectedItemProperty] = this[!!DataGridCellsPresenter.SelectedItemProperty],
                         [!!DataGridCell.SelectedCellProperty] = this[!!DataGridCellsPresenter.SelectedCellProperty],
                         [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                         [!DataGridCell.ContentProperty] = this[!DataGridCellsPresenter.DataContextProperty],

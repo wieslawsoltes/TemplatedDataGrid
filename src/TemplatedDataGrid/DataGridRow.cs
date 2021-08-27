@@ -112,7 +112,7 @@ namespace TemplatedDataGrid
         {
             if (_cellsPresenter is { })
             {
-                _cellsPresenter[!DataGridCellsPresenter.SelectedItemProperty] = this[!DataGridRow.SelectedItemProperty];
+                _cellsPresenter[!!DataGridCellsPresenter.SelectedItemProperty] = this[!!DataGridRow.SelectedItemProperty];
                 _cellsPresenter[!!DataGridCellsPresenter.SelectedCellProperty] = this[!!DataGridRow.SelectedCellProperty];
                 _cellsPresenter[!DataGridCellsPresenter.ColumnsProperty] = this[!DataGridRow.ColumnsProperty];
             }
