@@ -23,7 +23,7 @@ namespace TemplatedDataGrid
             AvaloniaProperty.Register<DataGridColumn, double>(nameof(MaxWidth), double.PositiveInfinity);
 
         public static readonly StyledProperty<bool> CanUserSortProperty = 
-            AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserSort));
+            AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserSort), true);
 
         public static readonly StyledProperty<string?> SortMemberPathProperty = 
             AvaloniaProperty.Register<DataGridColumn, string?>(nameof(SortMemberPath));
