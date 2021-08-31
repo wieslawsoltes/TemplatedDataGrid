@@ -1,6 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputType>WinExe</OutputType>
+  </PropertyGroup>
+  <PropertyGroup>
     <TargetFrameworks>net461;net5.0</TargetFrameworks>
     <IsPackable>False</IsPackable>
     <Nullable>enable</Nullable>
