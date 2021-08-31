@@ -173,6 +173,8 @@ namespace TemplatedDataGrid.Primitives
                     [Grid.RowProperty] = 0,
                     [Grid.ColumnProperty] = columnDefinitions.Count - 1,
                     [!DataGridColumnHeader.HeaderProperty] = column[!DataGridColumn.HeaderProperty],
+                    [!DataGridColumnHeader.CanUserSortColumnsProperty] = this[!DataGridColumnHeadersPresenter.CanUserSortColumnsProperty],
+                    [!DataGridColumnHeader.CanUserResizeColumnsProperty] = this[!DataGridColumnHeadersPresenter.CanUserResizeColumnsProperty],
                     [!DataGridColumnHeader.ColumnHeadersProperty] = this[!DataGridColumnHeadersPresenter.ColumnHeadersProperty],
                     [DataGridColumnHeader.ColumnProperty] = column
                 };

@@ -19,6 +19,12 @@ namespace TemplatedDataGrid
         internal static readonly StyledProperty<bool> IsPressedProperty =
             AvaloniaProperty.Register<DataGridColumnHeader, bool>(nameof(IsPressed));
 
+        internal static readonly StyledProperty<bool> CanUserSortColumnsProperty = 
+            AvaloniaProperty.Register<DataGridColumnHeader, bool>(nameof(CanUserSortColumns));
+
+        internal static readonly StyledProperty<bool> CanUserResizeColumnsProperty = 
+            AvaloniaProperty.Register<DataGridColumnHeader, bool>(nameof(CanUserResizeColumns));
+
         internal static readonly DirectProperty<DataGridColumnHeader, AvaloniaList<DataGridColumnHeader>?> ColumnHeadersProperty =
             AvaloniaProperty.RegisterDirect<DataGridColumnHeader, AvaloniaList<DataGridColumnHeader>?>(
                 nameof(ColumnHeaders), 
@@ -51,6 +57,18 @@ namespace TemplatedDataGrid
             private set => SetValue(IsPressedProperty, value);
         }
         
+        internal bool CanUserSortColumns
+        {
+            get => GetValue(CanUserSortColumnsProperty);
+            set => SetValue(CanUserSortColumnsProperty, value);
+        }
+        
+        internal bool CanUserResizeColumns
+        {
+            get => GetValue(CanUserResizeColumnsProperty);
+            set => SetValue(CanUserResizeColumnsProperty, value);
+        }
+
         internal AvaloniaList<DataGridColumnHeader>? ColumnHeaders
         {
             get => _columnHeaders;
