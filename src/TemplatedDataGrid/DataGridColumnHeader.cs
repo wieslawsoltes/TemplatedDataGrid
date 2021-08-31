@@ -81,13 +81,11 @@ namespace TemplatedDataGrid
             set => SetAndRaise(ColumnProperty, ref _column, value);
         }
 
-        private ListSortDirection? CurrentSortingState { get; set; }
-
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
 
-            UpdatePseudoClassesSortingState(CurrentSortingState);
+            UpdatePseudoClassesSortingState(Column?.SortingState);
         }
 
         protected override void OnPointerPressed(PointerPressedEventArgs e)
@@ -139,20 +137,39 @@ namespace TemplatedDataGrid
                 return;
             }
 
+            if (!_column.CanUserSort || !CanUserSortColumns)
+            {
+                return;
+            }
+
             foreach (var columnHeader in _columnHeaders)
             {
                 if (!Equals(columnHeader, this))
                 {
-                    columnHeader.CurrentSortingState = null;
-                    columnHeader.UpdatePseudoClassesSortingState(columnHeader.CurrentSortingState);
+                    if (columnHeader.Column is { } column)
+                    {
+                        column.SortingState = null;
+                        columnHeader.UpdatePseudoClassesSortingState(column.SortingState);
+                    }
                 }
             }
 
-            CurrentSortingState = CurrentSortingState == ListSortDirection.Ascending
+            var sortMemberPath = _column.SortMemberPath;
+            var sortingState =  _column.SortingState == ListSortDirection.Ascending
                 ? ListSortDirection.Descending
                 : ListSortDirection.Ascending;
 
-            UpdatePseudoClassesSortingState(CurrentSortingState);
+            _column.SortingState = sortingState;
+
+            UpdatePseudoClassesSortingState(sortingState);
+
+            if (_column.SortCommand is { } command)
+            {
+                if (command.CanExecute(sortMemberPath))
+                {
+                    command.Execute(sortMemberPath);
+                }
+            }
         }
 
         private void UpdatePseudoClassesIsPressed(bool isPressed)

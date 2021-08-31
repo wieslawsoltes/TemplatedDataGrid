@@ -1,6 +1,9 @@
-﻿using Avalonia;
+﻿using System.ComponentModel;
+using System.Windows.Input;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Avalonia.Data;
 using Avalonia.Metadata;
 
 namespace TemplatedDataGrid
@@ -33,6 +36,12 @@ namespace TemplatedDataGrid
 
         public static readonly StyledProperty<bool> CanUserReorderProperty = 
             AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserReorder));
+
+        public static readonly StyledProperty<ListSortDirection?> SortingStateProperty = 
+            AvaloniaProperty.Register<DataGridColumn, ListSortDirection?>(nameof(SortingState), null, false, BindingMode.TwoWay);
+
+        public static readonly StyledProperty<ICommand> SortCommandProperty = 
+            AvaloniaProperty.Register<DataGridColumn, ICommand>(nameof(SortCommand));
 
         [Content]
         public IDataTemplate? CellTemplate
@@ -87,6 +96,18 @@ namespace TemplatedDataGrid
         {
             get => GetValue(CanUserSortProperty);
             set => SetValue(CanUserSortProperty, value);
+        }
+
+        public ListSortDirection? SortingState
+        {
+            get => GetValue(SortingStateProperty);
+            set => SetValue(SortingStateProperty, value);
+        }
+
+        public ICommand SortCommand
+        {
+            get => GetValue(SortCommandProperty);
+            set => SetValue(SortCommandProperty, value);
         }
     }
 }
