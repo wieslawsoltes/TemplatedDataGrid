@@ -87,7 +87,7 @@ namespace TemplatedDataGridDemo.ViewModels
                 .Bind(out _items)
                 .Subscribe();
 
-            int totalItems = 100_000;
+            int totalItems = 1_000;
             bool enableRandom = false;
             int randomSize = 100;
 
