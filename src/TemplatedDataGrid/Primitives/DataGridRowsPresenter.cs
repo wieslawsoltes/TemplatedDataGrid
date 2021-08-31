@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -123,6 +124,24 @@ namespace TemplatedDataGrid.Primitives
 
                 this[!!SelectedItemProperty] = _listBox[!!SelectingItemsControl.SelectedItemProperty];
                 this[!ScrollProperty] = _listBox[!ListBox.ScrollProperty];
+
+#if DEBUG
+                _listBox.ItemContainerGenerator.Materialized += (sender, args) =>
+                {
+                    Debug.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                };
+
+                _listBox.ItemContainerGenerator.Dematerialized += (sender, args) =>
+                {
+                    Debug.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                };
+
+                _listBox.ItemContainerGenerator.Recycled += (sender, args) =>
+                {
+                    Debug.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                };
+#endif
+
             }
 
             InvalidateItemTemplate();
@@ -148,6 +167,8 @@ namespace TemplatedDataGrid.Primitives
             }
         }
 
+        private int rowId = 0;
+
         private void InvalidateItemTemplate()
         {
             _rows.Clear();
@@ -158,11 +179,37 @@ namespace TemplatedDataGrid.Primitives
                 {
                     var row = new DataGridRow()
                     {
+#if DEBUG
+                        Tag = rowId++,
+#endif
                         [!!DataGridRow.SelectedItemProperty] = this[!!DataGridRowsPresenter.SelectedItemProperty],
                         [!!DataGridRow.SelectedCellProperty] = this[!!DataGridRowsPresenter.SelectedCellProperty],
                         [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty],
                         [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]
                     };
+
+#if DEBUG
+                    row.AttachedToVisualTree += (_, _) =>
+                    {
+                        Debug.WriteLine($"[AttachedToVisualTree] Row='{row.Tag}'");
+                    };
+
+                    row.DetachedFromVisualTree += (_, _) =>
+                    {
+                        Debug.WriteLine($"[DetachedFromVisualTree] Row='{row.Tag}'");
+                    };
+
+                    row.AttachedToLogicalTree += (_, _) =>
+                    {
+                        Debug.WriteLine($"[AttachedToLogicalTree] Row='{row.Tag}'");
+                    };
+
+                    row.DetachedFromLogicalTree += (_, _) =>
+                    {
+                        Debug.WriteLine($"[DetachedFromLogicalTree] Row='{row.Tag}'");
+                    };
+#endif
+
                     _rows.Add(row);
                     return row;
                 },
