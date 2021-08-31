@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Diagnostics;
+﻿using System;
+using System.Collections;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -128,17 +128,17 @@ namespace TemplatedDataGrid.Primitives
 #if DEBUG
                 _listBox.ItemContainerGenerator.Materialized += (sender, args) =>
                 {
-                    Debug.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    Console.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
                 };
 
                 _listBox.ItemContainerGenerator.Dematerialized += (sender, args) =>
                 {
-                    Debug.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    Console.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
                 };
 
                 _listBox.ItemContainerGenerator.Recycled += (sender, args) =>
                 {
-                    Debug.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    Console.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
                 };
 #endif
 
@@ -188,25 +188,28 @@ namespace TemplatedDataGrid.Primitives
                         [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]
                     };
 
+                    row.Bind(DataGridRow.SelectedItemProperty, this.GetObservable(DataGridRowsPresenter.SelectedItemProperty).ToBinding());
+                    
+                    
 #if DEBUG
                     row.AttachedToVisualTree += (_, _) =>
                     {
-                        Debug.WriteLine($"[AttachedToVisualTree] Row='{row.Tag}'");
+                        Console.WriteLine($"[AttachedToVisualTree] Row='{row.Tag}'");
                     };
 
                     row.DetachedFromVisualTree += (_, _) =>
                     {
-                        Debug.WriteLine($"[DetachedFromVisualTree] Row='{row.Tag}'");
+                        Console.WriteLine($"[DetachedFromVisualTree] Row='{row.Tag}'");
                     };
 
                     row.AttachedToLogicalTree += (_, _) =>
                     {
-                        Debug.WriteLine($"[AttachedToLogicalTree] Row='{row.Tag}'");
+                        Console.WriteLine($"[AttachedToLogicalTree] Row='{row.Tag}'");
                     };
 
                     row.DetachedFromLogicalTree += (_, _) =>
                     {
-                        Debug.WriteLine($"[DetachedFromLogicalTree] Row='{row.Tag}'");
+                        Console.WriteLine($"[DetachedFromLogicalTree] Row='{row.Tag}'");
                     };
 #endif
 
