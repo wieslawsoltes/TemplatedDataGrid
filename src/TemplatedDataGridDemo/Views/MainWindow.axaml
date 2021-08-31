@@ -62,7 +62,7 @@
             </DataTemplate>
           </g:DataGridTemplateColumn.CellTemplate>
         </g:DataGridTemplateColumn>
-        <g:DataGridTemplateColumn Header="Column2" Width="*" MinWidth="200">
+        <g:DataGridTemplateColumn Header="Column2" Width="Auto" MinWidth="200">
           <g:DataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column2}" />
