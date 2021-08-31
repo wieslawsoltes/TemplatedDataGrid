@@ -110,7 +110,7 @@ namespace TemplatedDataGrid
 
                 if (this.GetVisualsAt(e.GetPosition(this)).Any(c => this == c || this.IsVisualAncestorOf(c)))
                 {
-                    OnClick();
+                    OnClick(e.KeyModifiers);
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace TemplatedDataGrid
             }
         }
 
-        private void OnClick()
+        private void OnClick(KeyModifiers keyModifiers)
         {
             if (_column is null || _columnHeaders is null)
             {
@@ -142,22 +142,28 @@ namespace TemplatedDataGrid
                 return;
             }
 
-            foreach (var columnHeader in _columnHeaders)
+            var ctrl = (keyModifiers & KeyModifiers.Control) == KeyModifiers.Control;
+            var shift = (keyModifiers & KeyModifiers.Shift) == KeyModifiers.Shift;
+
+            if (!shift)
             {
-                if (!Equals(columnHeader, this))
+                foreach (var columnHeader in _columnHeaders)
                 {
-                    if (columnHeader.Column is { } column)
+                    if (!Equals(columnHeader, this))
                     {
-                        column.SortingState = null;
-                        columnHeader.UpdatePseudoClassesSortingState(column.SortingState);
+                        if (columnHeader.Column is { } column)
+                        {
+                            column.SortingState = null;
+                            columnHeader.UpdatePseudoClassesSortingState(column.SortingState);
+                        }
                     }
                 }
             }
 
-            var sortMemberPath = _column.SortMemberPath;
-            var sortingState =  _column.SortingState == ListSortDirection.Ascending
+            var sortMemberPath = ctrl ? default : _column.SortMemberPath;
+            var sortingState =  ctrl ? default : (_column.SortingState == ListSortDirection.Ascending
                 ? ListSortDirection.Descending
-                : ListSortDirection.Ascending;
+                : ListSortDirection.Ascending);
 
             _column.SortingState = sortingState;
 
