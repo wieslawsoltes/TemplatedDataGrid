@@ -20,6 +20,9 @@ namespace TemplatedDataGrid.Primitives
                 o => o.Items, 
                 (o, v) => o.Items = v);
 
+        internal static readonly StyledProperty<bool> AutoScrollToSelectedItemProperty = 
+            AvaloniaProperty.Register<DataGridRowsPresenter, bool>(nameof(AutoScrollToSelectedItem));
+
         internal static readonly DirectProperty<DataGridRowsPresenter, object?> SelectedItemProperty =
             AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, object?>(
                 nameof(SelectedItem), 
@@ -81,6 +84,12 @@ namespace TemplatedDataGrid.Primitives
             set => SetAndRaise(SelectedItemProperty, ref _selectedItem, value);
         }
 
+        internal bool AutoScrollToSelectedItem
+        {
+            get => GetValue(AutoScrollToSelectedItemProperty);
+            set => SetValue(AutoScrollToSelectedItemProperty, value);
+        }
+
         internal object? SelectedCell
         {
             get => _selectedCell;
@@ -120,6 +129,7 @@ namespace TemplatedDataGrid.Primitives
             if (_listBox is { })
             {
                 _listBox[!ItemsControl.ItemsProperty] = this[!ItemsProperty];
+                _listBox[!SelectingItemsControl.AutoScrollToSelectedItemProperty] = this[!AutoScrollToSelectedItemProperty];
                 _listBox[!ItemsControl.ItemTemplateProperty] = this[!ItemTemplateProperty];
 
                 this[!!SelectedItemProperty] = _listBox[!!SelectingItemsControl.SelectedItemProperty];

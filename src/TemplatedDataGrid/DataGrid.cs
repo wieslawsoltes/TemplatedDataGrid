@@ -31,6 +31,9 @@ namespace TemplatedDataGrid
                 (o, v) => o.SelectedItem = v,
                 defaultBindingMode: BindingMode.TwoWay);
 
+        public static readonly StyledProperty<bool> AutoScrollToSelectedItemProperty = 
+            AvaloniaProperty.Register<DataGrid, bool>(nameof(AutoScrollToSelectedItem));
+
         internal static readonly DirectProperty<DataGrid, object?> SelectedCellProperty =
             AvaloniaProperty.RegisterDirect<DataGrid, object?>(
                 nameof(SelectedCell), 
@@ -78,6 +81,12 @@ namespace TemplatedDataGrid
         {
             get => _items;
             set => SetAndRaise(ItemsProperty, ref _items, value);
+        }
+
+        public bool AutoScrollToSelectedItem
+        {
+            get => GetValue(AutoScrollToSelectedItemProperty);
+            set => SetValue(AutoScrollToSelectedItemProperty, value);
         }
 
         public object? SelectedItem
@@ -283,6 +292,7 @@ namespace TemplatedDataGrid
             {
                 _rowsPresenter[!DataGridRowsPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
                 _rowsPresenter[!DataGridRowsPresenter.ItemsProperty] = this[!DataGrid.ItemsProperty];
+                _rowsPresenter[!DataGridRowsPresenter.AutoScrollToSelectedItemProperty] = this[!DataGrid.AutoScrollToSelectedItemProperty];
                 _rowsPresenter[!!DataGridRowsPresenter.SelectedItemProperty] = this[!!DataGrid.SelectedItemProperty];
                 _rowsPresenter[!!DataGridRowsPresenter.SelectedCellProperty] = this[!!DataGrid.SelectedCellProperty];
                 _rowsPresenter[!DataGridRowsPresenter.GridLinesVisibilityProperty] = this[!DataGrid.GridLinesVisibilityProperty];
