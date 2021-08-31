@@ -188,9 +188,6 @@ namespace TemplatedDataGrid.Primitives
                         [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]
                     };
 
-                    row.Bind(DataGridRow.SelectedItemProperty, this.GetObservable(DataGridRowsPresenter.SelectedItemProperty).ToBinding());
-                    
-                    
 #if DEBUG
                     row.AttachedToVisualTree += (_, _) =>
                     {
