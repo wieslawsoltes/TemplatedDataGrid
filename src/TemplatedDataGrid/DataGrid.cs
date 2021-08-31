@@ -39,7 +39,7 @@ namespace TemplatedDataGrid
                 defaultBindingMode: BindingMode.TwoWay);
 
         public static readonly StyledProperty<bool> CanUserSortColumnsProperty = 
-            AvaloniaProperty.Register<DataGrid, bool>(nameof(CanUserSortColumns));
+            AvaloniaProperty.Register<DataGrid, bool>(nameof(CanUserSortColumns), true);
 
         public static readonly StyledProperty<bool> CanUserResizeColumnsProperty = 
             AvaloniaProperty.Register<DataGrid, bool>(nameof(CanUserResizeColumns));
