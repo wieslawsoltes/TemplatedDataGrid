@@ -5,38 +5,38 @@ namespace TemplatedDataGridDemo.ViewModels
 {
     public class ItemViewModel : ViewModelBase
     {
-        private string? _column1;
-        private string? _column2;
-        private string? _column3;
-        private bool? _column4;
-        private string? _column5;
+        private string _column1;
+        private string _column2;
+        private string _column3;
+        private bool _column4;
+        private int _column5;
         private Thickness _margin;
 
-        public string? Column1
+        public string Column1
         {
             get => _column1;
             set => this.RaiseAndSetIfChanged(ref _column1, value);
         }
 
-        public string? Column2
+        public string Column2
         {
             get => _column2;
             set => this.RaiseAndSetIfChanged(ref _column2, value);
         }
 
-        public string? Column3
+        public string Column3
         {
             get => _column3;
             set => this.RaiseAndSetIfChanged(ref _column3, value);
         }
 
-        public bool? Column4
+        public bool Column4
         {
             get => _column4;
             set => this.RaiseAndSetIfChanged(ref _column4, value);
         }
 
-        public string? Column5
+        public int Column5
         {
             get => _column5;
             set => this.RaiseAndSetIfChanged(ref _column5, value);
@@ -48,7 +48,7 @@ namespace TemplatedDataGridDemo.ViewModels
             set => this.RaiseAndSetIfChanged(ref _margin, value);
         }
 
-        public ItemViewModel(string? column1, string? column2, string? column3, bool? column4, string? column5, Thickness margin)
+        public ItemViewModel(string column1, string column2, string column3, bool column4, int column5, Thickness margin)
         {
             _column1 = column1;
             _column2 = column2;
