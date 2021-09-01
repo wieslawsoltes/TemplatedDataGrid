@@ -97,6 +97,19 @@ namespace TemplatedDataGridDemo.ViewModels
 
             EnableSort(x => x.Column1, SortingStateColumn1);
 
+            ItemViewModel CreateItem(int index)
+            {
+                return new ItemViewModel(
+                    $"Template1 {index}-1",
+                    $"Template2 {index}-2",
+                    $"Template3 {index}-3",
+                    rand.NextDouble() > 0.5,
+                    index,
+                    enableRandom
+                        ? new Thickness(0, rand.NextDouble() * randomSize, 0, rand.NextDouble() * randomSize)
+                        : new Thickness(0));
+            }
+
             IObservable<IChangeSet<ItemViewModel>> GetSortingObservable(IComparer<ItemViewModel> comparer)
             {
                 return itemsSourceList!
@@ -203,19 +216,6 @@ namespace TemplatedDataGridDemo.ViewModels
             {
                 SelectedItem = Items.FirstOrDefault();
             });
-
-            ItemViewModel CreateItem(int index)
-            {
-                return new ItemViewModel(
-                    $"Template1 {index}-1",
-                    $"Template2 {index}-2",
-                    $"Template3 {index}-3",
-                    rand.NextDouble() > 0.5,
-                    index,
-                    enableRandom
-                        ? new Thickness(0, rand.NextDouble() * randomSize, 0, rand.NextDouble() * randomSize)
-                        : new Thickness(0));
-            }
         }
     }
 }
