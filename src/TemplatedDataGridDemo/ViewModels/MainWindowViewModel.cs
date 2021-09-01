@@ -79,7 +79,7 @@ namespace TemplatedDataGridDemo.ViewModels
             var comparer = SortExpressionComparer<ItemViewModel>.Ascending(x => x.Column1);
             var comparerSubject = new Subject<IComparer<ItemViewModel>>();
             var isSortingEnabled = true;
-            var totalItems = 10_000;
+            var totalItems = 1_000;
             var enableRandom = false;
             var randomSize = 100;
             var rand = new Random();
