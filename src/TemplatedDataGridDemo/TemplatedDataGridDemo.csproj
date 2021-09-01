@@ -6,7 +6,7 @@
     <OutputType>WinExe</OutputType>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0</TargetFrameworks>
+    <TargetFrameworks>net5.0;net461</TargetFrameworks>
     <IsPackable>False</IsPackable>
     <Nullable>enable</Nullable>
     <RootNamespace>TemplatedDataGridDemo</RootNamespace>
