@@ -160,8 +160,8 @@ namespace TemplatedDataGrid
                 }
             }
 
-            var sortMemberPath = ctrl ? default : _column.SortMemberPath;
-            var sortingState =  ctrl ? default : (_column.SortingState == ListSortDirection.Ascending
+            string? sortMemberPath = ctrl ? null : _column.SortMemberPath;
+            ListSortDirection? sortingState =  ctrl ? null : (_column.SortingState == ListSortDirection.Ascending
                 ? ListSortDirection.Descending
                 : ListSortDirection.Ascending);
 
