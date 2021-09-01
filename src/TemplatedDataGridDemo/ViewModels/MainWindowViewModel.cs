@@ -76,9 +76,8 @@ namespace TemplatedDataGridDemo.ViewModels
         {
             var itemsSourceList = new SourceList<ItemViewModel>();
 
-            var comparer = SortExpressionComparer<ItemViewModel>.Ascending(x => x.Column1);
             var comparerSubject = new Subject<IComparer<ItemViewModel>>();
-            var isSortingEnabled = true;
+            var isSortingEnabled = false;
             var totalItems = 1_000;
             var enableRandom = false;
             var randomSize = 100;
@@ -87,18 +86,18 @@ namespace TemplatedDataGridDemo.ViewModels
 
             for (var i = 0; i < totalItems; i++)
             {
-                var item = CreateItem(i);
-
-                items.Add(item);
+                items.Add(CreateItem(i));
             }
 
             itemsSourceList.AddRange(items);
 
-            var subscription = EnableSorting().Subscribe();
+            IDisposable? subscription = null;
 
             SortingStateColumn1 = ListSortDirection.Ascending;
 
-            IObservable<IChangeSet<ItemViewModel>> EnableSorting()
+            EnableSort(x => x.Column1, SortingStateColumn1);
+
+            IObservable<IChangeSet<ItemViewModel>> GetSortingObservable(IComparer<ItemViewModel> comparer)
             {
                 return itemsSourceList!
                     .Connect()
@@ -107,7 +106,7 @@ namespace TemplatedDataGridDemo.ViewModels
                     .Bind(out _items);
             }
 
-            IObservable<IChangeSet<ItemViewModel>> DisableSorting()
+            IObservable<IChangeSet<ItemViewModel>> GetDefaultObservable()
             {
                 return itemsSourceList!
                     .Connect()
@@ -115,83 +114,57 @@ namespace TemplatedDataGridDemo.ViewModels
                     .Bind(out _items);
             }
 
+            void EnableSort(Func<ItemViewModel, IComparable> expression, ListSortDirection? listSortDirection)
+            {
+                var sortExpressionComparer = listSortDirection == ListSortDirection.Ascending
+                    ? SortExpressionComparer<ItemViewModel>.Ascending(expression)
+                    : SortExpressionComparer<ItemViewModel>.Descending(expression);
+
+                if (!isSortingEnabled)
+                {
+                    subscription?.Dispose();
+                    subscription = GetSortingObservable(sortExpressionComparer).Subscribe();
+                    isSortingEnabled = true;
+                    this.RaisePropertyChanged(nameof(Items));
+                }
+                else
+                {
+                    comparerSubject?.OnNext(sortExpressionComparer);
+                }
+            }
+
+            void DisableSort()
+            {
+                if (isSortingEnabled)
+                {
+                    subscription?.Dispose();
+                    subscription = GetDefaultObservable().Subscribe();
+                    isSortingEnabled = false;
+                    this.RaisePropertyChanged(nameof(Items));
+                }
+            }
+
             void Sort(string? sortMemberPath)
             {
                 switch (sortMemberPath)
                 {
                     case null:
-                        if (isSortingEnabled)
-                        {
-                            subscription?.Dispose();
-                            subscription = DisableSorting().Subscribe();
-                            isSortingEnabled = false;
-                            this.RaisePropertyChanged(nameof(Items));
-                        }
+                        DisableSort();
                         break;
                     case "Column1":
-                        if (!isSortingEnabled)
-                        {
-                            subscription?.Dispose();
-                            subscription = EnableSorting().Subscribe();
-                            isSortingEnabled = true;
-                            this.RaisePropertyChanged(nameof(Items));
-                        }
-                        comparerSubject?.OnNext(
-                            SortingStateColumn1 == ListSortDirection.Ascending
-                                ? SortExpressionComparer<ItemViewModel>.Ascending(x => x.Column1)
-                                : SortExpressionComparer<ItemViewModel>.Descending(x => x.Column1));
+                        EnableSort(x => x.Column1, SortingStateColumn1);
                         break;
                     case "Column2":
-                        if (!isSortingEnabled)
-                        {
-                            subscription?.Dispose();
-                            subscription = EnableSorting().Subscribe();
-                            isSortingEnabled = true;
-                            this.RaisePropertyChanged(nameof(Items));
-                        }
-                        comparerSubject?.OnNext(
-                            SortingStateColumn2 == ListSortDirection.Ascending
-                                ? SortExpressionComparer<ItemViewModel>.Ascending(x => x.Column2)
-                                : SortExpressionComparer<ItemViewModel>.Descending(x => x.Column2));
+                        EnableSort(x => x.Column2, SortingStateColumn2);
                         break;
                     case "Column3":
-                        if (!isSortingEnabled)
-                        {
-                            subscription?.Dispose();
-                            subscription = EnableSorting().Subscribe();
-                            isSortingEnabled = true;
-                            this.RaisePropertyChanged(nameof(Items));
-                        }
-                        comparerSubject?.OnNext(
-                            SortingStateColumn3 == ListSortDirection.Ascending
-                                ? SortExpressionComparer<ItemViewModel>.Ascending(x => x.Column3)
-                                : SortExpressionComparer<ItemViewModel>.Descending(x => x.Column3));
+                        EnableSort(x => x.Column3, SortingStateColumn3);
                         break;
                     case "Column4":
-                        if (!isSortingEnabled)
-                        {
-                            subscription?.Dispose();
-                            subscription = EnableSorting().Subscribe();
-                            isSortingEnabled = true;
-                            this.RaisePropertyChanged(nameof(Items));
-                        }
-                        comparerSubject?.OnNext(
-                            SortingStateColumn4 == ListSortDirection.Ascending
-                                ? SortExpressionComparer<ItemViewModel>.Ascending(x => x.Column4)
-                                : SortExpressionComparer<ItemViewModel>.Descending(x => x.Column4));
+                        EnableSort(x => x.Column4, SortingStateColumn4);
                         break;
                     case "Column5":
-                        if (!isSortingEnabled)
-                        {
-                            subscription?.Dispose();
-                            subscription = EnableSorting().Subscribe();
-                            isSortingEnabled = true;
-                            this.RaisePropertyChanged(nameof(Items));
-                        }
-                        comparerSubject?.OnNext(
-                            SortingStateColumn5 == ListSortDirection.Ascending
-                                ? SortExpressionComparer<ItemViewModel>.Ascending(x => x.Column5)
-                                : SortExpressionComparer<ItemViewModel>.Descending(x => x.Column5));
+                        EnableSort(x => x.Column5, SortingStateColumn5);
                         break;
                 }
             }
