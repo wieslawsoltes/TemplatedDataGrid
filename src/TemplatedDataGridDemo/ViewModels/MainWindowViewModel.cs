@@ -229,7 +229,7 @@ namespace TemplatedDataGridDemo.ViewModels
                     $"Template2 {index}-2",
                     $"Template3 {index}-3",
                     rand.NextDouble() > 0.5,
-                    $"{index}",
+                    index,
                     enableRandom
                         ? new Thickness(0, rand.NextDouble() * randomSize, 0, rand.NextDouble() * randomSize)
                         : new Thickness(0));
