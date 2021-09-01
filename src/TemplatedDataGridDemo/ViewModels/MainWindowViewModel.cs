@@ -77,27 +77,11 @@ namespace TemplatedDataGridDemo.ViewModels
             var itemsSourceList = new SourceList<ItemViewModel>();
 
             var comparer = SortExpressionComparer<ItemViewModel>.Ascending(x => x.Column1);
-
             var comparerSubject = new Subject<IComparer<ItemViewModel>>();
-
-            var disableSorting = itemsSourceList
-                .Connect()
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Bind(out _items);
-
-            var enableSorting = itemsSourceList
-                .Connect()
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Sort(comparer, comparerChanged: comparerSubject)
-                .Bind(out _items);
-
-            var subscription = enableSorting.Subscribe();
             var isSortingEnabled = true;
-
-            int totalItems = 10_000;
-            bool enableRandom = false;
-            int randomSize = 100;
-
+            var totalItems = 10_000;
+            var enableRandom = false;
+            var randomSize = 100;
             var rand = new Random();
             var items = new List<ItemViewModel>();
 
@@ -110,7 +94,26 @@ namespace TemplatedDataGridDemo.ViewModels
 
             itemsSourceList.AddRange(items);
 
+            var subscription = EnableSorting().Subscribe();
+
             SortingStateColumn1 = ListSortDirection.Ascending;
+
+            IObservable<IChangeSet<ItemViewModel>> EnableSorting()
+            {
+                return itemsSourceList!
+                    .Connect()
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .Sort(comparer, comparerChanged: comparerSubject)
+                    .Bind(out _items);
+            }
+
+            IObservable<IChangeSet<ItemViewModel>> DisableSorting()
+            {
+                return itemsSourceList!
+                    .Connect()
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .Bind(out _items);
+            }
 
             void Sort(string? sortMemberPath)
             {
@@ -120,16 +123,18 @@ namespace TemplatedDataGridDemo.ViewModels
                         if (isSortingEnabled)
                         {
                             subscription?.Dispose();
-                            subscription = disableSorting?.Subscribe();
+                            subscription = DisableSorting().Subscribe();
                             isSortingEnabled = false;
+                            this.RaisePropertyChanged(nameof(Items));
                         }
                         break;
                     case "Column1":
                         if (!isSortingEnabled)
                         {
                             subscription?.Dispose();
-                            subscription = enableSorting?.Subscribe();
+                            subscription = EnableSorting().Subscribe();
                             isSortingEnabled = true;
+                            this.RaisePropertyChanged(nameof(Items));
                         }
                         comparerSubject?.OnNext(
                             SortingStateColumn1 == ListSortDirection.Ascending
@@ -140,8 +145,9 @@ namespace TemplatedDataGridDemo.ViewModels
                         if (!isSortingEnabled)
                         {
                             subscription?.Dispose();
-                            subscription = enableSorting?.Subscribe();
+                            subscription = EnableSorting().Subscribe();
                             isSortingEnabled = true;
+                            this.RaisePropertyChanged(nameof(Items));
                         }
                         comparerSubject?.OnNext(
                             SortingStateColumn2 == ListSortDirection.Ascending
@@ -152,8 +158,9 @@ namespace TemplatedDataGridDemo.ViewModels
                         if (!isSortingEnabled)
                         {
                             subscription?.Dispose();
-                            subscription = enableSorting?.Subscribe();
+                            subscription = EnableSorting().Subscribe();
                             isSortingEnabled = true;
+                            this.RaisePropertyChanged(nameof(Items));
                         }
                         comparerSubject?.OnNext(
                             SortingStateColumn3 == ListSortDirection.Ascending
@@ -164,8 +171,9 @@ namespace TemplatedDataGridDemo.ViewModels
                         if (!isSortingEnabled)
                         {
                             subscription?.Dispose();
-                            subscription = enableSorting?.Subscribe();
+                            subscription = EnableSorting().Subscribe();
                             isSortingEnabled = true;
+                            this.RaisePropertyChanged(nameof(Items));
                         }
                         comparerSubject?.OnNext(
                             SortingStateColumn4 == ListSortDirection.Ascending
@@ -176,8 +184,9 @@ namespace TemplatedDataGridDemo.ViewModels
                         if (!isSortingEnabled)
                         {
                             subscription?.Dispose();
-                            subscription = enableSorting?.Subscribe();
+                            subscription = EnableSorting().Subscribe();
                             isSortingEnabled = true;
+                            this.RaisePropertyChanged(nameof(Items));
                         }
                         comparerSubject?.OnNext(
                             SortingStateColumn5 == ListSortDirection.Ascending
