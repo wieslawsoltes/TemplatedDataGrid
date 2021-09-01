@@ -75,7 +75,6 @@ namespace TemplatedDataGridDemo.ViewModels
         public MainWindowViewModel()
         {
             var itemsSourceList = new SourceList<ItemViewModel>();
-
             var comparerSubject = new Subject<IComparer<ItemViewModel>>();
             var isSortingEnabled = false;
             var totalItems = 1_000;
@@ -88,13 +87,10 @@ namespace TemplatedDataGridDemo.ViewModels
             {
                 items.Add(CreateItem(i));
             }
-
             itemsSourceList.AddRange(items);
 
             IDisposable? subscription = null;
-
             SortingStateColumn1 = ListSortDirection.Ascending;
-
             EnableSort(x => x.Column1, SortingStateColumn1);
 
             ItemViewModel CreateItem(int index)
@@ -142,7 +138,7 @@ namespace TemplatedDataGridDemo.ViewModels
                 }
                 else
                 {
-                    comparerSubject?.OnNext(sortExpressionComparer);
+                    comparerSubject.OnNext(sortExpressionComparer);
                 }
             }
 
