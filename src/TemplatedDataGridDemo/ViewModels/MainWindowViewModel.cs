@@ -106,7 +106,7 @@ namespace TemplatedDataGridDemo.ViewModels
                         : new Thickness(0));
             }
 
-            IObservable<IChangeSet<ItemViewModel>> GetSortingObservable(IComparer<ItemViewModel> comparer)
+            IObservable<IChangeSet<ItemViewModel>> GetSortObservable(IComparer<ItemViewModel> comparer)
             {
                 return itemsSourceList!
                     .Connect()
@@ -132,7 +132,7 @@ namespace TemplatedDataGridDemo.ViewModels
                 if (!isSortingEnabled)
                 {
                     subscription?.Dispose();
-                    subscription = GetSortingObservable(sortExpressionComparer).Subscribe();
+                    subscription = GetSortObservable(sortExpressionComparer).Subscribe();
                     isSortingEnabled = true;
                     this.RaisePropertyChanged(nameof(Items));
                 }
