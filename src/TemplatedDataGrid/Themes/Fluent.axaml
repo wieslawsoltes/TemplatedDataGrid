@@ -1,7 +1,5 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:g="using:TemplatedDataGrid"
-        xmlns:p="clr-namespace:TemplatedDataGrid.Primitives">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Styles.Resources>
 
     <x:Double x:Key="ListAccentLowOpacity">0.6</x:Double>
@@ -48,15 +46,15 @@
 
   </Styles.Resources>
 
-  <Style Selector="g|DataGrid">
+  <Style Selector="TemplatedDataGrid">
     <Setter Property="Template">
       <ControlTemplate>
         <Panel Name="PART_Panel">
           <DockPanel>
-            <p:DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" DockPanel.Dock="Top"/>
+            <TemplatedDataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" DockPanel.Dock="Top"/>
             <Rectangle Name="PART_ColumnHeadersAndRowsSeparator" DockPanel.Dock="Top" />
             <Panel>
-              <p:DataGridRowsPresenter Name="PART_RowsPresenter"/>
+              <TemplatedDataGridRowsPresenter Name="PART_RowsPresenter"/>
               <Grid Name="PART_Root"/>
             </Panel>
           </DockPanel>
@@ -64,7 +62,7 @@
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="g|DataGrid /template/ Rectangle#PART_ColumnHeadersAndRowsSeparator">
+  <Style Selector="TemplatedDataGrid /template/ Rectangle#PART_ColumnHeadersAndRowsSeparator">
     <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="Height" Value="1" />
@@ -72,7 +70,7 @@
     <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
-  <Style Selector="g|DataGrid /template/ Grid#PART_Root > Rectangle:vertical">
+  <Style Selector="TemplatedDataGrid /template/ Grid#PART_Root > Rectangle:vertical">
     <Setter Property="HorizontalAlignment" Value="Center" />
     <Setter Property="VerticalAlignment" Value="Stretch" />
     <Setter Property="Width" Value="1" />
@@ -81,14 +79,14 @@
     <Setter Property="Opacity" Value="0.4" />
   </Style>
 
-  <Style Selector="p|DataGridRowsPresenter">
+  <Style Selector="TemplatedDataGridRowsPresenter">
     <Setter Property="Template">
       <ControlTemplate>
         <ListBox Name="PART_ListBox" />
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox">
+  <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox">
     <Setter Property="VirtualizationMode" Value="Simple" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="(ScrollViewer.HorizontalScrollBarVisibility)" Value="Auto" />
@@ -101,38 +99,38 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem">
+  <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem">
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     <Setter Property="Margin" Value="0"/>
     <Setter Property="Padding" Value="0"/>
   </Style>
-  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Background" Value="Transparent" />
   </Style>
-  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:pressed /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:pressed /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Background" Value="Transparent" />
   </Style>
-  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Background" Value="Transparent" />
   </Style>
-  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected:not(:focus) /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected:not(:focus) /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Background" Value="Transparent" />
   </Style>
-  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Background" Value="Transparent" />
   </Style>
-  <Style Selector="p|DataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected:pressed /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem:selected:pressed /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Background" Value="Transparent" />
   </Style>
 
-  <Style Selector="p|DataGridColumnHeadersPresenter">
+  <Style Selector="TemplatedDataGridColumnHeadersPresenter">
     <Setter Property="Template">
       <ControlTemplate>
         <Grid Name="PART_Root" />
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="p|DataGridColumnHeadersPresenter /template/ Grid#PART_Root > Rectangle:horizontal">
+  <Style Selector="TemplatedDataGridColumnHeadersPresenter /template/ Grid#PART_Root > Rectangle:horizontal">
     <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="Height" Value="1" />
@@ -140,7 +138,7 @@
     <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
-  <Style Selector="p|DataGridColumnHeadersPresenter /template/ Grid#PART_Root > Rectangle:vertical">
+  <Style Selector="TemplatedDataGridColumnHeadersPresenter /template/ Grid#PART_Root > Rectangle:vertical">
     <Setter Property="HorizontalAlignment" Value="Center" />
     <Setter Property="VerticalAlignment" Value="Stretch" />
     <Setter Property="Width" Value="1" />
@@ -148,7 +146,7 @@
     <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
-  <Style Selector="p|DataGridColumnHeadersPresenter /template/ Grid#PART_Root > GridSplitter">
+  <Style Selector="TemplatedDataGridColumnHeadersPresenter /template/ Grid#PART_Root > GridSplitter">
     <Setter Property="Width" Value="7" />
     <Setter Property="MinWidth" Value="7" />
     <Setter Property="ResizeBehavior" Value="PreviousAndNext" />
@@ -158,7 +156,7 @@
     <Setter Property="Background" Value="Transparent" />
   </Style>
 
-  <Style Selector="g|DataGridColumnHeader">
+  <Style Selector="TemplatedDataGridColumnHeader">
     <Setter Property="Foreground" Value="{DynamicResource DataGridColumnHeaderForegroundBrush}" />
     <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderBackgroundBrush}" />
     <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -187,25 +185,25 @@
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="g|DataGridColumnHeader:pointerover /template/ Grid#PART_ColumnHeaderRoot">
+  <Style Selector="TemplatedDataGridColumnHeader:pointerover /template/ Grid#PART_ColumnHeaderRoot">
     <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderHoveredBackgroundColor}" />
   </Style>
-  <Style Selector="g|DataGridColumnHeader:pressed /template/ Grid#PART_ColumnHeaderRoot">
+  <Style Selector="TemplatedDataGridColumnHeader:pressed /template/ Grid#PART_ColumnHeaderRoot">
     <Setter Property="Background" Value="{DynamicResource DataGridColumnHeaderPressedBackgroundColor}" />
   </Style>
-  <Style Selector="g|DataGridColumnHeader /template/ Path#SortIcon">
+  <Style Selector="TemplatedDataGridColumnHeader /template/ Path#SortIcon">
     <Setter Property="IsVisible" Value="False" />
   </Style>
-  <Style Selector="g|DataGridColumnHeader:sortascending /template/ Path#SortIcon">
+  <Style Selector="TemplatedDataGridColumnHeader:sortascending /template/ Path#SortIcon">
     <Setter Property="IsVisible" Value="True" />
     <Setter Property="Data" Value="{StaticResource DataGridSortIconAscendingPath}" />
   </Style>
-  <Style Selector="g|DataGridColumnHeader:sortdescending /template/ Path#SortIcon">
+  <Style Selector="TemplatedDataGridColumnHeader:sortdescending /template/ Path#SortIcon">
     <Setter Property="IsVisible" Value="True" />
     <Setter Property="Data" Value="{StaticResource DataGridSortIconDescendingPath}" />
   </Style>
 
-  <Style Selector="p|DataGridCellsPresenter">
+  <Style Selector="TemplatedDataGridCellsPresenter">
     <Setter Property="Template">
       <ControlTemplate>
         <Grid Name="PART_Root" />
@@ -213,48 +211,48 @@
     </Setter>
   </Style>
 
-  <Style Selector="g|DataGridRow">
+  <Style Selector="TemplatedDataGridRow">
     <Setter Property="Template">
       <ControlTemplate>
         <Grid Name="PART_Root" RowDefinitions="*,Auto">
           <Rectangle Grid.Row="0" Name="BackgroundRectangle" />
-          <p:DataGridCellsPresenter Grid.Row="0" Name="PART_CellsPresenter"/>
+          <TemplatedDataGridCellsPresenter Grid.Row="0" Name="PART_CellsPresenter"/>
           <Rectangle Grid.Row="1" Name="PART_BottomGridLine"/>
         </Grid>
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="g|DataGridRow /template/ Rectangle#PART_BottomGridLine">
+  <Style Selector="TemplatedDataGridRow /template/ Rectangle#PART_BottomGridLine">
     <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="Height" Value="1" />
     <Setter Property="Fill" Value="{DynamicResource DataGridGridLinesBrush}" />
     <Setter Property="Opacity" Value="0.4" />
   </Style>
-  <Style Selector="g|DataGridRow /template/ Rectangle#BackgroundRectangle">
+  <Style Selector="TemplatedDataGridRow /template/ Rectangle#BackgroundRectangle">
     <Setter Property="Fill" Value="{DynamicResource SystemControlTransparentBrush}" />
   </Style>
-  <Style Selector="g|DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+  <Style Selector="TemplatedDataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
     <Setter Property="Fill" Value="{DynamicResource SystemListLowColor}" />
   </Style>
-  <Style Selector="g|DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+  <Style Selector="TemplatedDataGridRow:selected /template/ Rectangle#BackgroundRectangle">
     <Setter Property="Fill" Value="{DynamicResource DataGridRowSelectedUnfocusedBackgroundColor}" />
     <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedUnfocusedBackgroundOpacity}" />
   </Style>
-  <Style Selector="g|DataGridRow:selected:pointerover /template/ Rectangle#BackgroundRectangle">
+  <Style Selector="TemplatedDataGridRow:selected:pointerover /template/ Rectangle#BackgroundRectangle">
     <Setter Property="Fill" Value="{DynamicResource DataGridRowSelectedHoveredUnfocusedBackgroundColor}" />
     <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedHoveredUnfocusedBackgroundOpacity}" />
   </Style>
-  <Style Selector="g|DataGridRow:selected:focus /template/ Rectangle#BackgroundRectangle">
+  <Style Selector="TemplatedDataGridRow:selected:focus /template/ Rectangle#BackgroundRectangle">
     <Setter Property="Fill" Value="{DynamicResource DataGridRowSelectedBackgroundColor}" />
     <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedBackgroundOpacity}" />
   </Style>
-  <Style Selector="g|DataGridRow:selected:pointerover:focus /template/ Rectangle#BackgroundRectangle">
+  <Style Selector="TemplatedDataGridRow:selected:pointerover:focus /template/ Rectangle#BackgroundRectangle">
     <Setter Property="Fill" Value="{DynamicResource DataGridRowSelectedHoveredBackgroundColor}" />
     <Setter Property="Opacity" Value="{DynamicResource DataGridRowSelectedHoveredBackgroundOpacity}" />
   </Style>
 
-  <Style Selector="g|DataGridCell">
+  <Style Selector="TemplatedDataGridCell">
     <Setter Property="Background" Value="{DynamicResource DataGridCellBackgroundBrush}" />
     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
     <Setter Property="VerticalContentAlignment" Value="Stretch" />

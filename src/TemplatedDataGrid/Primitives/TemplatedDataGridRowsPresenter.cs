@@ -9,61 +9,61 @@ using Avalonia.Data;
 
 namespace TemplatedDataGrid.Primitives
 {
-    public class DataGridRowsPresenter : TemplatedControl
+    public class TemplatedDataGridRowsPresenter : TemplatedControl
     {
         internal static readonly StyledProperty<IDataTemplate> ItemTemplateProperty =
-            AvaloniaProperty.Register<DataGridRowsPresenter, IDataTemplate>(nameof(ItemTemplate));
+            AvaloniaProperty.Register<TemplatedDataGridRowsPresenter, IDataTemplate>(nameof(ItemTemplate));
 
-        internal static readonly DirectProperty<DataGridRowsPresenter, IEnumerable?> ItemsProperty =
-            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, IEnumerable?>(
+        internal static readonly DirectProperty<TemplatedDataGridRowsPresenter, IEnumerable?> ItemsProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridRowsPresenter, IEnumerable?>(
                 nameof(Items), 
                 o => o.Items, 
                 (o, v) => o.Items = v);
 
         internal static readonly StyledProperty<bool> AutoScrollToSelectedItemProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, bool>(nameof(AutoScrollToSelectedItem));
+            AvaloniaProperty.Register<TemplatedDataGridRowsPresenter, bool>(nameof(AutoScrollToSelectedItem));
 
-        internal static readonly DirectProperty<DataGridRowsPresenter, object?> SelectedItemProperty =
-            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, object?>(
+        internal static readonly DirectProperty<TemplatedDataGridRowsPresenter, object?> SelectedItemProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridRowsPresenter, object?>(
                 nameof(SelectedItem), 
                 o => o.SelectedItem, 
                 (o, v) => o.SelectedItem = v,
                 defaultBindingMode: BindingMode.TwoWay);
 
-        internal static readonly DirectProperty<DataGridRowsPresenter, object?> SelectedCellProperty =
-            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, object?>(
+        internal static readonly DirectProperty<TemplatedDataGridRowsPresenter, object?> SelectedCellProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridRowsPresenter, object?>(
                 nameof(SelectedCell), 
                 o => o.SelectedCell, 
                 (o, v) => o.SelectedCell = v,
                 defaultBindingMode: BindingMode.TwoWay);
 
-        internal static readonly DirectProperty<DataGridRowsPresenter, IScrollable?> ScrollProperty =
-            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, IScrollable?>(
+        internal static readonly DirectProperty<TemplatedDataGridRowsPresenter, IScrollable?> ScrollProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridRowsPresenter, IScrollable?>(
                 nameof(Scroll), 
                 o => o.Scroll, 
                 (o, v) => o.Scroll = v);
 
-        internal static readonly DirectProperty<DataGridRowsPresenter, AvaloniaList<DataGridColumn>?> ColumnsProperty =
-            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, AvaloniaList<DataGridColumn>?>(
+        internal static readonly DirectProperty<TemplatedDataGridRowsPresenter, AvaloniaList<TemplatedDataGridColumn>?> ColumnsProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridRowsPresenter, AvaloniaList<TemplatedDataGridColumn>?>(
                 nameof(Columns), 
                 o => o.Columns, 
                 (o, v) => o.Columns = v);
 
-        internal static readonly DirectProperty<DataGridRowsPresenter, AvaloniaList<DataGridRow>> RowsProperty =
-            AvaloniaProperty.RegisterDirect<DataGridRowsPresenter, AvaloniaList<DataGridRow>>(
+        internal static readonly DirectProperty<TemplatedDataGridRowsPresenter, AvaloniaList<TemplatedDataGridRow>> RowsProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridRowsPresenter, AvaloniaList<TemplatedDataGridRow>>(
                 nameof(Rows), 
                 o => o.Rows, 
                 (o, v) => o.Rows = v);
 
-        internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
-            AvaloniaProperty.Register<DataGridRowsPresenter, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
+        internal static readonly StyledProperty<TemplatedDataGridGridLinesVisibility> GridLinesVisibilityProperty = 
+            AvaloniaProperty.Register<TemplatedDataGridRowsPresenter, TemplatedDataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
         private IScrollable? _scroll;
-        private AvaloniaList<DataGridColumn>? _columns;
+        private AvaloniaList<TemplatedDataGridColumn>? _columns;
         private IEnumerable? _items;
         private object? _selectedItem;
         private object? _selectedCell;
-        private AvaloniaList<DataGridRow> _rows = new ();
+        private AvaloniaList<TemplatedDataGridRow> _rows = new ();
         private ListBox? _listBox;
 
         internal IDataTemplate ItemTemplate
@@ -102,19 +102,19 @@ namespace TemplatedDataGrid.Primitives
             set => SetAndRaise(ScrollProperty, ref _scroll, value);
         }
 
-        internal AvaloniaList<DataGridColumn>? Columns
+        internal AvaloniaList<TemplatedDataGridColumn>? Columns
         {
             get => _columns;
             set => SetAndRaise(ColumnsProperty, ref _columns, value);
         }
 
-        internal AvaloniaList<DataGridRow> Rows
+        internal AvaloniaList<TemplatedDataGridRow> Rows
         {
             get => _rows;
             set => SetAndRaise(RowsProperty, ref _rows, value);
         }
 
-        internal DataGridGridLinesVisibility GridLinesVisibility
+        internal TemplatedDataGridGridLinesVisibility GridLinesVisibility
         {
             get => GetValue(GridLinesVisibilityProperty);
             set => SetValue(GridLinesVisibilityProperty, value);
@@ -187,15 +187,15 @@ namespace TemplatedDataGrid.Primitives
                 _ => true,
                 (_, _) =>
                 {
-                    var row = new DataGridRow()
+                    var row = new TemplatedDataGridRow()
                     {
 #if DEBUG
                         Tag = rowId++,
 #endif
-                        [!!DataGridRow.SelectedItemProperty] = this[!!DataGridRowsPresenter.SelectedItemProperty],
-                        [!!DataGridRow.SelectedCellProperty] = this[!!DataGridRowsPresenter.SelectedCellProperty],
-                        [!DataGridRow.ColumnsProperty] = this[!DataGridRowsPresenter.ColumnsProperty],
-                        [!DataGridRow.GridLinesVisibilityProperty] = this[!DataGridRowsPresenter.GridLinesVisibilityProperty]
+                        [!!TemplatedDataGridRow.SelectedItemProperty] = this[!!TemplatedDataGridRowsPresenter.SelectedItemProperty],
+                        [!!TemplatedDataGridRow.SelectedCellProperty] = this[!!TemplatedDataGridRowsPresenter.SelectedCellProperty],
+                        [!TemplatedDataGridRow.ColumnsProperty] = this[!TemplatedDataGridRowsPresenter.ColumnsProperty],
+                        [!TemplatedDataGridRow.GridLinesVisibilityProperty] = this[!TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty]
                     };
 
 #if DEBUG

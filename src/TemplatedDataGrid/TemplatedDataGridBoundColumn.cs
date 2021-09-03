@@ -3,10 +3,10 @@ using Avalonia.Data;
 
 namespace TemplatedDataGrid
 {
-    public abstract class DataGridBoundColumn : DataGridColumn
+    public abstract class TemplatedDataGridBoundColumn : TemplatedDataGridColumn
     {
         public static readonly StyledProperty<IBinding?> BindingProperty = 
-            AvaloniaProperty.Register<DataGridBoundColumn, IBinding?>(nameof(Binding));
+            AvaloniaProperty.Register<TemplatedDataGridBoundColumn, IBinding?>(nameof(Binding));
 
         [AssignBinding]
         public IBinding? Binding

@@ -3,8 +3,6 @@
         xmlns:vm="using:TemplatedDataGridDemo.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:g="clr-namespace:TemplatedDataGrid;assembly=TemplatedDataGrid"
-        xmlns:p="clr-namespace:TemplatedDataGrid.Primitives;assembly=TemplatedDataGrid"
         mc:Ignorable="d" d:DesignWidth="840" d:DesignHeight="480"
         x:Class="TemplatedDataGridDemo.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel" x:CompileBindings="True"
@@ -18,19 +16,19 @@
   </Design.DataContext>
 
   <Window.Styles>
-    <Style Selector="g|DataGridCell">
+    <Style Selector="TemplatedDataGridCell">
       <Setter Property="VerticalAlignment" Value="Center"/>
       <Setter Property="Margin" Value="6"/>
     </Style>
-    <Style Selector="g|DataGridCell /template/ ContentControl > CheckBox">
+    <Style Selector="TemplatedDataGridCell /template/ ContentControl > CheckBox">
       <Setter Property="HorizontalAlignment" Value="Center"/>
       <Setter Property="VerticalAlignment" Value="Center"/>
       <Setter Property="Padding" Value="6"/>
     </Style>
-    <Style Selector="g|DataGridColumnHeader">
+    <Style Selector="TemplatedDataGridColumnHeader">
       <Setter Property="Padding" Value="6"/>
     </Style>
-    <!--<Style Selector="p|DataGridRowsPresenter">
+    <!--<Style Selector="TemplatedDataGridRowsPresenter">
       <Setter Property="Template">
         <ControlTemplate>
           <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -68,58 +66,58 @@
       <Button Content="Select First Item" Command="{Binding SelectFirstItemCommand}" DockPanel.Dock="Left"/>
     </DockPanel>
 
-    <g:DataGrid Items="{Binding Items}" 
+    <TemplatedDataGrid Items="{Binding Items}" 
                 SelectedItem="{Binding SelectedItem}"
                 CanUserResizeColumns="True"
                 GridLinesVisibility="All">
-      <g:DataGrid.Columns>
-        <g:DataGridTemplateColumn Header="Column1" 
-                                  SortMemberPath="Column1" 
-                                  SortCommand="{Binding SortCommand}" 
-                                  SortingState="{Binding SortingStateColumn1, Mode=TwoWay}" 
-                                  Width="Auto" MinWidth="150">
-          <g:DataGridTemplateColumn.CellTemplate>
+      <TemplatedDataGrid.Columns>
+        <TemplatedDataGridTemplateColumn Header="Column1" 
+                                         SortMemberPath="Column1" 
+                                         SortCommand="{Binding SortCommand}" 
+                                         SortingState="{Binding SortingStateColumn1, Mode=TwoWay}" 
+                                         Width="Auto" MinWidth="150">
+          <TemplatedDataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column1}" />
             </DataTemplate>
-          </g:DataGridTemplateColumn.CellTemplate>
-        </g:DataGridTemplateColumn>
-        <g:DataGridTemplateColumn Header="Column2" 
-                                  SortMemberPath="Column2" 
-                                  SortCommand="{Binding SortCommand}" 
-                                  SortingState="{Binding SortingStateColumn2}" 
-                                  Width="Auto" MinWidth="200">
-          <g:DataGridTemplateColumn.CellTemplate>
+          </TemplatedDataGridTemplateColumn.CellTemplate>
+        </TemplatedDataGridTemplateColumn>
+        <TemplatedDataGridTemplateColumn Header="Column2" 
+                                         SortMemberPath="Column2" 
+                                         SortCommand="{Binding SortCommand}" 
+                                         SortingState="{Binding SortingStateColumn2}" 
+                                         Width="Auto" MinWidth="200">
+          <TemplatedDataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column2}" />
             </DataTemplate>
-          </g:DataGridTemplateColumn.CellTemplate>
-        </g:DataGridTemplateColumn>
-        <g:DataGridTemplateColumn Header="Column3" 
-                                  SortMemberPath="Column3" 
-                                  SortCommand="{Binding SortCommand}" 
-                                  SortingState="{Binding SortingStateColumn3}" 
-                                  Width="Auto" MinWidth="100">
-          <g:DataGridTemplateColumn.CellTemplate>
+          </TemplatedDataGridTemplateColumn.CellTemplate>
+        </TemplatedDataGridTemplateColumn>
+        <TemplatedDataGridTemplateColumn Header="Column3" 
+                                         SortMemberPath="Column3" 
+                                         SortCommand="{Binding SortCommand}" 
+                                         SortingState="{Binding SortingStateColumn3}" 
+                                         Width="Auto" MinWidth="100">
+          <TemplatedDataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column3}" />
             </DataTemplate>
-          </g:DataGridTemplateColumn.CellTemplate>
-        </g:DataGridTemplateColumn>
-        <g:DataGridCheckBoxColumn Header="Column4" 
-                                  SortMemberPath="Column4" 
-                                  SortCommand="{Binding SortCommand}" 
-                                  SortingState="{Binding SortingStateColumn4}" 
-                                  Width="Auto" MinWidth="70" 
-                                  Binding="{Binding Column4}" x:CompileBindings="False"  x:DataType="vm:ItemViewModel"/>
-        <g:DataGridTextColumn Header="Column5" 
-                              SortMemberPath="Column5" 
-                              SortCommand="{Binding SortCommand}" 
-                              SortingState="{Binding SortingStateColumn5}" 
-                              Width="Auto" MinWidth="120" 
-                              Binding="{Binding Column5}" x:CompileBindings="False" x:DataType="vm:ItemViewModel"/>
-      </g:DataGrid.Columns>
-    </g:DataGrid>
+          </TemplatedDataGridTemplateColumn.CellTemplate>
+        </TemplatedDataGridTemplateColumn>
+        <TemplatedDataGridCheckBoxColumn Header="Column4" 
+                                         SortMemberPath="Column4" 
+                                         SortCommand="{Binding SortCommand}" 
+                                         SortingState="{Binding SortingStateColumn4}" 
+                                         Width="Auto" MinWidth="70" 
+                                         Binding="{Binding Column4}" x:CompileBindings="False"  x:DataType="vm:ItemViewModel"/>
+        <TemplatedDataGridTextColumn Header="Column5" 
+                                     SortMemberPath="Column5" 
+                                     SortCommand="{Binding SortCommand}" 
+                                     SortingState="{Binding SortingStateColumn5}" 
+                                     Width="Auto" MinWidth="120" 
+                                     Binding="{Binding Column5}" x:CompileBindings="False" x:DataType="vm:ItemViewModel"/>
+      </TemplatedDataGrid.Columns>
+    </TemplatedDataGrid>
 
   </DockPanel>
 

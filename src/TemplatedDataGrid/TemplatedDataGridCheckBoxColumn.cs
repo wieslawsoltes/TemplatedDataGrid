@@ -5,9 +5,9 @@ using Avalonia.Controls.Templates;
 
 namespace TemplatedDataGrid
 {
-    public class DataGridCheckBoxColumn : DataGridBoundColumn
+    public class TemplatedDataGridCheckBoxColumn : TemplatedDataGridBoundColumn
     {
-        public DataGridCheckBoxColumn()
+        public TemplatedDataGridCheckBoxColumn()
         {
             CellTemplate = new FuncDataTemplate(
                 _ => true,

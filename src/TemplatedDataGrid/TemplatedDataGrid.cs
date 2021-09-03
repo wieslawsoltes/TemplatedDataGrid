@@ -11,67 +11,67 @@ using TemplatedDataGrid.Primitives;
 
 namespace TemplatedDataGrid
 {
-    public class DataGrid : TemplatedControl
+    public class TemplatedDataGrid : TemplatedControl
     {
-        public static readonly DirectProperty<DataGrid, AvaloniaList<DataGridColumn>> ColumnsProperty =
-            AvaloniaProperty.RegisterDirect<DataGrid, AvaloniaList<DataGridColumn>>(
+        public static readonly DirectProperty<TemplatedDataGrid, AvaloniaList<TemplatedDataGridColumn>> ColumnsProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGrid, AvaloniaList<TemplatedDataGridColumn>>(
                 nameof(Columns), 
                 o => o.Columns);
 
-        public static readonly DirectProperty<DataGrid, IEnumerable?> ItemsProperty =
-            AvaloniaProperty.RegisterDirect<DataGrid, IEnumerable?>(
+        public static readonly DirectProperty<TemplatedDataGrid, IEnumerable?> ItemsProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGrid, IEnumerable?>(
                 nameof(Items), 
                 o => o.Items, 
                 (o, v) => o.Items = v);
 
-        public static readonly DirectProperty<DataGrid, object?> SelectedItemProperty =
-            AvaloniaProperty.RegisterDirect<DataGrid, object?>(
+        public static readonly DirectProperty<TemplatedDataGrid, object?> SelectedItemProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGrid, object?>(
                 nameof(SelectedItem), 
                 o => o.SelectedItem, 
                 (o, v) => o.SelectedItem = v,
                 defaultBindingMode: BindingMode.TwoWay);
 
         public static readonly StyledProperty<bool> AutoScrollToSelectedItemProperty = 
-            AvaloniaProperty.Register<DataGrid, bool>(nameof(AutoScrollToSelectedItem));
+            AvaloniaProperty.Register<TemplatedDataGrid, bool>(nameof(AutoScrollToSelectedItem));
 
-        internal static readonly DirectProperty<DataGrid, object?> SelectedCellProperty =
-            AvaloniaProperty.RegisterDirect<DataGrid, object?>(
+        internal static readonly DirectProperty<TemplatedDataGrid, object?> SelectedCellProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGrid, object?>(
                 nameof(SelectedCell), 
                 o => o.SelectedCell, 
                 (o, v) => o.SelectedCell = v,
                 defaultBindingMode: BindingMode.TwoWay);
 
         public static readonly StyledProperty<bool> CanUserSortColumnsProperty = 
-            AvaloniaProperty.Register<DataGrid, bool>(nameof(CanUserSortColumns), true);
+            AvaloniaProperty.Register<TemplatedDataGrid, bool>(nameof(CanUserSortColumns), true);
 
         public static readonly StyledProperty<bool> CanUserResizeColumnsProperty = 
-            AvaloniaProperty.Register<DataGrid, bool>(nameof(CanUserResizeColumns));
+            AvaloniaProperty.Register<TemplatedDataGrid, bool>(nameof(CanUserResizeColumns));
 
-        public static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
-            AvaloniaProperty.Register<DataGrid, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
+        public static readonly StyledProperty<TemplatedDataGridGridLinesVisibility> GridLinesVisibilityProperty = 
+            AvaloniaProperty.Register<TemplatedDataGrid, TemplatedDataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
         public static readonly StyledProperty<bool> IsReadOnlyProperty = 
-            AvaloniaProperty.Register<DataGrid, bool>(nameof(IsReadOnly));
+            AvaloniaProperty.Register<TemplatedDataGrid, bool>(nameof(IsReadOnly));
 
         public static readonly StyledProperty<bool> AutoGenerateColumnsProperty = 
-            AvaloniaProperty.Register<DataGrid, bool>(nameof(AutoGenerateColumns));
+            AvaloniaProperty.Register<TemplatedDataGrid, bool>(nameof(AutoGenerateColumns));
 
-        private AvaloniaList<DataGridColumn> _columns;
+        private AvaloniaList<TemplatedDataGridColumn> _columns;
         private IEnumerable? _items;
         private object? _selectedItem;
         private object? _selectedCell;
         private Panel? _panel;
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
-        private DataGridColumnHeadersPresenter? _columnHeadersPresenter;
-        private DataGridRowsPresenter? _rowsPresenter;
+        private TemplatedDataGridColumnHeadersPresenter? _columnHeadersPresenter;
+        private TemplatedDataGridRowsPresenter? _rowsPresenter;
 
-        public DataGrid()
+        public TemplatedDataGrid()
         {
-            _columns = new AvaloniaList<DataGridColumn>();
+            _columns = new AvaloniaList<TemplatedDataGridColumn>();
         }
 
-        public AvaloniaList<DataGridColumn> Columns
+        public AvaloniaList<TemplatedDataGridColumn> Columns
         {
             get => _columns;
             private set => SetAndRaise(ColumnsProperty, ref _columns, value);
@@ -113,7 +113,7 @@ namespace TemplatedDataGrid
             set => SetValue(CanUserResizeColumnsProperty, value);
         }
 
-        public DataGridGridLinesVisibility GridLinesVisibility
+        public TemplatedDataGridGridLinesVisibility GridLinesVisibility
         {
             get => GetValue(GridLinesVisibilityProperty);
             set => SetValue(GridLinesVisibilityProperty, value);
@@ -137,8 +137,8 @@ namespace TemplatedDataGrid
 
             _panel = e.NameScope.Find<Panel>("PART_Panel");
             _root = e.NameScope.Find<Grid>("PART_Root");
-            _columnHeadersPresenter = e.NameScope.Find<DataGridColumnHeadersPresenter>("PART_ColumnHeadersPresenter");
-            _rowsPresenter = e.NameScope.Find<DataGridRowsPresenter>("PART_RowsPresenter");
+            _columnHeadersPresenter = e.NameScope.Find<TemplatedDataGridColumnHeadersPresenter>("PART_ColumnHeadersPresenter");
+            _rowsPresenter = e.NameScope.Find<TemplatedDataGridRowsPresenter>("PART_RowsPresenter");
 
             InvalidateRoot();
             InvalidateColumnHeadersPresenter();
@@ -187,8 +187,8 @@ namespace TemplatedDataGrid
             var columns = Columns;
 
             var isVerticalGridLineVisible = this
-                .GetObservable(DataGrid.GridLinesVisibilityProperty)
-                .Select(x => x.HasFlag(DataGridGridLinesVisibility.Vertical));
+                .GetObservable(TemplatedDataGrid.GridLinesVisibilityProperty)
+                .Select(x => x.HasFlag(TemplatedDataGridGridLinesVisibility.Vertical));
 
             //  Generate RowDefinitions
 
@@ -209,9 +209,9 @@ namespace TemplatedDataGrid
 
                 var columnDefinition = new ColumnDefinition()
                 {
-                    [!!ColumnDefinition.WidthProperty] = column[!!DataGridColumn.WidthProperty],
-                    [!!ColumnDefinition.MinWidthProperty] = column[!!DataGridColumn.MinWidthProperty],
-                    [!!ColumnDefinition.MaxWidthProperty] = column[!!DataGridColumn.MaxWidthProperty]
+                    [!!ColumnDefinition.WidthProperty] = column[!!TemplatedDataGridColumn.WidthProperty],
+                    [!!ColumnDefinition.MinWidthProperty] = column[!!TemplatedDataGridColumn.MinWidthProperty],
+                    [!!ColumnDefinition.MaxWidthProperty] = column[!!TemplatedDataGridColumn.MaxWidthProperty]
                 };
 
                 if (isAutoWidth)
@@ -279,10 +279,10 @@ namespace TemplatedDataGrid
         {
             if (_columnHeadersPresenter is { } && _rowsPresenter is { })
             {
-                _columnHeadersPresenter[!DataGridColumnHeadersPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
-                _columnHeadersPresenter[!DataGridColumnHeadersPresenter.ScrollProperty] = _rowsPresenter[!DataGridRowsPresenter.ScrollProperty];
-                _columnHeadersPresenter[!DataGridColumnHeadersPresenter.CanUserSortColumnsProperty] = this[!DataGrid.CanUserSortColumnsProperty];
-                _columnHeadersPresenter[!DataGridColumnHeadersPresenter.CanUserResizeColumnsProperty] = this[!DataGrid.CanUserResizeColumnsProperty];
+                _columnHeadersPresenter[!TemplatedDataGridColumnHeadersPresenter.ColumnsProperty] = this[!TemplatedDataGrid.ColumnsProperty];
+                _columnHeadersPresenter[!TemplatedDataGridColumnHeadersPresenter.ScrollProperty] = _rowsPresenter[!TemplatedDataGridRowsPresenter.ScrollProperty];
+                _columnHeadersPresenter[!TemplatedDataGridColumnHeadersPresenter.CanUserSortColumnsProperty] = this[!TemplatedDataGrid.CanUserSortColumnsProperty];
+                _columnHeadersPresenter[!TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty] = this[!TemplatedDataGrid.CanUserResizeColumnsProperty];
             }
         }
 
@@ -290,12 +290,12 @@ namespace TemplatedDataGrid
         {
             if (_rowsPresenter is { })
             {
-                _rowsPresenter[!DataGridRowsPresenter.ColumnsProperty] = this[!DataGrid.ColumnsProperty];
-                _rowsPresenter[!DataGridRowsPresenter.ItemsProperty] = this[!DataGrid.ItemsProperty];
-                _rowsPresenter[!DataGridRowsPresenter.AutoScrollToSelectedItemProperty] = this[!DataGrid.AutoScrollToSelectedItemProperty];
-                _rowsPresenter[!!DataGridRowsPresenter.SelectedItemProperty] = this[!!DataGrid.SelectedItemProperty];
-                _rowsPresenter[!!DataGridRowsPresenter.SelectedCellProperty] = this[!!DataGrid.SelectedCellProperty];
-                _rowsPresenter[!DataGridRowsPresenter.GridLinesVisibilityProperty] = this[!DataGrid.GridLinesVisibilityProperty];
+                _rowsPresenter[!TemplatedDataGridRowsPresenter.ColumnsProperty] = this[!TemplatedDataGrid.ColumnsProperty];
+                _rowsPresenter[!TemplatedDataGridRowsPresenter.ItemsProperty] = this[!TemplatedDataGrid.ItemsProperty];
+                _rowsPresenter[!TemplatedDataGridRowsPresenter.AutoScrollToSelectedItemProperty] = this[!TemplatedDataGrid.AutoScrollToSelectedItemProperty];
+                _rowsPresenter[!!TemplatedDataGridRowsPresenter.SelectedItemProperty] = this[!!TemplatedDataGrid.SelectedItemProperty];
+                _rowsPresenter[!!TemplatedDataGridRowsPresenter.SelectedCellProperty] = this[!!TemplatedDataGrid.SelectedCellProperty];
+                _rowsPresenter[!TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty] = this[!TemplatedDataGrid.GridLinesVisibilityProperty];
             }
         }
     }

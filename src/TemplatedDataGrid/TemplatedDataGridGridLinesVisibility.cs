@@ -3,7 +3,7 @@
 namespace TemplatedDataGrid
 {
     [Flags]
-    public enum DataGridGridLinesVisibility
+    public enum TemplatedDataGridGridLinesVisibility
     {
         None = 0,
         Horizontal = 1,

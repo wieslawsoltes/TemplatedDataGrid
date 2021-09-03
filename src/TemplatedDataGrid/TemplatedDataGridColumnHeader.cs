@@ -11,36 +11,36 @@ using Avalonia.VisualTree;
 namespace TemplatedDataGrid
 {
     [PseudoClasses(":pressed", ":sortascending", ":sortdescending")]
-    public class DataGridColumnHeader : TemplatedControl
+    public class TemplatedDataGridColumnHeader : TemplatedControl
     {
         public static readonly StyledProperty<object?> HeaderProperty = 
-            AvaloniaProperty.Register<DataGridColumnHeader, object?>(nameof(Header));
+            AvaloniaProperty.Register<TemplatedDataGridColumnHeader, object?>(nameof(Header));
 
         internal static readonly StyledProperty<bool> IsPressedProperty =
-            AvaloniaProperty.Register<DataGridColumnHeader, bool>(nameof(IsPressed));
+            AvaloniaProperty.Register<TemplatedDataGridColumnHeader, bool>(nameof(IsPressed));
 
         internal static readonly StyledProperty<bool> CanUserSortColumnsProperty = 
-            AvaloniaProperty.Register<DataGridColumnHeader, bool>(nameof(CanUserSortColumns));
+            AvaloniaProperty.Register<TemplatedDataGridColumnHeader, bool>(nameof(CanUserSortColumns));
 
         internal static readonly StyledProperty<bool> CanUserResizeColumnsProperty = 
-            AvaloniaProperty.Register<DataGridColumnHeader, bool>(nameof(CanUserResizeColumns));
+            AvaloniaProperty.Register<TemplatedDataGridColumnHeader, bool>(nameof(CanUserResizeColumns));
 
-        internal static readonly DirectProperty<DataGridColumnHeader, AvaloniaList<DataGridColumnHeader>?> ColumnHeadersProperty =
-            AvaloniaProperty.RegisterDirect<DataGridColumnHeader, AvaloniaList<DataGridColumnHeader>?>(
+        internal static readonly DirectProperty<TemplatedDataGridColumnHeader, AvaloniaList<TemplatedDataGridColumnHeader>?> ColumnHeadersProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridColumnHeader, AvaloniaList<TemplatedDataGridColumnHeader>?>(
                 nameof(ColumnHeaders), 
                 o => o.ColumnHeaders, 
                 (o, v) => o.ColumnHeaders = v);
 
-        internal static readonly DirectProperty<DataGridColumnHeader, DataGridColumn?> ColumnProperty =
-            AvaloniaProperty.RegisterDirect<DataGridColumnHeader, DataGridColumn?>(
+        internal static readonly DirectProperty<TemplatedDataGridColumnHeader, TemplatedDataGridColumn?> ColumnProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridColumnHeader, TemplatedDataGridColumn?>(
                 nameof(Column), 
                 o => o.Column, 
                 (o, v) => o.Column = v);
 
-        private AvaloniaList<DataGridColumnHeader>? _columnHeaders;
-        private DataGridColumn? _column;
+        private AvaloniaList<TemplatedDataGridColumnHeader>? _columnHeaders;
+        private TemplatedDataGridColumn? _column;
 
-        public DataGridColumnHeader()
+        public TemplatedDataGridColumnHeader()
         {
             UpdatePseudoClassesIsPressed(IsPressed);
         }
@@ -69,13 +69,13 @@ namespace TemplatedDataGrid
             set => SetValue(CanUserResizeColumnsProperty, value);
         }
 
-        internal AvaloniaList<DataGridColumnHeader>? ColumnHeaders
+        internal AvaloniaList<TemplatedDataGridColumnHeader>? ColumnHeaders
         {
             get => _columnHeaders;
             set => SetAndRaise(ColumnHeadersProperty, ref _columnHeaders, value);
         }
 
-        internal DataGridColumn? Column
+        internal TemplatedDataGridColumn? Column
         {
             get => _column;
             set => SetAndRaise(ColumnProperty, ref _column, value);

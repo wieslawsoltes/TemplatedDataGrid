@@ -10,7 +10,7 @@ namespace TemplatedDataGridDemo
         [STAThread]
         public static void Main(string[] args)
         {
-            GC.KeepAlive(typeof(DataGrid).Assembly);
+            GC.KeepAlive(typeof(TemplatedDataGrid.TemplatedDataGrid).Assembly);
 
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
