@@ -1,4 +1,4 @@
 ﻿using Avalonia.Metadata;
 
-//[assembly: XmlnsDefinition("https://github.com/avaloniaui", "TemplatedDataGrid")]
-//[assembly: XmlnsDefinition("https://github.com/avaloniaui", "TemplatedDataGrid.Primitives")]
+[assembly: XmlnsDefinition("https://github.com/avaloniaui", "TemplatedDataGrid")]
+[assembly: XmlnsDefinition("https://github.com/avaloniaui", "TemplatedDataGrid.Primitives")]

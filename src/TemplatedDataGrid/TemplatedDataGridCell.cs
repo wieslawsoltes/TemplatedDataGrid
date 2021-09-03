@@ -11,38 +11,38 @@ using Avalonia.Metadata;
 namespace TemplatedDataGrid
 {
     [PseudoClasses(":pressed", ":selected")]
-    public class DataGridCell : TemplatedControl
+    public class TemplatedDataGridCell : TemplatedControl
     {
-        internal static readonly DirectProperty<DataGridCell, object?> SelectedItemProperty =
-            AvaloniaProperty.RegisterDirect<DataGridCell, object?>(
+        internal static readonly DirectProperty<TemplatedDataGridCell, object?> SelectedItemProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridCell, object?>(
                 nameof(SelectedItem), 
                 o => o.SelectedItem, 
                 (o, v) => o.SelectedItem = v,
                 defaultBindingMode: BindingMode.TwoWay);
 
-        internal static readonly DirectProperty<DataGridCell, object?> SelectedCellProperty =
-            AvaloniaProperty.RegisterDirect<DataGridCell, object?>(
+        internal static readonly DirectProperty<TemplatedDataGridCell, object?> SelectedCellProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridCell, object?>(
                 nameof(SelectedCell), 
                 o => o.SelectedCell, 
                 (o, v) => o.SelectedCell = v,
                 defaultBindingMode: BindingMode.TwoWay);
 
         public static readonly StyledProperty<IDataTemplate?> CellTemplateProperty = 
-            AvaloniaProperty.Register<DataGridCell, IDataTemplate?>(nameof(CellTemplate));
+            AvaloniaProperty.Register<TemplatedDataGridCell, IDataTemplate?>(nameof(CellTemplate));
 
         public static readonly StyledProperty<object?> ContentProperty =
-            AvaloniaProperty.Register<DataGridCell, object?>(nameof(Content));
+            AvaloniaProperty.Register<TemplatedDataGridCell, object?>(nameof(Content));
 
         public static readonly StyledProperty<HorizontalAlignment> HorizontalContentAlignmentProperty =
-            AvaloniaProperty.Register<DataGridCell, HorizontalAlignment>(nameof(HorizontalContentAlignment));
+            AvaloniaProperty.Register<TemplatedDataGridCell, HorizontalAlignment>(nameof(HorizontalContentAlignment));
 
         public static readonly StyledProperty<VerticalAlignment> VerticalContentAlignmentProperty =
-            AvaloniaProperty.Register<DataGridCell, VerticalAlignment>(nameof(VerticalContentAlignment));
+            AvaloniaProperty.Register<TemplatedDataGridCell, VerticalAlignment>(nameof(VerticalContentAlignment));
 
         private object? _selectedItem;
         private object? _selectedCell;
 
-        public DataGridCell()
+        public TemplatedDataGridCell()
         {
             UpdatePseudoClassesSelectedCell(SelectedCell);
         }

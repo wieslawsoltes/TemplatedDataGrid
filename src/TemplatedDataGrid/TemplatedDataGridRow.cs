@@ -10,38 +10,38 @@ using TemplatedDataGrid.Primitives;
 namespace TemplatedDataGrid
 {
     [PseudoClasses(":selected")]
-    public class DataGridRow : TemplatedControl
+    public class TemplatedDataGridRow : TemplatedControl
     {
-        internal static readonly DirectProperty<DataGridRow, object?> SelectedItemProperty =
-            AvaloniaProperty.RegisterDirect<DataGridRow, object?>(
+        internal static readonly DirectProperty<TemplatedDataGridRow, object?> SelectedItemProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridRow, object?>(
                 nameof(SelectedItem), 
                 o => o.SelectedItem, 
                 (o, v) => o.SelectedItem = v,
                 defaultBindingMode: BindingMode.TwoWay);
 
-        internal static readonly DirectProperty<DataGridRow, object?> SelectedCellProperty =
-            AvaloniaProperty.RegisterDirect<DataGridRow, object?>(
+        internal static readonly DirectProperty<TemplatedDataGridRow, object?> SelectedCellProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridRow, object?>(
                 nameof(SelectedCell), 
                 o => o.SelectedCell, 
                 (o, v) => o.SelectedCell = v,
                 defaultBindingMode: BindingMode.TwoWay);
 
-        internal static readonly DirectProperty<DataGridRow, AvaloniaList<DataGridColumn>?> ColumnsProperty =
-            AvaloniaProperty.RegisterDirect<DataGridRow, AvaloniaList<DataGridColumn>?>(
+        internal static readonly DirectProperty<TemplatedDataGridRow, AvaloniaList<TemplatedDataGridColumn>?> ColumnsProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridRow, AvaloniaList<TemplatedDataGridColumn>?>(
                 nameof(Columns), 
                 o => o.Columns, 
                 (o, v) => o.Columns = v);
 
-        internal static readonly StyledProperty<DataGridGridLinesVisibility> GridLinesVisibilityProperty = 
-            AvaloniaProperty.Register<DataGridRow, DataGridGridLinesVisibility>(nameof(GridLinesVisibility));
+        internal static readonly StyledProperty<TemplatedDataGridGridLinesVisibility> GridLinesVisibilityProperty = 
+            AvaloniaProperty.Register<TemplatedDataGridRow, TemplatedDataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
         private object? _selectedItem;
         private object? _selectedCell;
-        private AvaloniaList<DataGridColumn>? _columns;
-        private DataGridCellsPresenter? _cellsPresenter;
+        private AvaloniaList<TemplatedDataGridColumn>? _columns;
+        private TemplatedDataGridCellsPresenter? _cellsPresenter;
         private Visual? _bottomGridLine;
 
-        public DataGridRow()
+        public TemplatedDataGridRow()
         {
             UpdatePseudoClassesSelectedItem(SelectedItem);
         }
@@ -58,13 +58,13 @@ namespace TemplatedDataGrid
             set => SetAndRaise(SelectedCellProperty, ref _selectedCell, value);
         }
 
-        internal AvaloniaList<DataGridColumn>? Columns
+        internal AvaloniaList<TemplatedDataGridColumn>? Columns
         {
             get => _columns;
             set => SetAndRaise(ColumnsProperty, ref _columns, value);
         }
 
-        internal DataGridGridLinesVisibility GridLinesVisibility
+        internal TemplatedDataGridGridLinesVisibility GridLinesVisibility
         {
             get => GetValue(GridLinesVisibilityProperty);
             set => SetValue(GridLinesVisibilityProperty, value);
@@ -74,7 +74,7 @@ namespace TemplatedDataGrid
         {
             base.OnApplyTemplate(e);
 
-            _cellsPresenter = e.NameScope.Find<DataGridCellsPresenter>("PART_CellsPresenter");
+            _cellsPresenter = e.NameScope.Find<TemplatedDataGridCellsPresenter>("PART_CellsPresenter");
             _bottomGridLine = e.NameScope.Find<Visual>("PART_BottomGridLine");
 
             InvalidateCellsPresenter();
@@ -112,9 +112,9 @@ namespace TemplatedDataGrid
         {
             if (_cellsPresenter is { })
             {
-                _cellsPresenter[!!DataGridCellsPresenter.SelectedItemProperty] = this[!!DataGridRow.SelectedItemProperty];
-                _cellsPresenter[!!DataGridCellsPresenter.SelectedCellProperty] = this[!!DataGridRow.SelectedCellProperty];
-                _cellsPresenter[!DataGridCellsPresenter.ColumnsProperty] = this[!DataGridRow.ColumnsProperty];
+                _cellsPresenter[!!TemplatedDataGridCellsPresenter.SelectedItemProperty] = this[!!TemplatedDataGridRow.SelectedItemProperty];
+                _cellsPresenter[!!TemplatedDataGridCellsPresenter.SelectedCellProperty] = this[!!TemplatedDataGridRow.SelectedCellProperty];
+                _cellsPresenter[!TemplatedDataGridCellsPresenter.ColumnsProperty] = this[!TemplatedDataGridRow.ColumnsProperty];
             }
         }
 
@@ -126,8 +126,8 @@ namespace TemplatedDataGrid
             }
 
             var isHorizontalGridLineVisible = this
-                .GetObservable(DataGridRow.GridLinesVisibilityProperty)
-                .Select(x => x.HasFlag(DataGridGridLinesVisibility.Horizontal));
+                .GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty)
+                .Select(x => x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal));
 
             _bottomGridLine[!Visual.IsVisibleProperty] = isHorizontalGridLineVisible.ToBinding();
         }

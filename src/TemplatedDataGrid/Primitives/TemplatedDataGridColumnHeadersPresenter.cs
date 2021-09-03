@@ -7,35 +7,35 @@ using Avalonia.Controls.Shapes;
 
 namespace TemplatedDataGrid.Primitives
 {
-    public class DataGridColumnHeadersPresenter : TemplatedControl
+    public class TemplatedDataGridColumnHeadersPresenter : TemplatedControl
     {
-        internal static readonly DirectProperty<DataGridColumnHeadersPresenter, IScrollable?> ScrollProperty =
-            AvaloniaProperty.RegisterDirect<DataGridColumnHeadersPresenter, IScrollable?>(
+        internal static readonly DirectProperty<TemplatedDataGridColumnHeadersPresenter, IScrollable?> ScrollProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridColumnHeadersPresenter, IScrollable?>(
                 nameof(Scroll), 
                 o => o.Scroll, 
                 (o, v) => o.Scroll = v);
         
-        internal static readonly DirectProperty<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumn>?> ColumnsProperty =
-            AvaloniaProperty.RegisterDirect<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumn>?>(
+        internal static readonly DirectProperty<TemplatedDataGridColumnHeadersPresenter, AvaloniaList<TemplatedDataGridColumn>?> ColumnsProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridColumnHeadersPresenter, AvaloniaList<TemplatedDataGridColumn>?>(
                 nameof(Columns), 
                 o => o.Columns, 
                 (o, v) => o.Columns = v);
 
-        internal static readonly DirectProperty<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumnHeader>> ColumnHeadersProperty =
-            AvaloniaProperty.RegisterDirect<DataGridColumnHeadersPresenter, AvaloniaList<DataGridColumnHeader>>(
+        internal static readonly DirectProperty<TemplatedDataGridColumnHeadersPresenter, AvaloniaList<TemplatedDataGridColumnHeader>> ColumnHeadersProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridColumnHeadersPresenter, AvaloniaList<TemplatedDataGridColumnHeader>>(
                 nameof(ColumnHeaders), 
                 o => o.ColumnHeaders, 
                 (o, v) => o.ColumnHeaders = v);
 
         internal static readonly StyledProperty<bool> CanUserSortColumnsProperty = 
-            AvaloniaProperty.Register<DataGridColumnHeadersPresenter, bool>(nameof(CanUserSortColumns));
+            AvaloniaProperty.Register<TemplatedDataGridColumnHeadersPresenter, bool>(nameof(CanUserSortColumns));
 
         internal static readonly StyledProperty<bool> CanUserResizeColumnsProperty = 
-            AvaloniaProperty.Register<DataGridColumnHeadersPresenter, bool>(nameof(CanUserResizeColumns));
+            AvaloniaProperty.Register<TemplatedDataGridColumnHeadersPresenter, bool>(nameof(CanUserResizeColumns));
 
         private IScrollable? _scroll;
-        private AvaloniaList<DataGridColumn>? _columns;
-        private AvaloniaList<DataGridColumnHeader> _columnHeaders = new AvaloniaList<DataGridColumnHeader>();
+        private AvaloniaList<TemplatedDataGridColumn>? _columns;
+        private AvaloniaList<TemplatedDataGridColumnHeader> _columnHeaders = new AvaloniaList<TemplatedDataGridColumnHeader>();
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
 
@@ -45,13 +45,13 @@ namespace TemplatedDataGrid.Primitives
             set => SetAndRaise(ScrollProperty, ref _scroll, value);
         }
 
-        internal AvaloniaList<DataGridColumn>? Columns
+        internal AvaloniaList<TemplatedDataGridColumn>? Columns
         {
             get => _columns;
             set => SetAndRaise(ColumnsProperty, ref _columns, value);
         }
  
-        internal AvaloniaList<DataGridColumnHeader> ColumnHeaders
+        internal AvaloniaList<TemplatedDataGridColumnHeader> ColumnHeaders
         {
             get => _columnHeaders;
             set => SetAndRaise(ColumnHeadersProperty, ref _columnHeaders, value);
@@ -155,9 +155,9 @@ namespace TemplatedDataGrid.Primitives
 
                 var columnDefinition = new ColumnDefinition()
                 {
-                    [!ColumnDefinition.WidthProperty] = column[!DataGridColumn.WidthProperty],
-                    [!ColumnDefinition.MinWidthProperty] = column[!DataGridColumn.MinWidthProperty],
-                    [!ColumnDefinition.MaxWidthProperty] = column[!DataGridColumn.MaxWidthProperty]
+                    [!ColumnDefinition.WidthProperty] = column[!TemplatedDataGridColumn.WidthProperty],
+                    [!ColumnDefinition.MinWidthProperty] = column[!TemplatedDataGridColumn.MinWidthProperty],
+                    [!ColumnDefinition.MaxWidthProperty] = column[!TemplatedDataGridColumn.MaxWidthProperty]
                 };
 
                 if (isAutoWidth)
@@ -168,15 +168,15 @@ namespace TemplatedDataGrid.Primitives
                 columnDefinitions.Add(columnDefinition);
 
                 // Generate DataGridColumnHeader's
-                var columnHeader = new DataGridColumnHeader()
+                var columnHeader = new TemplatedDataGridColumnHeader()
                 {
                     [Grid.RowProperty] = 0,
                     [Grid.ColumnProperty] = columnDefinitions.Count - 1,
-                    [!DataGridColumnHeader.HeaderProperty] = column[!DataGridColumn.HeaderProperty],
-                    [!DataGridColumnHeader.CanUserSortColumnsProperty] = this[!DataGridColumnHeadersPresenter.CanUserSortColumnsProperty],
-                    [!DataGridColumnHeader.CanUserResizeColumnsProperty] = this[!DataGridColumnHeadersPresenter.CanUserResizeColumnsProperty],
-                    [!DataGridColumnHeader.ColumnHeadersProperty] = this[!DataGridColumnHeadersPresenter.ColumnHeadersProperty],
-                    [DataGridColumnHeader.ColumnProperty] = column
+                    [!TemplatedDataGridColumnHeader.HeaderProperty] = column[!TemplatedDataGridColumn.HeaderProperty],
+                    [!TemplatedDataGridColumnHeader.CanUserSortColumnsProperty] = this[!TemplatedDataGridColumnHeadersPresenter.CanUserSortColumnsProperty],
+                    [!TemplatedDataGridColumnHeader.CanUserResizeColumnsProperty] = this[!TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty],
+                    [!TemplatedDataGridColumnHeader.ColumnHeadersProperty] = this[!TemplatedDataGridColumnHeadersPresenter.ColumnHeadersProperty],
+                    [TemplatedDataGridColumnHeader.ColumnProperty] = column
                 };
                 _columnHeaders.Add(columnHeader);
                 _rootChildren.Add(columnHeader);
@@ -210,7 +210,7 @@ namespace TemplatedDataGrid.Primitives
                     [Grid.RowProperty] = 0,
                     [Grid.RowSpanProperty] = 1,
                     [Grid.ColumnProperty] = columnIndex,
-                    [!GridSplitter.IsEnabledProperty] = this[!DataGridColumnHeadersPresenter.CanUserResizeColumnsProperty]
+                    [!GridSplitter.IsEnabledProperty] = this[!TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty]
                 };
                 _rootChildren.Add(verticalGridSplitter);
             }

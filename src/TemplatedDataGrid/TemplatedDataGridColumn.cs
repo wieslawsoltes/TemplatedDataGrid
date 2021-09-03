@@ -8,40 +8,40 @@ using Avalonia.Metadata;
 
 namespace TemplatedDataGrid
 {
-    public abstract class DataGridColumn : AvaloniaObject
+    public abstract class TemplatedDataGridColumn : AvaloniaObject
     {
         public static readonly StyledProperty<IDataTemplate?> CellTemplateProperty = 
-            AvaloniaProperty.Register<DataGridColumn, IDataTemplate?>(nameof(CellTemplate));
+            AvaloniaProperty.Register<TemplatedDataGridColumn, IDataTemplate?>(nameof(CellTemplate));
 
         public static readonly StyledProperty<object?> HeaderProperty = 
-            AvaloniaProperty.Register<DataGridColumn, object?>(nameof(Header));
+            AvaloniaProperty.Register<TemplatedDataGridColumn, object?>(nameof(Header));
 
         public static readonly StyledProperty<GridLength> WidthProperty = 
-            AvaloniaProperty.Register<DataGridColumn, GridLength>(nameof(Width), new GridLength(1, GridUnitType.Star));
+            AvaloniaProperty.Register<TemplatedDataGridColumn, GridLength>(nameof(Width), new GridLength(1, GridUnitType.Star));
 
         public static readonly StyledProperty<double> MinWidthProperty = 
-            AvaloniaProperty.Register<DataGridColumn, double>(nameof(MinWidth), 0.0);
+            AvaloniaProperty.Register<TemplatedDataGridColumn, double>(nameof(MinWidth), 0.0);
 
         public static readonly StyledProperty<double> MaxWidthProperty = 
-            AvaloniaProperty.Register<DataGridColumn, double>(nameof(MaxWidth), double.PositiveInfinity);
+            AvaloniaProperty.Register<TemplatedDataGridColumn, double>(nameof(MaxWidth), double.PositiveInfinity);
 
         public static readonly StyledProperty<bool> CanUserSortProperty = 
-            AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserSort), true);
+            AvaloniaProperty.Register<TemplatedDataGridColumn, bool>(nameof(CanUserSort), true);
 
         public static readonly StyledProperty<string?> SortMemberPathProperty = 
-            AvaloniaProperty.Register<DataGridColumn, string?>(nameof(SortMemberPath));
+            AvaloniaProperty.Register<TemplatedDataGridColumn, string?>(nameof(SortMemberPath));
 
         public static readonly StyledProperty<bool> CanUserResizeProperty = 
-            AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserResize));
+            AvaloniaProperty.Register<TemplatedDataGridColumn, bool>(nameof(CanUserResize));
 
         public static readonly StyledProperty<bool> CanUserReorderProperty = 
-            AvaloniaProperty.Register<DataGridColumn, bool>(nameof(CanUserReorder));
+            AvaloniaProperty.Register<TemplatedDataGridColumn, bool>(nameof(CanUserReorder));
 
         public static readonly StyledProperty<ListSortDirection?> SortingStateProperty = 
-            AvaloniaProperty.Register<DataGridColumn, ListSortDirection?>(nameof(SortingState), null, false, BindingMode.TwoWay);
+            AvaloniaProperty.Register<TemplatedDataGridColumn, ListSortDirection?>(nameof(SortingState), null, false, BindingMode.TwoWay);
 
         public static readonly StyledProperty<ICommand> SortCommandProperty = 
-            AvaloniaProperty.Register<DataGridColumn, ICommand>(nameof(SortCommand));
+            AvaloniaProperty.Register<TemplatedDataGridColumn, ICommand>(nameof(SortCommand));
 
         [Content]
         public IDataTemplate? CellTemplate
