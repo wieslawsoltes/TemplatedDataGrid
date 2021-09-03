@@ -16,7 +16,7 @@ namespace TemplatedDataGridDemo.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private ReadOnlyObservableCollection<ItemViewModel> _items;
+        private ReadOnlyObservableCollection<ItemViewModel>? _items;
         private ItemViewModel? _selectedItem;
         private ListSortDirection? _sortingStateColumn1;
         private ListSortDirection? _sortingStateColumn2;
@@ -24,7 +24,7 @@ namespace TemplatedDataGridDemo.ViewModels
         private ListSortDirection? _sortingStateColumn4;
         private ListSortDirection? _sortingStateColumn5;
 
-        public ReadOnlyObservableCollection<ItemViewModel> Items => _items;
+        public ReadOnlyObservableCollection<ItemViewModel>? Items => _items;
 
         public ItemViewModel? SelectedItem
         {
@@ -188,14 +188,22 @@ namespace TemplatedDataGridDemo.ViewModels
 
             InsertItemCommand = ReactiveCommand.Create(() =>
             {
-                var index = Items.Count;
+                if (_items is null)
+                {
+                    return;
+                }
+                var index = _items.Count;
                 var item = CreateItem(index);
                 itemsSourceList.Insert(0, item);
             });
 
             AddItemCommand = ReactiveCommand.Create(() =>
             {
-                var index = Items.Count;
+                if (_items is null)
+                {
+                    return;
+                }
+                var index = _items.Count;
                 var item = CreateItem(index);
                 itemsSourceList.Add(item);
             });
@@ -210,7 +218,11 @@ namespace TemplatedDataGridDemo.ViewModels
 
             SelectFirstItemCommand = ReactiveCommand.Create(() =>
             {
-                SelectedItem = Items.FirstOrDefault();
+                if (_items is null)
+                {
+                    return;
+                }
+                SelectedItem = _items.FirstOrDefault();
             });
         }
     }
