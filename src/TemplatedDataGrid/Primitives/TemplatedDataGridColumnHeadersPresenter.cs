@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -151,18 +152,30 @@ namespace TemplatedDataGrid.Primitives
             for (var i = 0; i < columns.Count; i++)
             {
                 var column = columns[i];
-                var isAutoWidth = column.Width == GridLength.Auto;
+                var isStarWidth = column.Width.IsStar;
+                var isAutoWidth = column.Width.IsAuto;
+                var isPixelWidth = column.Width.IsAbsolute;
 
                 var columnDefinition = new ColumnDefinition
                 {
-                    [!!ColumnDefinition.WidthProperty] = column[!!TemplatedDataGridColumn.WidthProperty],
                     [!!ColumnDefinition.MinWidthProperty] = column[!!TemplatedDataGridColumn.MinWidthProperty],
                     [!!ColumnDefinition.MaxWidthProperty] = column[!!TemplatedDataGridColumn.MaxWidthProperty]
                 };
 
+                if (isStarWidth)
+                {
+                    columnDefinition[!!ColumnDefinition.WidthProperty] = column[!!TemplatedDataGridColumn.WidthProperty];
+                }
+
                 if (isAutoWidth)
                 {
+                    columnDefinition[!!ColumnDefinition.WidthProperty] = column[!!TemplatedDataGridColumn.WidthProperty];
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
+                }
+
+                if (isPixelWidth)
+                {
+                    columnDefinition[!!ColumnDefinition.WidthProperty] = column[!!TemplatedDataGridColumn.WidthProperty];
                 }
 
                 columnDefinitions.Add(columnDefinition);
@@ -180,7 +193,12 @@ namespace TemplatedDataGrid.Primitives
                 };
                 _columnHeaders.Add(columnHeader);
                 _rootChildren.Add(columnHeader);
- 
+
+                column[!TemplatedDataGridColumn.ActualWidthProperty] = 
+                    columnHeader.GetObservable(Visual.BoundsProperty)
+                                .Select(x => columnDefinition.ActualWidth)
+                                .ToBinding();
+
                 if (i < columns.Count)
                 {
                     columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));

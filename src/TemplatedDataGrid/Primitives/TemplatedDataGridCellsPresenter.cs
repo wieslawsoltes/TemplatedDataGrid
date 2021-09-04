@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -122,18 +123,33 @@ namespace TemplatedDataGrid.Primitives
             for (var i = 0; i < columns.Count; i++)
             {
                 var column = columns[i];
-                var isAutoWidth = column.Width == GridLength.Auto;
+                var isStarWidth = column.Width.IsStar;
+                var isAutoWidth = column.Width.IsAuto;
+                var isPixelWidth = column.Width.IsAbsolute;
 
                 var columnDefinition = new ColumnDefinition
                 {
-                    [!ColumnDefinition.WidthProperty] = column[!TemplatedDataGridColumn.WidthProperty],
                     [!ColumnDefinition.MinWidthProperty] = column[!TemplatedDataGridColumn.MinWidthProperty],
                     [!ColumnDefinition.MaxWidthProperty] = column[!TemplatedDataGridColumn.MaxWidthProperty]
                 };
 
+                if (isStarWidth)
+                {
+                    columnDefinition[!ColumnDefinition.WidthProperty] = 
+                        column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty)
+                              .Select(x => new GridLength(x, GridUnitType.Pixel))
+                              .ToBinding();
+                }
+
                 if (isAutoWidth)
                 {
+                    columnDefinition[!ColumnDefinition.WidthProperty] = column[!TemplatedDataGridColumn.WidthProperty];
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
+                }
+
+                if (isPixelWidth)
+                {
+                    columnDefinition[!ColumnDefinition.WidthProperty] = column[!TemplatedDataGridColumn.WidthProperty];
                 }
 
                 columnDefinitions.Add(columnDefinition);
