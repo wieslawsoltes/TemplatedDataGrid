@@ -75,7 +75,8 @@
                                          SortMemberPath="Column1" 
                                          SortCommand="{Binding SortCommand}" 
                                          SortingState="{Binding SortingStateColumn1, Mode=TwoWay}" 
-                                         Width="Auto" MinWidth="150">
+                                         Width="Auto"
+                                         MinWidth="150">
           <TemplatedDataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column1}" />
@@ -86,7 +87,8 @@
                                          SortMemberPath="Column2" 
                                          SortCommand="{Binding SortCommand}" 
                                          SortingState="{Binding SortingStateColumn2}" 
-                                         Width="Auto" MinWidth="200">
+                                         Width="Auto"
+                                         MinWidth="200">
           <TemplatedDataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column2}" />
@@ -97,7 +99,8 @@
                                          SortMemberPath="Column3" 
                                          SortCommand="{Binding SortCommand}" 
                                          SortingState="{Binding SortingStateColumn3}" 
-                                         Width="Auto" MinWidth="100">
+                                         Width="Auto"
+                                         MinWidth="100">
           <TemplatedDataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">
               <TextBlock Margin="{Binding Margin}" Text="{Binding Column3}" />
@@ -108,14 +111,18 @@
                                          SortMemberPath="Column4" 
                                          SortCommand="{Binding SortCommand}" 
                                          SortingState="{Binding SortingStateColumn4}" 
-                                         Width="Auto" MinWidth="70" 
-                                         Binding="{Binding Column4}" x:CompileBindings="False"  x:DataType="vm:ItemViewModel"/>
+                                         Width="Auto"
+                                         MinWidth="70" 
+                                         Binding="{Binding Column4}" 
+                                         x:CompileBindings="False"  x:DataType="vm:ItemViewModel"/>
         <TemplatedDataGridTextColumn Header="Column5" 
                                      SortMemberPath="Column5" 
                                      SortCommand="{Binding SortCommand}" 
                                      SortingState="{Binding SortingStateColumn5}" 
-                                     Width="Auto" MinWidth="120" 
-                                     Binding="{Binding Column5}" x:CompileBindings="False" x:DataType="vm:ItemViewModel"/>
+                                     Width="Auto"
+                                     MinWidth="120" 
+                                     Binding="{Binding Column5}" 
+                                     x:CompileBindings="False" x:DataType="vm:ItemViewModel"/>
       </TemplatedDataGrid.Columns>
     </TemplatedDataGrid>
 

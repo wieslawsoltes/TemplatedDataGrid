@@ -43,6 +43,14 @@ namespace TemplatedDataGrid
         public static readonly StyledProperty<ICommand> SortCommandProperty = 
             AvaloniaProperty.Register<TemplatedDataGridColumn, ICommand>(nameof(SortCommand));
 
+        internal static readonly DirectProperty<TemplatedDataGridColumn, double> ActualWidthProperty =
+            AvaloniaProperty.RegisterDirect<TemplatedDataGridColumn, double>(
+                nameof(ActualWidth), 
+                o => o.ActualWidth, 
+                (o, v) => o.ActualWidth = v);
+
+        private double _actualWidth;
+
         [Content]
         public IDataTemplate? CellTemplate
         {
@@ -108,6 +116,12 @@ namespace TemplatedDataGrid
         {
             get => GetValue(SortCommandProperty);
             set => SetValue(SortCommandProperty, value);
+        }
+
+        internal double ActualWidth
+        {
+            get => _actualWidth;
+            set => SetAndRaise(ActualWidthProperty, ref _actualWidth, value);
         }
     }
 }
