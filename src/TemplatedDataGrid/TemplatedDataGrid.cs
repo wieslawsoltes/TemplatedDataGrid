@@ -243,7 +243,7 @@ namespace TemplatedDataGrid
 
             foreach (var columnIndex in splitterColumnIndexes)
             {
-                var verticalRowGridLine = new Rectangle()
+                var verticalRowGridLine = new Rectangle
                 {
                     [Grid.RowProperty] = 1,
                     [Grid.RowSpanProperty] = 1,
