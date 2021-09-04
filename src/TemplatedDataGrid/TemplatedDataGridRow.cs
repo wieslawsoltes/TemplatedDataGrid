@@ -1,4 +1,5 @@
-﻿using System.Reactive.Linq;
+﻿using System;
+using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -35,6 +36,32 @@ namespace TemplatedDataGrid
         internal static readonly StyledProperty<TemplatedDataGridGridLinesVisibility> GridLinesVisibilityProperty = 
             AvaloniaProperty.Register<TemplatedDataGridRow, TemplatedDataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
+        internal static readonly AttachedProperty<object?> ItemProperty = 
+            AvaloniaProperty.RegisterAttached<IControl, object?>("Item", typeof(TemplatedDataGridRowsPresenter), null, true);
+
+        internal static readonly AttachedProperty<int> IndexProperty = 
+            AvaloniaProperty.RegisterAttached<IControl, int>("Index", typeof(TemplatedDataGridRowsPresenter), -1, true);
+
+        internal static object? GetItem(IControl control)
+        {
+            return control.GetValue(ItemProperty);
+        }
+
+        internal static void SetItem(IControl control, object? value)
+        {
+            control.SetValue(ItemProperty, value);
+        }
+
+        internal static int GetIndex(IControl control)
+        {
+            return control.GetValue(IndexProperty);
+        }
+
+        internal static void SetIndex(IControl control, int value)
+        {
+            control.SetValue(IndexProperty, value);
+        }
+
         private object? _selectedItem;
         private object? _selectedCell;
         private AvaloniaList<TemplatedDataGridColumn>? _columns;
@@ -44,6 +71,29 @@ namespace TemplatedDataGrid
         public TemplatedDataGridRow()
         {
             UpdatePseudoClassesSelectedItem(SelectedItem, DataContext);
+
+            this.GetObservable(ItemProperty).Subscribe(item =>
+            {
+#if DEBUG
+                //Console.WriteLine($"[TemplatedDataGridRow.Item] item='{item}',  DataContext='{DataContext}'");
+#endif
+                UpdatePseudoClassesSelectedItem(SelectedItem, DataContext);
+            });
+ 
+            this.GetObservable(IndexProperty).Subscribe(Index =>
+            {
+#if DEBUG
+                //Console.WriteLine($"[TemplatedDataGridRow.Index] Index='{Index}',  DataContext='{DataContext}'");
+#endif
+                UpdatePseudoClassesSelectedItem(SelectedItem, DataContext);
+            });
+
+            this.GetObservable(SelectedItemProperty).Subscribe(item =>
+            {
+#if DEBUG
+                //Console.WriteLine($"[TemplatedDataGridRow.SelectedItem] item='{item}', GetItem='{GetItem(this)}', GetIndex='{GetIndex(this)}', DataContext='{DataContext}'");
+#endif
+            });
         }
 
         internal object? SelectedItem
@@ -81,11 +131,29 @@ namespace TemplatedDataGrid
             InvalidateBottomGridLine();
 
             UpdatePseudoClassesSelectedItem(SelectedItem, DataContext);
+            
+#if DEBUG
+            //Console.WriteLine($"[TemplatedDataGridRow.OnApplyTemplate] Item='{GetItem(this)}', Index='{GetIndex(this)}', DataContext='{DataContext}'");
+#endif
         }
 
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
         {
             base.OnPropertyChanged(change);
+
+            if (change.Property == ItemProperty)
+            {
+#if DEBUG
+                //Console.WriteLine($"[TemplatedDataGridRow.Item] old='{change.OldValue.GetValueOrDefault<object?>()}' new='{change.NewValue.GetValueOrDefault<object?>()}', DataContext='{DataContext}'");
+#endif
+            }
+            
+            if (change.Property == IndexProperty)
+            {
+#if DEBUG
+                //Console.WriteLine($"[TemplatedDataGridRow.Index] old='{change.OldValue.GetValueOrDefault<int>()}' new='{change.NewValue.GetValueOrDefault<int>()}', DataContext='{DataContext}'");
+#endif
+            }          
 
             if (change.Property == DataContextProperty)
             {
@@ -134,7 +202,16 @@ namespace TemplatedDataGrid
 
         private void UpdatePseudoClassesSelectedItem(object? selectedItem, object? dataContext)
         {
-            PseudoClasses.Set(":selected", dataContext is { } && selectedItem == dataContext);
+            var item = GetItem(this);
+            var index = GetIndex(this);
+            var isSelected = dataContext is { } && selectedItem == item;
+#if DEBUG
+            if (isSelected)
+            {
+                //Console.WriteLine($"[UpdatePseudoClassesSelectedItem] isSelected='{isSelected}', Tag='{Tag}', item='{item}', index='{index}' selectedItem='{selectedItem}', dataContext='{dataContext}'");
+            }
+#endif
+            PseudoClasses.Set(":selected", isSelected);
         }
     }
 }
