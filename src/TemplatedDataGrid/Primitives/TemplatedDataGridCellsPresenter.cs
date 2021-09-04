@@ -124,7 +124,7 @@ namespace TemplatedDataGrid.Primitives
                 var column = columns[i];
                 var isAutoWidth = column.Width == GridLength.Auto;
 
-                var columnDefinition = new ColumnDefinition()
+                var columnDefinition = new ColumnDefinition
                 {
                     [!ColumnDefinition.WidthProperty] = column[!TemplatedDataGridColumn.WidthProperty],
                     [!ColumnDefinition.MinWidthProperty] = column[!TemplatedDataGridColumn.MinWidthProperty],
