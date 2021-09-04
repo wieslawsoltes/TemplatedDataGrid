@@ -153,7 +153,7 @@ namespace TemplatedDataGrid.Primitives
                 var column = columns[i];
                 var isAutoWidth = column.Width == GridLength.Auto;
 
-                var columnDefinition = new ColumnDefinition()
+                var columnDefinition = new ColumnDefinition
                 {
                     [!!ColumnDefinition.WidthProperty] = column[!!TemplatedDataGridColumn.WidthProperty],
                     [!!ColumnDefinition.MinWidthProperty] = column[!!TemplatedDataGridColumn.MinWidthProperty],
@@ -168,7 +168,7 @@ namespace TemplatedDataGrid.Primitives
                 columnDefinitions.Add(columnDefinition);
 
                 // Generate DataGridColumnHeader's
-                var columnHeader = new TemplatedDataGridColumnHeader()
+                var columnHeader = new TemplatedDataGridColumnHeader
                 {
                     [Grid.RowProperty] = 0,
                     [Grid.ColumnProperty] = columnDefinitions.Count - 1,
@@ -195,7 +195,7 @@ namespace TemplatedDataGrid.Primitives
 
             foreach (var columnIndex in splitterColumnIndexes)
             {
-                var verticalColumnGridLine = new Rectangle()
+                var verticalColumnGridLine = new Rectangle
                 {
                     [Grid.RowProperty] = 0,
                     [Grid.RowSpanProperty] = 1,
@@ -205,7 +205,7 @@ namespace TemplatedDataGrid.Primitives
                 ((IPseudoClasses)verticalColumnGridLine.Classes).Add(":vertical");
                 _rootChildren.Add(verticalColumnGridLine);
 
-                var verticalGridSplitter = new GridSplitter()
+                var verticalGridSplitter = new GridSplitter
                 {
                     [Grid.RowProperty] = 0,
                     [Grid.RowSpanProperty] = 1,
