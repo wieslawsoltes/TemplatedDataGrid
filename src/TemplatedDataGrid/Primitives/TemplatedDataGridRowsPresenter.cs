@@ -187,7 +187,7 @@ namespace TemplatedDataGrid.Primitives
                 _ => true,
                 (_, _) =>
                 {
-                    var row = new TemplatedDataGridRow()
+                    var row = new TemplatedDataGridRow
                     {
 #if DEBUG
                         Tag = rowId++,
