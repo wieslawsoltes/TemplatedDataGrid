@@ -209,9 +209,9 @@ namespace TemplatedDataGrid
 
                 var columnDefinition = new ColumnDefinition()
                 {
-                    [!!ColumnDefinition.WidthProperty] = column[!!TemplatedDataGridColumn.WidthProperty],
-                    [!!ColumnDefinition.MinWidthProperty] = column[!!TemplatedDataGridColumn.MinWidthProperty],
-                    [!!ColumnDefinition.MaxWidthProperty] = column[!!TemplatedDataGridColumn.MaxWidthProperty]
+                    [!ColumnDefinition.WidthProperty] = column[!TemplatedDataGridColumn.WidthProperty],
+                    [!ColumnDefinition.MinWidthProperty] = column[!TemplatedDataGridColumn.MinWidthProperty],
+                    [!ColumnDefinition.MaxWidthProperty] = column[!TemplatedDataGridColumn.MaxWidthProperty]
                 };
 
                 if (isAutoWidth)
