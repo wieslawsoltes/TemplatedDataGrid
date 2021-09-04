@@ -17,7 +17,7 @@ namespace TemplatedDataGrid
             AvaloniaProperty.Register<TemplatedDataGridColumn, object?>(nameof(Header));
 
         public static readonly StyledProperty<GridLength> WidthProperty = 
-            AvaloniaProperty.Register<TemplatedDataGridColumn, GridLength>(nameof(Width), new GridLength(1, GridUnitType.Star));
+            AvaloniaProperty.Register<TemplatedDataGridColumn, GridLength>(nameof(Width), new GridLength(0, GridUnitType.Auto));
 
         public static readonly StyledProperty<double> MinWidthProperty = 
             AvaloniaProperty.Register<TemplatedDataGridColumn, double>(nameof(MinWidth), 0.0);
