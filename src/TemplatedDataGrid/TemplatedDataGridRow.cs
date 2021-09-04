@@ -43,7 +43,7 @@ namespace TemplatedDataGrid
 
         public TemplatedDataGridRow()
         {
-            UpdatePseudoClassesSelectedItem(SelectedItem);
+            UpdatePseudoClassesSelectedItem(SelectedItem, DataContext);
         }
 
         internal object? SelectedItem
@@ -80,7 +80,7 @@ namespace TemplatedDataGrid
             InvalidateCellsPresenter();
             InvalidateBottomGridLine();
 
-            UpdatePseudoClassesSelectedItem(SelectedItem);
+            UpdatePseudoClassesSelectedItem(SelectedItem, DataContext);
         }
 
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
@@ -89,12 +89,12 @@ namespace TemplatedDataGrid
 
             if (change.Property == DataContextProperty)
             {
-                UpdatePseudoClassesSelectedItem(SelectedItem);
+                UpdatePseudoClassesSelectedItem(SelectedItem, change.NewValue.GetValueOrDefault<object?>());
             }
 
             if (change.Property == SelectedItemProperty)
             {
-                UpdatePseudoClassesSelectedItem(change.NewValue.GetValueOrDefault<object?>());
+                UpdatePseudoClassesSelectedItem(change.NewValue.GetValueOrDefault<object?>(), DataContext);
             }
 
             if (change.Property == SelectedCellProperty)
@@ -132,9 +132,9 @@ namespace TemplatedDataGrid
             _bottomGridLine[!Visual.IsVisibleProperty] = isHorizontalGridLineVisible.ToBinding();
         }
 
-        private void UpdatePseudoClassesSelectedItem(object? selectedItem)
+        private void UpdatePseudoClassesSelectedItem(object? selectedItem, object? dataContext)
         {
-            PseudoClasses.Set(":selected", DataContext is { } && selectedItem == DataContext);
+            PseudoClasses.Set(":selected", dataContext is { } && selectedItem == dataContext);
         }
     }
 }
