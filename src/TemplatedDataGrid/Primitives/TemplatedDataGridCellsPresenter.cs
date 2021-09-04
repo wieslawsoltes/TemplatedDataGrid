@@ -144,7 +144,7 @@ namespace TemplatedDataGrid.Primitives
 
                 if (column is TemplatedDataGridTemplateColumn templateColumn)
                 {
-                    cell = new TemplatedDataGridCell()
+                    cell = new TemplatedDataGridCell
                     {
                         [!!TemplatedDataGridCell.SelectedItemProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedItemProperty],
                         [!!TemplatedDataGridCell.SelectedCellProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedCellProperty],
@@ -155,7 +155,7 @@ namespace TemplatedDataGrid.Primitives
                 }
                 else if (column is TemplatedDataGridTextColumn textColumn)
                 {
-                    cell = new TemplatedDataGridCell()
+                    cell = new TemplatedDataGridCell
                     {
                         [!!TemplatedDataGridCell.SelectedItemProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedItemProperty],
                         [!!TemplatedDataGridCell.SelectedCellProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedCellProperty],
@@ -166,7 +166,7 @@ namespace TemplatedDataGrid.Primitives
                 }
                 else if (column is TemplatedDataGridCheckBoxColumn checkBoxColumn)
                 {
-                    cell = new TemplatedDataGridCell()
+                    cell = new TemplatedDataGridCell
                     {
                         [!!TemplatedDataGridCell.SelectedItemProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedItemProperty],
                         [!!TemplatedDataGridCell.SelectedCellProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedCellProperty],
@@ -177,7 +177,7 @@ namespace TemplatedDataGrid.Primitives
                 }
                 else
                 {
-                    cell = new TemplatedDataGridCell()
+                    cell = new TemplatedDataGridCell
                     {
                         [!!TemplatedDataGridCell.SelectedItemProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedItemProperty],
                         [!!TemplatedDataGridCell.SelectedCellProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedCellProperty],
