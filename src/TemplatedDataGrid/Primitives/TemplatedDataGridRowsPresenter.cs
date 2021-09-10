@@ -194,11 +194,9 @@ namespace TemplatedDataGrid.Primitives
                 InvalidateItemTemplate();
             }
         }
-
 #if DEBUG
-        private int _rowId = 0;
+        private int _rowId;
 #endif
-
         private void InvalidateItemTemplate()
         {
             _rows.Clear();
