@@ -77,7 +77,7 @@ namespace TemplatedDataGridDemo.ViewModels
             var itemsSourceList = new SourceList<ItemViewModel>();
             var comparerSubject = new Subject<IComparer<ItemViewModel>>();
             var isSortingEnabled = false;
-            var totalItems = 1_000;
+            var totalItems = 20;
             var enableRandom = false;
             var randomSize = 100;
             var rand = new Random();
@@ -90,8 +90,8 @@ namespace TemplatedDataGridDemo.ViewModels
             itemsSourceList.AddRange(items);
 
             IDisposable? subscription = null;
-            SortingStateColumn1 = ListSortDirection.Ascending;
-            EnableSort(x => x.Column1, SortingStateColumn1);
+            SortingStateColumn5 = ListSortDirection.Ascending;
+            EnableSort(x => x.Column5, SortingStateColumn5);
 
             ItemViewModel CreateItem(int index)
             {

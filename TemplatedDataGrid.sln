@@ -1,8 +1,58 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplatedDataGridDemo", "src\TemplatedDataGridDemo\TemplatedDataGridDemo.csproj", "{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplatedDataGrid", "src\TemplatedDataGrid\TemplatedDataGrid.csproj", "{941DBB36-F74A-442F-8D4D-F43E6B58F2A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{7FDA3505-545B-4392-A3A9-D8F694C3C14F}"
+ProjectSection(SolutionItems) = preProject
+	.editorconfig = .editorconfig
+	.nuke = .nuke
+	build.ps1 = build.ps1
+	build.sh = build.sh
+	global.json = global.json
+	build\templateddatagrid.public.snk = build\templateddatagrid.public.snk
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{BFD1765A-82DE-42D3-9359-771EC12D7281}"
+ProjectSection(SolutionItems) = preProject
+	.gitattributes = .gitattributes
+	.gitignore = .gitignore
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{3603BA2F-4BE5-49EC-B7D7-BEC6EC9AF630}"
+ProjectSection(SolutionItems) = preProject
+	nuget.config = nuget.config
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "props", "props", "{F9FE1661-0D9F-43E3-8861-9A0AA0BC507B}"
+ProjectSection(SolutionItems) = preProject
+	build\Avalonia.Desktop.props = build\Avalonia.Desktop.props
+	build\Avalonia.Diagnostics.props = build\Avalonia.Diagnostics.props
+	build\Avalonia.props = build\Avalonia.props
+	build\Avalonia.ReactiveUI.props = build\Avalonia.ReactiveUI.props
+	build\Base.props = build\Base.props
+	build\ReferenceAssemblies.props = build\ReferenceAssemblies.props
+	build\SignAssembly.props = build\SignAssembly.props
+	build\SourceLink.props = build\SourceLink.props
+	build\XUnit.props = build\XUnit.props
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_build", "build\build\_build.csproj", "{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F8CF95EB-93C2-4ACE-AEDF-570F68A39601}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{7E493E2E-54BB-4774-8899-205E86AFD281}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D2A68122-27EA-4B4B-AA14-F93E6CFE8B74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{A28198F3-8C60-4671-B977-8F83E0167359}"
+ProjectSection(SolutionItems) = preProject
+	LICENSE.TXT = LICENSE.TXT
+	README.md = README.md
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplatedDataGridDemo", "samples\TemplatedDataGridDemo\TemplatedDataGridDemo.csproj", "{4E69A42B-0199-4B3C-A0CA-D7418517D99F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplatedDataGrid.UnitTests", "tests\TemplatedDataGrid.UnitTests\TemplatedDataGrid.UnitTests.csproj", "{F80215A5-0643-4A4A-8B63-AE322094524C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,14 +62,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}.Debug|x64.ActiveCfg = Debug|x64
-		{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}.Debug|x64.Build.0 = Debug|x64
-		{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}.Release|x64.ActiveCfg = Release|x64
-		{A2CC1506-A489-4C79-8EF3-FA9B786D1C91}.Release|x64.Build.0 = Release|x64
 		{941DBB36-F74A-442F-8D4D-F43E6B58F2A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{941DBB36-F74A-442F-8D4D-F43E6B58F2A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{941DBB36-F74A-442F-8D4D-F43E6B58F2A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -28,5 +70,38 @@ Global
 		{941DBB36-F74A-442F-8D4D-F43E6B58F2A9}.Debug|x64.Build.0 = Debug|x64
 		{941DBB36-F74A-442F-8D4D-F43E6B58F2A9}.Release|x64.ActiveCfg = Release|x64
 		{941DBB36-F74A-442F-8D4D-F43E6B58F2A9}.Release|x64.Build.0 = Release|x64
+		{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}.Debug|x64.Build.0 = Debug|Any CPU
+		{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}.Release|x64.ActiveCfg = Release|Any CPU
+		{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}.Release|x64.Build.0 = Release|Any CPU
+		{4E69A42B-0199-4B3C-A0CA-D7418517D99F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E69A42B-0199-4B3C-A0CA-D7418517D99F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E69A42B-0199-4B3C-A0CA-D7418517D99F}.Debug|x64.ActiveCfg = Debug|x64
+		{4E69A42B-0199-4B3C-A0CA-D7418517D99F}.Debug|x64.Build.0 = Debug|x64
+		{4E69A42B-0199-4B3C-A0CA-D7418517D99F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E69A42B-0199-4B3C-A0CA-D7418517D99F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E69A42B-0199-4B3C-A0CA-D7418517D99F}.Release|x64.ActiveCfg = Release|x64
+		{4E69A42B-0199-4B3C-A0CA-D7418517D99F}.Release|x64.Build.0 = Release|x64
+		{F80215A5-0643-4A4A-8B63-AE322094524C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80215A5-0643-4A4A-8B63-AE322094524C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80215A5-0643-4A4A-8B63-AE322094524C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F80215A5-0643-4A4A-8B63-AE322094524C}.Debug|x64.Build.0 = Debug|Any CPU
+		{F80215A5-0643-4A4A-8B63-AE322094524C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80215A5-0643-4A4A-8B63-AE322094524C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F80215A5-0643-4A4A-8B63-AE322094524C}.Release|x64.ActiveCfg = Release|Any CPU
+		{F80215A5-0643-4A4A-8B63-AE322094524C}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BFD1765A-82DE-42D3-9359-771EC12D7281} = {7FDA3505-545B-4392-A3A9-D8F694C3C14F}
+		{3603BA2F-4BE5-49EC-B7D7-BEC6EC9AF630} = {7FDA3505-545B-4392-A3A9-D8F694C3C14F}
+		{F9FE1661-0D9F-43E3-8861-9A0AA0BC507B} = {7FDA3505-545B-4392-A3A9-D8F694C3C14F}
+		{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A} = {7FDA3505-545B-4392-A3A9-D8F694C3C14F}
+		{4E69A42B-0199-4B3C-A0CA-D7418517D99F} = {7E493E2E-54BB-4774-8899-205E86AFD281}
+		{941DBB36-F74A-442F-8D4D-F43E6B58F2A9} = {F8CF95EB-93C2-4ACE-AEDF-570F68A39601}
+		{F80215A5-0643-4A4A-8B63-AE322094524C} = {D2A68122-27EA-4B4B-AA14-F93E6CFE8B74}
 	EndGlobalSection
 EndGlobal

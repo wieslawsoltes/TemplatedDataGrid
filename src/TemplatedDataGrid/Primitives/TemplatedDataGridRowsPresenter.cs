@@ -138,17 +138,35 @@ namespace TemplatedDataGrid.Primitives
 #if DEBUG
                 _listBox.ItemContainerGenerator.Materialized += (sender, args) =>
                 {
-                    Console.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    //Console.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    foreach (var container in args.Containers)
+                    {
+                        TemplatedDataGridRow.SetItem(container.ContainerControl, container.Item);
+                        TemplatedDataGridRow.SetIndex(container.ContainerControl, container.Index);
+                        //Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}', container.ContainerControl='{container.ContainerControl}'");
+                    }
                 };
 
                 _listBox.ItemContainerGenerator.Dematerialized += (sender, args) =>
                 {
-                    Console.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    //Console.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    foreach (var container in args.Containers)
+                    {
+                        TemplatedDataGridRow.SetItem(container.ContainerControl, null);
+                        TemplatedDataGridRow.SetIndex(container.ContainerControl, -1);
+                        //Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}', container.ContainerControl='{container.ContainerControl}'");
+                    }
                 };
 
                 _listBox.ItemContainerGenerator.Recycled += (sender, args) =>
                 {
-                    Console.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    //Console.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    foreach (var container in args.Containers)
+                    {
+                        TemplatedDataGridRow.SetItem(container.ContainerControl, container.Item);
+                        TemplatedDataGridRow.SetIndex(container.ContainerControl, container.Index);
+                        //Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}', container.ContainerControl='{container.ContainerControl}'");
+                    }
                 };
 #endif
 
@@ -199,24 +217,29 @@ namespace TemplatedDataGrid.Primitives
                     };
 
 #if DEBUG
+                    row.DataContextChanged += (_, _) =>
+                    {
+                        //Console.WriteLine($"[DataContextChanged] Row='{row.Tag}', DataContext='{row.DataContext}'");
+                    };
+                    
                     row.AttachedToVisualTree += (_, _) =>
                     {
-                        Console.WriteLine($"[AttachedToVisualTree] Row='{row.Tag}'");
+                        //Console.WriteLine($"[AttachedToVisualTree] Row='{row.Tag}'");
                     };
 
                     row.DetachedFromVisualTree += (_, _) =>
                     {
-                        Console.WriteLine($"[DetachedFromVisualTree] Row='{row.Tag}'");
+                        //Console.WriteLine($"[DetachedFromVisualTree] Row='{row.Tag}'");
                     };
 
                     row.AttachedToLogicalTree += (_, _) =>
                     {
-                        Console.WriteLine($"[AttachedToLogicalTree] Row='{row.Tag}'");
+                        //Console.WriteLine($"[AttachedToLogicalTree] Row='{row.Tag}'");
                     };
 
                     row.DetachedFromLogicalTree += (_, _) =>
                     {
-                        Console.WriteLine($"[DetachedFromLogicalTree] Row='{row.Tag}'");
+                        //Console.WriteLine($"[DetachedFromLogicalTree] Row='{row.Tag}'");
                     };
 #endif
 
