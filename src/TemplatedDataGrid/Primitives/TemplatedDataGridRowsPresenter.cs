@@ -195,7 +195,9 @@ namespace TemplatedDataGrid.Primitives
             }
         }
 
-        private int rowId = 0;
+#if DEBUG
+        private int _rowId = 0;
+#endif
 
         private void InvalidateItemTemplate()
         {
@@ -208,7 +210,7 @@ namespace TemplatedDataGrid.Primitives
                     var row = new TemplatedDataGridRow
                     {
 #if DEBUG
-                        Tag = rowId++,
+                        Tag = _rowId++,
 #endif
                         [!!TemplatedDataGridRow.SelectedItemProperty] = this[!!TemplatedDataGridRowsPresenter.SelectedItemProperty],
                         [!!TemplatedDataGridRow.SelectedCellProperty] = this[!!TemplatedDataGridRowsPresenter.SelectedCellProperty],
