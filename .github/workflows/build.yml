@@ -46,7 +46,7 @@ jobs:
       with:
         name: NuGet
         path: ./artifacts/NuGet
-        
+
   publish-windows:
     name: Publish windows-latest
     runs-on: windows-latest
@@ -58,7 +58,7 @@ jobs:
         dotnet-version: 5.0.100
     - name: Publish
       if: github.event_name != 'pull_request'
-      run: dotnet publish -c Release -f net5.0 -r win7-x64 -o ./artifacts/TemplatedDataGridDemo-win7-x64 ./src/TemplatedDataGridDemo/TemplatedDataGridDemo.csproj
+      run: dotnet publish -c Release -f net5.0 -r win7-x64 -o ./artifacts/TemplatedDataGridDemo-win7-x64 ./samples/TemplatedDataGridDemo/TemplatedDataGridDemo.csproj
     - name: Artifacts
       if: github.event_name != 'pull_request'
       uses: actions/upload-artifact@master
@@ -77,7 +77,7 @@ jobs:
         dotnet-version: 5.0.100
     - name: Publish
       if: github.event_name != 'pull_request'
-      run: dotnet publish -c Release -f net5.0 -r ubuntu.14.04-x64 -o ./artifacts/TemplatedDataGridDemo-ubuntu.14.04-x64 ./src/TemplatedDataGridDemo/TemplatedDataGridDemo.csproj
+      run: dotnet publish -c Release -f net5.0 -r ubuntu.14.04-x64 -o ./artifacts/TemplatedDataGridDemo-ubuntu.14.04-x64 ./samples/TemplatedDataGridDemo/TemplatedDataGridDemo.csproj
     - name: Artifacts
       if: github.event_name != 'pull_request'
       uses: actions/upload-artifact@master
@@ -96,7 +96,7 @@ jobs:
         dotnet-version: 5.0.100
     - name: Publish
       if: github.event_name != 'pull_request'
-      run: dotnet publish -c Release -f net5.0 -r osx.10.12-x64 -o ./artifacts/TemplatedDataGridDemo-osx.10.12-x64 ./src/TemplatedDataGridDemo/TemplatedDataGridDemo.csproj
+      run: dotnet publish -c Release -f net5.0 -r osx.10.12-x64 -o ./artifacts/TemplatedDataGridDemo-osx.10.12-x64 ./samples/TemplatedDataGridDemo/TemplatedDataGridDemo.csproj
     - name: Artifacts
       if: github.event_name != 'pull_request'
       uses: actions/upload-artifact@master
