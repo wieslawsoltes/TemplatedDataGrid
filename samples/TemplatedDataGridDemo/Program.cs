@@ -1,7 +1,6 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.ReactiveUI;
-using TemplatedDataGrid;
 
 namespace TemplatedDataGridDemo
 {

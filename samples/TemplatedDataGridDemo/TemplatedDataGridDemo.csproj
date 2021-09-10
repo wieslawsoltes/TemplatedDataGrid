@@ -13,21 +13,20 @@
     <Configurations>Debug;Release</Configurations>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-  <PropertyGroup>
-    <AnalysisLevel>latest</AnalysisLevel>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+
   <ItemGroup>
     <AvaloniaResource Include="Assets\**"/>
   </ItemGroup>
+
+  <Import Project="..\..\build\Base.props" />
+  <Import Project="..\..\build\ReferenceAssemblies.props" />
+  <Import Project="..\..\build\Avalonia.props" />
+  <Import Project="..\..\build\Avalonia.Desktop.props" />
+  <Import Project="..\..\build\Avalonia.Diagnostics.props" />
+  <Import Project="..\..\build\Avalonia.ReactiveUI.props" />
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All"/>
-    <PackageReference Include="Avalonia" Version="0.10.7"/>
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.7"/>
-    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.7"/>
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.7"/>
+    <ProjectReference Include="..\..\src\TemplatedDataGrid\TemplatedDataGrid.csproj"/>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TemplatedDataGrid\TemplatedDataGrid.csproj"/>
-  </ItemGroup>
+
 </Project>
