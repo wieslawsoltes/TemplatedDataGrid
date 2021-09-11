@@ -9,13 +9,13 @@ namespace TemplatedDataGridDemo
         [STAThread]
         public static void Main(string[] args)
         {
-            GC.KeepAlive(typeof(TemplatedDataGrid.TemplatedDataGrid).Assembly);
-
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
 
         public static AppBuilder BuildAvaloniaApp()
         {
+            GC.KeepAlive(typeof(TemplatedDataGrid.TemplatedDataGrid).Assembly);
+
             return AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .With(new Win32PlatformOptions
