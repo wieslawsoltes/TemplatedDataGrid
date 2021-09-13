@@ -151,25 +151,25 @@ namespace TemplatedDataGrid.Primitives
 
                 var columnDefinition = new ColumnDefinition();
 
-                columnDefinition.BindOneWay(ColumnDefinition.MinWidthProperty, column, TemplatedDataGridColumn.MinWidthProperty, RootDisposables);
-                columnDefinition.BindTwoWay(ColumnDefinition.MaxWidthProperty, column, TemplatedDataGridColumn.MaxWidthProperty, RootDisposables);
+                columnDefinition.OneWayBind(ColumnDefinition.MinWidthProperty, column, TemplatedDataGridColumn.MinWidthProperty, RootDisposables);
+                columnDefinition.TwoWayBind(ColumnDefinition.MaxWidthProperty, column, TemplatedDataGridColumn.MaxWidthProperty, RootDisposables);
 
                 if (isStarWidth)
                 {
-                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, 
+                    columnDefinition.OneWayBind(ColumnDefinition.WidthProperty, 
                         column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty).Select(x => new BindingValue<GridLength>(new GridLength(x, GridUnitType.Pixel))), 
                         RootDisposables);
                 }
 
                 if (isAutoWidth)
                 {
-                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
+                    columnDefinition.OneWayBind(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
                 }
 
                 if (isPixelWidth)
                 {
-                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
+                    columnDefinition.OneWayBind(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
                 }
 
                 columnDefinitions.Add(columnDefinition);
@@ -181,10 +181,10 @@ namespace TemplatedDataGrid.Primitives
                     [Grid.ColumnProperty] = columnDefinitions.Count - 1
                 };
 
-                cell.BindTwoWay(TemplatedDataGridCell.SelectedItemProperty, this, TemplatedDataGridCellsPresenter.SelectedItemProperty, RootDisposables);
-                cell.BindTwoWay(TemplatedDataGridCell.SelectedCellProperty, this, TemplatedDataGridCellsPresenter.SelectedCellProperty, RootDisposables);
-                cell.BindOneWay(TemplatedDataGridCell.ContentProperty, this, TemplatedDataGridCellsPresenter.DataContextProperty, RootDisposables);
-                cell.BindOneWay(TemplatedDataGridCell.CellTemplateProperty, column, TemplatedDataGridColumn.CellTemplateProperty, RootDisposables);
+                cell.TwoWayBind(TemplatedDataGridCell.SelectedItemProperty, this, TemplatedDataGridCellsPresenter.SelectedItemProperty, RootDisposables);
+                cell.TwoWayBind(TemplatedDataGridCell.SelectedCellProperty, this, TemplatedDataGridCellsPresenter.SelectedCellProperty, RootDisposables);
+                cell.OneWayBind(TemplatedDataGridCell.ContentProperty, this, TemplatedDataGridCellsPresenter.DataContextProperty, RootDisposables);
+                cell.OneWayBind(TemplatedDataGridCell.CellTemplateProperty, column, TemplatedDataGridColumn.CellTemplateProperty, RootDisposables);
                 
                 _cells.Add(cell);
                 _rootChildren.Add(cell);

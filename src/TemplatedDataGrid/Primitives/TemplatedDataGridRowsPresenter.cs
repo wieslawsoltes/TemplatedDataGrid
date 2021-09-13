@@ -131,12 +131,12 @@ namespace TemplatedDataGrid.Primitives
             {
                 var listBoxDisposables = new CompositeDisposable();
 
-                _listBox.BindOneWay(ItemsControl.ItemsProperty, this, ItemsProperty, listBoxDisposables);
-                _listBox.BindOneWay(SelectingItemsControl.AutoScrollToSelectedItemProperty, this, AutoScrollToSelectedItemProperty, listBoxDisposables);
-                _listBox.BindOneWay(ItemsControl.ItemTemplateProperty, this, ItemTemplateProperty, listBoxDisposables);
+                _listBox.OneWayBind(ItemsControl.ItemsProperty, this, ItemsProperty, listBoxDisposables);
+                _listBox.OneWayBind(SelectingItemsControl.AutoScrollToSelectedItemProperty, this, AutoScrollToSelectedItemProperty, listBoxDisposables);
+                _listBox.OneWayBind(ItemsControl.ItemTemplateProperty, this, ItemTemplateProperty, listBoxDisposables);
 
-                this.BindTwoWay(SelectedItemProperty, _listBox, SelectingItemsControl.SelectedItemProperty, listBoxDisposables);
-                this.BindOneWay(ScrollProperty, _listBox, ListBox.ScrollProperty, listBoxDisposables);
+                this.TwoWayBind(SelectedItemProperty, _listBox, SelectingItemsControl.SelectedItemProperty, listBoxDisposables);
+                this.OneWayBind(ScrollProperty, _listBox, ListBox.ScrollProperty, listBoxDisposables);
                 
 #if DEBUG
                 _listBox.ItemContainerGenerator.Materialized += (sender, args) =>
@@ -221,10 +221,10 @@ namespace TemplatedDataGrid.Primitives
 
                     var disposables = new CompositeDisposable();
 
-                    row.BindTwoWay(TemplatedDataGridRow.SelectedItemProperty, this, TemplatedDataGridRowsPresenter.SelectedItemProperty, disposables);
-                    row.BindTwoWay(TemplatedDataGridRow.SelectedCellProperty, this, TemplatedDataGridRowsPresenter.SelectedCellProperty, disposables);
-                    row.BindOneWay(TemplatedDataGridRow.ColumnsProperty, this, TemplatedDataGridRowsPresenter.ColumnsProperty, disposables);
-                    row.BindOneWay(TemplatedDataGridRow.GridLinesVisibilityProperty, this, TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty, disposables);
+                    row.TwoWayBind(TemplatedDataGridRow.SelectedItemProperty, this, TemplatedDataGridRowsPresenter.SelectedItemProperty, disposables);
+                    row.TwoWayBind(TemplatedDataGridRow.SelectedCellProperty, this, TemplatedDataGridRowsPresenter.SelectedCellProperty, disposables);
+                    row.OneWayBind(TemplatedDataGridRow.ColumnsProperty, this, TemplatedDataGridRowsPresenter.ColumnsProperty, disposables);
+                    row.OneWayBind(TemplatedDataGridRow.GridLinesVisibilityProperty, this, TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty, disposables);
 
                     row.TemplateDisposables = disposables;
 

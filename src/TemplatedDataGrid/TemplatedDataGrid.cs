@@ -219,12 +219,12 @@ namespace TemplatedDataGrid
 
                 var columnDefinition = new ColumnDefinition();
 
-                columnDefinition.BindOneWay(ColumnDefinition.MinWidthProperty, column, TemplatedDataGridColumn.MinWidthProperty, RootDisposables);
-                columnDefinition.BindOneWay(ColumnDefinition.MaxWidthProperty, column, TemplatedDataGridColumn.MaxWidthProperty, RootDisposables);
+                columnDefinition.OneWayBind(ColumnDefinition.MinWidthProperty, column, TemplatedDataGridColumn.MinWidthProperty, RootDisposables);
+                columnDefinition.OneWayBind(ColumnDefinition.MaxWidthProperty, column, TemplatedDataGridColumn.MaxWidthProperty, RootDisposables);
 
                 if (isStarWidth)
                 {
-                    columnDefinition.BindOneWay(
+                    columnDefinition.OneWayBind(
                         ColumnDefinition.WidthProperty, 
                         column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty).Select(x => new BindingValue<GridLength>(new GridLength(x, GridUnitType.Pixel))), 
                         RootDisposables);
@@ -232,14 +232,14 @@ namespace TemplatedDataGrid
 
                 if (isAutoWidth)
                 {
-                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
+                    columnDefinition.OneWayBind(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
                     isSharedSizeScope = true;
                 }
 
                 if (isPixelWidth)
                 {
-                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
+                    columnDefinition.OneWayBind(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
                 }
 
                 columnDefinitions.Add(columnDefinition);
@@ -273,7 +273,7 @@ namespace TemplatedDataGrid
                     [Rectangle.IsHitTestVisibleProperty] = false
                 };
 
-                verticalRowGridLine.BindOneWay(
+                verticalRowGridLine.OneWayBind(
                     Rectangle.IsVisibleProperty, 
                     this.GetObservable(TemplatedDataGrid.GridLinesVisibilityProperty).Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Vertical))), 
                     RootDisposables);
@@ -311,10 +311,10 @@ namespace TemplatedDataGrid
             {
                 ColumnHeadersDisposables = new CompositeDisposable();
 
-                _columnHeadersPresenter.BindOneWay(TemplatedDataGridColumnHeadersPresenter.ColumnsProperty, this, TemplatedDataGrid.ColumnsProperty, ColumnHeadersDisposables);
-                _columnHeadersPresenter.BindOneWay(TemplatedDataGridColumnHeadersPresenter.ScrollProperty, _rowsPresenter, TemplatedDataGridRowsPresenter.ScrollProperty, ColumnHeadersDisposables);
-                _columnHeadersPresenter.BindOneWay(TemplatedDataGridColumnHeadersPresenter.CanUserSortColumnsProperty, this, TemplatedDataGrid.CanUserSortColumnsProperty, ColumnHeadersDisposables);
-                _columnHeadersPresenter.BindOneWay(TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, this, TemplatedDataGrid.CanUserResizeColumnsProperty, ColumnHeadersDisposables);
+                _columnHeadersPresenter.OneWayBind(TemplatedDataGridColumnHeadersPresenter.ColumnsProperty, this, TemplatedDataGrid.ColumnsProperty, ColumnHeadersDisposables);
+                _columnHeadersPresenter.OneWayBind(TemplatedDataGridColumnHeadersPresenter.ScrollProperty, _rowsPresenter, TemplatedDataGridRowsPresenter.ScrollProperty, ColumnHeadersDisposables);
+                _columnHeadersPresenter.OneWayBind(TemplatedDataGridColumnHeadersPresenter.CanUserSortColumnsProperty, this, TemplatedDataGrid.CanUserSortColumnsProperty, ColumnHeadersDisposables);
+                _columnHeadersPresenter.OneWayBind(TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, this, TemplatedDataGrid.CanUserResizeColumnsProperty, ColumnHeadersDisposables);
             };
         }
 
@@ -327,12 +327,12 @@ namespace TemplatedDataGrid
             {
                 RowsDisposables = new CompositeDisposable();
 
-                _rowsPresenter.BindOneWay(TemplatedDataGridRowsPresenter.ColumnsProperty, this, TemplatedDataGrid.ColumnsProperty, RowsDisposables);
-                _rowsPresenter.BindOneWay(TemplatedDataGridRowsPresenter.ItemsProperty, this, TemplatedDataGrid.ItemsProperty, RowsDisposables);
-                _rowsPresenter.BindOneWay(TemplatedDataGridRowsPresenter.AutoScrollToSelectedItemProperty, this, TemplatedDataGrid.AutoScrollToSelectedItemProperty, RowsDisposables);
-                _rowsPresenter.BindTwoWay(TemplatedDataGridRowsPresenter.SelectedItemProperty, this, TemplatedDataGrid.SelectedItemProperty, RowsDisposables);
-                _rowsPresenter.BindTwoWay(TemplatedDataGridRowsPresenter.SelectedCellProperty, this, TemplatedDataGrid.SelectedCellProperty, RowsDisposables);
-                _rowsPresenter.BindOneWay(TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty, this, TemplatedDataGrid.GridLinesVisibilityProperty, RowsDisposables);
+                _rowsPresenter.OneWayBind(TemplatedDataGridRowsPresenter.ColumnsProperty, this, TemplatedDataGrid.ColumnsProperty, RowsDisposables);
+                _rowsPresenter.OneWayBind(TemplatedDataGridRowsPresenter.ItemsProperty, this, TemplatedDataGrid.ItemsProperty, RowsDisposables);
+                _rowsPresenter.OneWayBind(TemplatedDataGridRowsPresenter.AutoScrollToSelectedItemProperty, this, TemplatedDataGrid.AutoScrollToSelectedItemProperty, RowsDisposables);
+                _rowsPresenter.TwoWayBind(TemplatedDataGridRowsPresenter.SelectedItemProperty, this, TemplatedDataGrid.SelectedItemProperty, RowsDisposables);
+                _rowsPresenter.TwoWayBind(TemplatedDataGridRowsPresenter.SelectedCellProperty, this, TemplatedDataGrid.SelectedCellProperty, RowsDisposables);
+                _rowsPresenter.OneWayBind(TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty, this, TemplatedDataGrid.GridLinesVisibilityProperty, RowsDisposables);
             }
         }
     }

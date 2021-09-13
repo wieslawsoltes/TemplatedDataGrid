@@ -223,9 +223,9 @@ namespace TemplatedDataGrid
             {
                 CellsDisposables = new CompositeDisposable();
                 
-                _cellsPresenter.BindTwoWay(TemplatedDataGridCellsPresenter.SelectedItemProperty, this, TemplatedDataGridRow.SelectedItemProperty, CellsDisposables);
-                _cellsPresenter.BindTwoWay(TemplatedDataGridCellsPresenter.SelectedCellProperty, this, TemplatedDataGridRow.SelectedCellProperty, CellsDisposables);
-                _cellsPresenter.BindOneWay(TemplatedDataGridCellsPresenter.ColumnsProperty, this, TemplatedDataGridRow.ColumnsProperty, CellsDisposables);
+                _cellsPresenter.TwoWayBind(TemplatedDataGridCellsPresenter.SelectedItemProperty, this, TemplatedDataGridRow.SelectedItemProperty, CellsDisposables);
+                _cellsPresenter.TwoWayBind(TemplatedDataGridCellsPresenter.SelectedCellProperty, this, TemplatedDataGridRow.SelectedCellProperty, CellsDisposables);
+                _cellsPresenter.OneWayBind(TemplatedDataGridCellsPresenter.ColumnsProperty, this, TemplatedDataGridRow.ColumnsProperty, CellsDisposables);
             }
         }
 
@@ -241,7 +241,7 @@ namespace TemplatedDataGrid
 
             BottomGridLineDisposables = new CompositeDisposable();
             
-            _bottomGridLine.BindOneWay(
+            _bottomGridLine.OneWayBind(
                 Visual.IsVisibleProperty, 
                 this.GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty).Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal))), 
                 BottomGridLineDisposables);

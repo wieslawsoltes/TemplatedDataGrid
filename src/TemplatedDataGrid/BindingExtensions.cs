@@ -7,7 +7,7 @@ namespace TemplatedDataGrid
 {
     internal static class BindingExtensions
     {
-        public static void BindOneWay(
+        public static void OneWayBind(
             this IAvaloniaObject target, 
             AvaloniaProperty targetProperty, 
             IAvaloniaObject source, 
@@ -18,7 +18,7 @@ namespace TemplatedDataGrid
             compositeDisposable.Add(targetDisposable);
         }
 
-        public static void BindTwoWay(
+        public static void TwoWayBind(
             this IAvaloniaObject target,
             AvaloniaProperty targetProperty, 
             IAvaloniaObject source, 
@@ -31,7 +31,7 @@ namespace TemplatedDataGrid
             compositeDisposable.Add(sourceDisposable);
         }
         
-        public static void BindOneWay<T>(
+        public static void OneWayBind<T>(
             this IAvaloniaObject target, 
             AvaloniaProperty<T> targetProperty, 
             IObservable<BindingValue<T>> source, 
