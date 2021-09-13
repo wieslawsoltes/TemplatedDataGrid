@@ -155,7 +155,6 @@ namespace TemplatedDataGrid
 
                 if (newValue is null)
                 {
-                   /* 
                     TemplateDisposables?.Dispose();
                     TemplateDisposables = null;
 
@@ -170,7 +169,6 @@ namespace TemplatedDataGrid
                         _cellsPresenter.RootDisposables?.Dispose();
                         _cellsPresenter.RootDisposables = null;
                     }
-                    */
                 }
 
 #if DEBUG
