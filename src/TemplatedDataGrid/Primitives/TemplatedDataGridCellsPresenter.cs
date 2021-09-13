@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Collections;
@@ -67,6 +68,8 @@ namespace TemplatedDataGrid.Primitives
             set => SetAndRaise(CellsProperty, ref _cells, value);
         }
 
+        internal CompositeDisposable? RootDisposables { get; set; }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -98,10 +101,15 @@ namespace TemplatedDataGrid.Primitives
 
         private void InvalidateRoot()
         {
+            RootDisposables?.Dispose();
+            RootDisposables = null;
+
             if (_root is null)
             {
                 return;
             }
+
+            RootDisposables = new CompositeDisposable();
 
             foreach (var child in _rootChildren)
             {
@@ -127,82 +135,41 @@ namespace TemplatedDataGrid.Primitives
                 var isAutoWidth = column.Width.IsAuto;
                 var isPixelWidth = column.Width.IsAbsolute;
 
-                var columnDefinition = new ColumnDefinition
-                {
-                    [!ColumnDefinition.MinWidthProperty] = column[!TemplatedDataGridColumn.MinWidthProperty],
-                    [!ColumnDefinition.MaxWidthProperty] = column[!TemplatedDataGridColumn.MaxWidthProperty]
-                };
+                var columnDefinition = new ColumnDefinition();
+
+                columnDefinition.BindOneWay(ColumnDefinition.MinWidthProperty, column, TemplatedDataGridColumn.MinWidthProperty, RootDisposables);
+                columnDefinition.BindTwoWay(ColumnDefinition.MaxWidthProperty, column, TemplatedDataGridColumn.MaxWidthProperty, RootDisposables);
 
                 if (isStarWidth)
                 {
-                    columnDefinition[!ColumnDefinition.WidthProperty] = 
-                        column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty)
-                              .Select(x => new GridLength(x, GridUnitType.Pixel))
-                              .ToBinding();
+                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty).Select(x => new GridLength(x, GridUnitType.Pixel)));
                 }
 
                 if (isAutoWidth)
                 {
-                    columnDefinition[!ColumnDefinition.WidthProperty] = column[!TemplatedDataGridColumn.WidthProperty];
+                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
                 }
 
                 if (isPixelWidth)
                 {
-                    columnDefinition[!ColumnDefinition.WidthProperty] = column[!TemplatedDataGridColumn.WidthProperty];
+                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
                 }
 
                 columnDefinitions.Add(columnDefinition);
 
                 // Generate DataGridCell's
 
-                TemplatedDataGridCell cell;
+                var cell = new TemplatedDataGridCell
+                {
+                    [Grid.ColumnProperty] = columnDefinitions.Count - 1
+                };
 
-                if (column is TemplatedDataGridTemplateColumn templateColumn)
-                {
-                    cell = new TemplatedDataGridCell
-                    {
-                        [!!TemplatedDataGridCell.SelectedItemProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedItemProperty],
-                        [!!TemplatedDataGridCell.SelectedCellProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedCellProperty],
-                        [Grid.ColumnProperty] = columnDefinitions.Count - 1,
-                        [!TemplatedDataGridCell.ContentProperty] = this[!TemplatedDataGridCellsPresenter.DataContextProperty],
-                        [!TemplatedDataGridCell.CellTemplateProperty] = templateColumn[!TemplatedDataGridColumn.CellTemplateProperty]
-                    };
-                }
-                else if (column is TemplatedDataGridTextColumn textColumn)
-                {
-                    cell = new TemplatedDataGridCell
-                    {
-                        [!!TemplatedDataGridCell.SelectedItemProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedItemProperty],
-                        [!!TemplatedDataGridCell.SelectedCellProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedCellProperty],
-                        [Grid.ColumnProperty] = columnDefinitions.Count - 1,
-                        [!TemplatedDataGridCell.ContentProperty] = this[!TemplatedDataGridCellsPresenter.DataContextProperty],
-                        [!TemplatedDataGridCell.CellTemplateProperty] = textColumn[!TemplatedDataGridColumn.CellTemplateProperty]
-                    };
-                }
-                else if (column is TemplatedDataGridCheckBoxColumn checkBoxColumn)
-                {
-                    cell = new TemplatedDataGridCell
-                    {
-                        [!!TemplatedDataGridCell.SelectedItemProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedItemProperty],
-                        [!!TemplatedDataGridCell.SelectedCellProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedCellProperty],
-                        [Grid.ColumnProperty] = columnDefinitions.Count - 1,
-                        [!TemplatedDataGridCell.ContentProperty] = this[!TemplatedDataGridCellsPresenter.DataContextProperty],
-                        [!TemplatedDataGridCell.CellTemplateProperty] = checkBoxColumn[!TemplatedDataGridColumn.CellTemplateProperty]
-                    };
-                }
-                else
-                {
-                    cell = new TemplatedDataGridCell
-                    {
-                        [!!TemplatedDataGridCell.SelectedItemProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedItemProperty],
-                        [!!TemplatedDataGridCell.SelectedCellProperty] = this[!!TemplatedDataGridCellsPresenter.SelectedCellProperty],
-                        [Grid.ColumnProperty] = columnDefinitions.Count - 1,
-                        [!TemplatedDataGridCell.ContentProperty] = this[!TemplatedDataGridCellsPresenter.DataContextProperty],
-                        [!TemplatedDataGridCell.CellTemplateProperty] = column[!TemplatedDataGridColumn.CellTemplateProperty]
-                    };
-                }
-
+                cell.BindTwoWay(TemplatedDataGridCell.SelectedItemProperty, this, TemplatedDataGridCellsPresenter.SelectedItemProperty, RootDisposables);
+                cell.BindTwoWay(TemplatedDataGridCell.ContentProperty, this, TemplatedDataGridCellsPresenter.SelectedCellProperty, RootDisposables);
+                cell.BindOneWay(TemplatedDataGridCell.SelectedCellProperty, this, TemplatedDataGridCellsPresenter.DataContextProperty, RootDisposables);
+                cell.BindOneWay(TemplatedDataGridCell.CellTemplateProperty, column, TemplatedDataGridColumn.CellTemplateProperty, RootDisposables);
+                
                 _cells.Add(cell);
                 _rootChildren.Add(cell);
 
