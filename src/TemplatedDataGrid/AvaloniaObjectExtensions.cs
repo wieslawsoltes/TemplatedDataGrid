@@ -5,7 +5,7 @@ using Avalonia.Data;
 
 namespace TemplatedDataGrid
 {
-    internal static class BindingExtensions
+    internal static class AvaloniaObjectExtensions
     {
         public static void OneWayBind(
             this IAvaloniaObject target, 
