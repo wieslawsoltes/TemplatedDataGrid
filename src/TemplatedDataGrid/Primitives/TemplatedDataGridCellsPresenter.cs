@@ -166,8 +166,8 @@ namespace TemplatedDataGrid.Primitives
                 };
 
                 cell.BindTwoWay(TemplatedDataGridCell.SelectedItemProperty, this, TemplatedDataGridCellsPresenter.SelectedItemProperty, RootDisposables);
-                cell.BindTwoWay(TemplatedDataGridCell.ContentProperty, this, TemplatedDataGridCellsPresenter.SelectedCellProperty, RootDisposables);
-                cell.BindOneWay(TemplatedDataGridCell.SelectedCellProperty, this, TemplatedDataGridCellsPresenter.DataContextProperty, RootDisposables);
+                cell.BindTwoWay(TemplatedDataGridCell.SelectedCellProperty, this, TemplatedDataGridCellsPresenter.SelectedCellProperty, RootDisposables);
+                cell.BindOneWay(TemplatedDataGridCell.ContentProperty, this, TemplatedDataGridCellsPresenter.DataContextProperty, RootDisposables);
                 cell.BindOneWay(TemplatedDataGridCell.CellTemplateProperty, column, TemplatedDataGridColumn.CellTemplateProperty, RootDisposables);
                 
                 _cells.Add(cell);
