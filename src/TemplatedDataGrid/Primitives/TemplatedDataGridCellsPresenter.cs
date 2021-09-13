@@ -40,9 +40,9 @@ namespace TemplatedDataGrid.Primitives
         private object? _selectedItem;
         private object? _selectedCell;
         private AvaloniaList<TemplatedDataGridColumn>? _columns;
-        private AvaloniaList<TemplatedDataGridCell> _cells = new AvaloniaList<TemplatedDataGridCell>();
+        private AvaloniaList<TemplatedDataGridCell> _cells = new ();
         private Grid? _root;
-        private readonly List<Control> _rootChildren = new List<Control>();
+        private readonly List<Control> _rootChildren = new ();
 
         internal object? SelectedItem
         {
