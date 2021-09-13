@@ -123,6 +123,10 @@ namespace TemplatedDataGrid
 
         internal CompositeDisposable? TemplateDisposables { get; set; }
 
+        internal CompositeDisposable? CellsDisposables { get; set; }
+
+        internal CompositeDisposable? BottomGridLineDisposables { get; set; }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -151,10 +155,24 @@ namespace TemplatedDataGrid
 
                 if (newValue is null)
                 {
+                   /* 
                     TemplateDisposables?.Dispose();
                     TemplateDisposables = null;
+
+                    CellsDisposables?.Dispose();
+                    CellsDisposables = null;
+
+                    BottomGridLineDisposables?.Dispose();
+                    BottomGridLineDisposables = null;
+
+                    if (_cellsPresenter is { })
+                    {
+                        _cellsPresenter.RootDisposables?.Dispose();
+                        _cellsPresenter.RootDisposables = null;
+                    }
+                    */
                 }
-                
+
 #if DEBUG
                 //Console.WriteLine($"[TemplatedDataGridRow.Item] old='{change.OldValue.GetValueOrDefault<object?>()}' new='{change.NewValue.GetValueOrDefault<object?>()}', DataContext='{DataContext}'");
 #endif
@@ -190,26 +208,28 @@ namespace TemplatedDataGrid
 
         private void InvalidateCellsPresenter()
         {
+            CellsDisposables?.Dispose();
+            CellsDisposables = null;
+
             if (_cellsPresenter is { })
             {
-                _cellsPresenter[!!TemplatedDataGridCellsPresenter.SelectedItemProperty] = this[!!TemplatedDataGridRow.SelectedItemProperty];
-                _cellsPresenter[!!TemplatedDataGridCellsPresenter.SelectedCellProperty] = this[!!TemplatedDataGridRow.SelectedCellProperty];
-                _cellsPresenter[!TemplatedDataGridCellsPresenter.ColumnsProperty] = this[!TemplatedDataGridRow.ColumnsProperty];
+                _cellsPresenter.BindTwoWay(TemplatedDataGridCellsPresenter.SelectedItemProperty, this, TemplatedDataGridRow.SelectedItemProperty, CellsDisposables);
+                _cellsPresenter.BindTwoWay(TemplatedDataGridCellsPresenter.SelectedCellProperty, this, TemplatedDataGridRow.SelectedCellProperty, CellsDisposables);
+                _cellsPresenter.BindOneWay(TemplatedDataGridCellsPresenter.ColumnsProperty, this, TemplatedDataGridRow.ColumnsProperty, CellsDisposables);
             }
         }
 
         private void InvalidateBottomGridLine()
         {
+            BottomGridLineDisposables?.Dispose();
+            BottomGridLineDisposables = null;
+
             if (_bottomGridLine is null)
             {
                 return;
             }
 
-            var isHorizontalGridLineVisible = this
-                .GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty)
-                .Select(x => x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal));
-
-            _bottomGridLine[!Visual.IsVisibleProperty] = isHorizontalGridLineVisible.ToBinding();
+            _bottomGridLine.BindOneWay(Visual.IsVisibleProperty, this.GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty).Select(x => x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal)), BottomGridLineDisposables);
         }
 
         private void UpdatePseudoClassesSelectedItem(object? selectedItem, object? dataContext)
