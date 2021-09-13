@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Avalonia;
@@ -79,6 +80,23 @@ namespace TemplatedDataGrid.Primitives
             InvalidateRoot();
         }
 
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToVisualTree(e);
+#if DEBUG
+            Console.WriteLine($"[TemplatedDataGridCellsPresenter.Attached] {DataContext}");
+#endif
+        }
+
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnDetachedFromVisualTree(e);
+#if DEBUG
+            Console.WriteLine($"[TemplatedDataGridCellsPresenter.Detach] {DataContext}");
+#endif
+            Detach();
+        }
+
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
         {
             base.OnPropertyChanged(change);
@@ -101,22 +119,18 @@ namespace TemplatedDataGrid.Primitives
 
         private void InvalidateRoot()
         {
-            RootDisposables?.Dispose();
-            RootDisposables = null;
+            Detach();
+            Attach();
+        }
 
+        private void Attach()
+        {
             if (_root is null)
             {
                 return;
             }
 
             RootDisposables = new CompositeDisposable();
-
-            foreach (var child in _rootChildren)
-            {
-                _root.Children.Remove(child);
-            }
-
-            _cells.Clear();
 
             var columns = Columns;
             if (columns is null)
@@ -142,7 +156,7 @@ namespace TemplatedDataGrid.Primitives
 
                 if (isStarWidth)
                 {
-                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty).Select(x => new GridLength(x, GridUnitType.Pixel)));
+                    columnDefinition.BindOneWay(ColumnDefinition.WidthProperty, column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty).Select(x => new BindingValue<GridLength>(new GridLength(x, GridUnitType.Pixel))));
                 }
 
                 if (isAutoWidth)
@@ -188,6 +202,24 @@ namespace TemplatedDataGrid.Primitives
             {
                 _root.Children.Add(child);
             }
+        }
+
+        internal void Detach()
+        {
+            RootDisposables?.Dispose();
+            RootDisposables = null;
+
+            if (_root is { })
+            {
+                _root.ColumnDefinitions.Clear();
+
+                foreach (var child in _rootChildren)
+                {
+                    _root.Children.Remove(child);
+                }
+            }
+
+            _cells.Clear();
         }
     }
 }

@@ -7,46 +7,33 @@ namespace TemplatedDataGrid
 {
     internal static class BindingExtensions
     {
-        public static IDisposable DisposeWith(this IDisposable item, CompositeDisposable compositeDisposable)
+        public static void BindOneWay(this IAvaloniaObject target, AvaloniaProperty targetProperty, IAvaloniaObject source, AvaloniaProperty sourceProperty, CompositeDisposable? compositeDisposable = null)
         {
-            if (compositeDisposable is null)
-            {
-                throw new ArgumentNullException(nameof(compositeDisposable));
-            }
-
-            compositeDisposable.Add(item);
-            return item;
-        }
-
-        public static IDisposable BindOneWay(this IAvaloniaObject target, AvaloniaProperty targetProperty, IAvaloniaObject source, AvaloniaProperty sourceProperty, CompositeDisposable? compositeDisposable = null)
-        {
-            var disposable = target.Bind(targetProperty, new Binding(sourceProperty.Name, BindingMode.OneWay) { Source = source });
+            var targetDisposable = target.Bind(targetProperty, source.GetObservable(sourceProperty));
             if (compositeDisposable is { })
             {
-                compositeDisposable.Add(compositeDisposable);
+                compositeDisposable.Add(targetDisposable);
             }
-            return disposable;
         }
 
-        public static IDisposable BindTwoWay(this IAvaloniaObject target, AvaloniaProperty targetProperty, IAvaloniaObject source, AvaloniaProperty sourceProperty, CompositeDisposable? compositeDisposable = null)
+        public static void BindTwoWay(this IAvaloniaObject target, AvaloniaProperty targetProperty, IAvaloniaObject source, AvaloniaProperty sourceProperty, CompositeDisposable? compositeDisposable = null)
         {
-            var disposable = target.Bind(targetProperty, new Binding(sourceProperty.Name, BindingMode.TwoWay) { Source = source });
+            var targetDisposable = target.Bind(targetProperty, source.GetObservable(sourceProperty));
+            var sourceDisposable = source.Bind(sourceProperty, target.GetObservable(targetProperty));
             if (compositeDisposable is { })
             {
-                compositeDisposable.Add(compositeDisposable);
+                compositeDisposable.Add(targetDisposable);
+                compositeDisposable.Add(sourceDisposable);
             }
-            return disposable;
         }
         
-        public static IDisposable BindOneWay<T>(this IAvaloniaObject target, AvaloniaProperty targetProperty, IObservable<T> observable, CompositeDisposable? compositeDisposable = null)
+        public static void BindOneWay<T>(this IAvaloniaObject target, AvaloniaProperty<T> targetProperty, IObservable<BindingValue<T>> observable, CompositeDisposable? compositeDisposable = null)
         {
-            var disposable = target.Bind(targetProperty, observable.ToBinding());
-
+            var targetDisposable = target.Bind(targetProperty, observable);
             if (compositeDisposable is { })
             {
-                compositeDisposable.Add(compositeDisposable);
+                compositeDisposable.Add(targetDisposable);
             }
-            return disposable;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Avalonia;
@@ -6,6 +7,7 @@ using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
+using Avalonia.Data;
 
 namespace TemplatedDataGrid.Primitives
 {
@@ -80,6 +82,22 @@ namespace TemplatedDataGrid.Primitives
             _root = e.NameScope.Find<Grid>("PART_Root");
 
             InvalidateRoot();
+        }
+
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToVisualTree(e);
+#if DEBUG
+            Console.WriteLine($"[TemplatedDataGridColumnHeadersPresenter.Attached] {DataContext}");
+#endif
+        }
+
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnDetachedFromVisualTree(e);
+#if DEBUG
+            Console.WriteLine($"[TemplatedDataGridColumnHeadersPresenter.Detach] {DataContext}");
+#endif
         }
 
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
@@ -203,7 +221,7 @@ namespace TemplatedDataGrid.Primitives
                 _columnHeaders.Add(columnHeader);
                 _rootChildren.Add(columnHeader);
 
-                column.BindOneWay(TemplatedDataGridColumn.ActualWidthProperty, columnHeader.GetObservable(Visual.BoundsProperty).Select(_ => columnDefinition.ActualWidth));
+                column.BindOneWay(TemplatedDataGridColumn.ActualWidthProperty, columnHeader.GetObservable(Visual.BoundsProperty).Select(_ => new BindingValue<double>(columnDefinition.ActualWidth)));
 
                 if (i < columns.Count)
                 {

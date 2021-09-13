@@ -141,34 +141,43 @@ namespace TemplatedDataGrid.Primitives
 #if DEBUG
                 _listBox.ItemContainerGenerator.Materialized += (sender, args) =>
                 {
-                    //Console.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    Console.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
                     foreach (var container in args.Containers)
                     {
                         TemplatedDataGridRow.SetItem(container.ContainerControl, container.Item);
                         TemplatedDataGridRow.SetIndex(container.ContainerControl, container.Index);
-                        //Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}', container.ContainerControl='{container.ContainerControl}'");
+                        Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
                     }
                 };
 
                 _listBox.ItemContainerGenerator.Dematerialized += (sender, args) =>
                 {
-                    //Console.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    Console.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
                     foreach (var container in args.Containers)
                     {
+                        Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
+
+                        
+                        //var listBoxItem = container.ContainerControl as ListBoxItem;
+                        //var presenter = listBoxItem?.Presenter;
+                        //var row = presenter?.Child as TemplatedDataGridRow;
+                        //row?.Detach();
+
+                        
                         TemplatedDataGridRow.SetItem(container.ContainerControl, null);
                         TemplatedDataGridRow.SetIndex(container.ContainerControl, -1);
-                        //Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}', container.ContainerControl='{container.ContainerControl}'");
+                        
                     }
                 };
 
                 _listBox.ItemContainerGenerator.Recycled += (sender, args) =>
                 {
-                    //Console.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    Console.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
                     foreach (var container in args.Containers)
                     {
                         TemplatedDataGridRow.SetItem(container.ContainerControl, container.Item);
                         TemplatedDataGridRow.SetIndex(container.ContainerControl, container.Index);
-                        //Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}', container.ContainerControl='{container.ContainerControl}'");
+                        Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
                     }
                 };
 #endif

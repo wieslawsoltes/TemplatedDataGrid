@@ -144,35 +144,33 @@ namespace TemplatedDataGrid
 #endif
         }
 
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToVisualTree(e);
+#if DEBUG
+            Console.WriteLine($"[TemplatedDataGridRow.Attach] {DataContext}");
+#endif
+        }
+
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnDetachedFromVisualTree(e);
+#if DEBUG
+            Console.WriteLine($"[TemplatedDataGridRow.Detach] {DataContext}");
+#endif
+            Detach();
+        }
+
         protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
         {
             base.OnPropertyChanged(change);
 
             if (change.Property == ItemProperty)
             {
+#if DEBUG
                 var oldValue = change.OldValue.GetValueOrDefault<object?>();
                 var newValue = change.NewValue.GetValueOrDefault<object?>();
-
-                if (newValue is null)
-                {
-                    TemplateDisposables?.Dispose();
-                    TemplateDisposables = null;
-
-                    CellsDisposables?.Dispose();
-                    CellsDisposables = null;
-
-                    BottomGridLineDisposables?.Dispose();
-                    BottomGridLineDisposables = null;
-
-                    if (_cellsPresenter is { })
-                    {
-                        _cellsPresenter.RootDisposables?.Dispose();
-                        _cellsPresenter.RootDisposables = null;
-                    }
-                }
-
-#if DEBUG
-                //Console.WriteLine($"[TemplatedDataGridRow.Item] old='{change.OldValue.GetValueOrDefault<object?>()}' new='{change.NewValue.GetValueOrDefault<object?>()}', DataContext='{DataContext}'");
+                //Console.WriteLine($"[TemplatedDataGridRow.Item] OldValue='{oldValue}' NewValue='{newValue}', DataContext='{DataContext}'");
 #endif
             }
             
@@ -204,6 +202,18 @@ namespace TemplatedDataGrid
             }
         }
 
+        internal void Detach()
+        {
+            TemplateDisposables?.Dispose();
+            TemplateDisposables = null;
+
+            CellsDisposables?.Dispose();
+            CellsDisposables = null;
+
+            BottomGridLineDisposables?.Dispose();
+            BottomGridLineDisposables = null;
+        }
+
         private void InvalidateCellsPresenter()
         {
             CellsDisposables?.Dispose();
@@ -227,7 +237,7 @@ namespace TemplatedDataGrid
                 return;
             }
 
-            _bottomGridLine.BindOneWay(Visual.IsVisibleProperty, this.GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty).Select(x => x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal)), BottomGridLineDisposables);
+            _bottomGridLine.BindOneWay(Visual.IsVisibleProperty, this.GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty).Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal))), BottomGridLineDisposables);
         }
 
         private void UpdatePseudoClassesSelectedItem(object? selectedItem, object? dataContext)
