@@ -123,7 +123,7 @@ namespace TemplatedDataGrid.Primitives
             Attach();
         }
 
-        private void Attach()
+        internal void Attach()
         {
             if (_root is null)
             {
