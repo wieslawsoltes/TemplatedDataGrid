@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Generators;
 using Avalonia.Styling;
 
-namespace TemplatedDataGrid
+namespace TemplatedDataGrid.Controls
 {
     public class TemplatedListBox : ListBox, IStyleable
     {

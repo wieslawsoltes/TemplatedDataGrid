@@ -8,6 +8,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Data;
+using TemplatedDataGrid.Internal;
 using TemplatedDataGrid.Primitives;
 
 namespace TemplatedDataGrid

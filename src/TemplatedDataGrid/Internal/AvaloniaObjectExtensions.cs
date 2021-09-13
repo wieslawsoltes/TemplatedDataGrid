@@ -3,7 +3,7 @@ using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Data;
 
-namespace TemplatedDataGrid
+namespace TemplatedDataGrid.Internal
 {
     internal static class AvaloniaObjectExtensions
     {
