@@ -237,7 +237,9 @@ namespace TemplatedDataGrid
                 return;
             }
 
-            _bottomGridLine.BindOneWay(Visual.IsVisibleProperty, this.GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty).Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal))), BottomGridLineDisposables);
+            _bottomGridLine.BindOneWay(
+                Visual.IsVisibleProperty, 
+                this.GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty).Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal))), BottomGridLineDisposables);
         }
 
         private void UpdatePseudoClassesSelectedItem(object? selectedItem, object? dataContext)
