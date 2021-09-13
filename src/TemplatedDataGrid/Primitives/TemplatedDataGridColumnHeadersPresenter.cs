@@ -165,44 +165,23 @@ namespace TemplatedDataGrid.Primitives
 
                 var columnDefinition = new ColumnDefinition();
 
-                columnDefinition.TwoWayBind(
-                    ColumnDefinition.MinWidthProperty, 
-                    column, 
-                    TemplatedDataGridColumn.MinWidthProperty, 
-                    _rootDisposables);
-                columnDefinition.TwoWayBind(
-                    ColumnDefinition.MaxWidthProperty, 
-                    column, 
-                    TemplatedDataGridColumn.MaxWidthProperty,
-                    _rootDisposables);
+                columnDefinition.BindTwoWay(ColumnDefinition.MinWidthProperty, column, TemplatedDataGridColumn.MinWidthProperty, _rootDisposables);
+                columnDefinition.BindTwoWay(ColumnDefinition.MaxWidthProperty, column, TemplatedDataGridColumn.MaxWidthProperty, _rootDisposables);
 
                 if (isStarWidth)
                 {
-                    columnDefinition.TwoWayBind(
-                        ColumnDefinition.WidthProperty, 
-                        column, 
-                        TemplatedDataGridColumn.WidthProperty, 
-                        _rootDisposables);
+                    columnDefinition.BindTwoWay(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, _rootDisposables);
                 }
 
                 if (isAutoWidth)
                 {
-                    columnDefinition.TwoWayBind(
-                        ColumnDefinition.WidthProperty, 
-                        column, 
-                        TemplatedDataGridColumn.WidthProperty,
-                        _rootDisposables);
-
+                    columnDefinition.BindTwoWay(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, _rootDisposables);
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
                 }
 
                 if (isPixelWidth)
                 {
-                    columnDefinition.TwoWayBind(
-                        ColumnDefinition.WidthProperty, 
-                        column, 
-                        TemplatedDataGridColumn.WidthProperty, 
-                        _rootDisposables);
+                    columnDefinition.BindTwoWay(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, _rootDisposables);
                 }
 
                 columnDefinitions.Add(columnDefinition);
@@ -215,33 +194,15 @@ namespace TemplatedDataGrid.Primitives
                     [TemplatedDataGridColumnHeader.ColumnProperty] = column
                 };
                 
-                columnHeader.OneWayBind(
-                    TemplatedDataGridColumnHeader.HeaderProperty, 
-                    column, 
-                    TemplatedDataGridColumn.HeaderProperty, 
-                    _rootDisposables);
-                columnHeader.OneWayBind(
-                    TemplatedDataGridColumnHeader.CanUserSortColumnsProperty, 
-                    this, 
-                    TemplatedDataGridColumnHeadersPresenter.CanUserSortColumnsProperty, 
-                    _rootDisposables);
-                columnHeader.OneWayBind(
-                    TemplatedDataGridColumnHeader.CanUserResizeColumnsProperty, 
-                    this, 
-                    TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, 
-                    _rootDisposables);
-                columnHeader.OneWayBind(
-                    TemplatedDataGridColumnHeader.ColumnHeadersProperty, 
-                    this, 
-                    TemplatedDataGridColumnHeadersPresenter.ColumnHeadersProperty, 
-                    _rootDisposables);
+                columnHeader.BindOneWay(TemplatedDataGridColumnHeader.HeaderProperty, column, TemplatedDataGridColumn.HeaderProperty, _rootDisposables);
+                columnHeader.BindOneWay(TemplatedDataGridColumnHeader.CanUserSortColumnsProperty, this, TemplatedDataGridColumnHeadersPresenter.CanUserSortColumnsProperty, _rootDisposables);
+                columnHeader.BindOneWay(TemplatedDataGridColumnHeader.CanUserResizeColumnsProperty, this, TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, _rootDisposables);
+                columnHeader.BindOneWay(TemplatedDataGridColumnHeader.ColumnHeadersProperty, this, TemplatedDataGridColumnHeadersPresenter.ColumnHeadersProperty, _rootDisposables);
                 
                 _columnHeaders.Add(columnHeader);
                 _rootChildren.Add(columnHeader);
 
-                column.OneWayBind(
-                    TemplatedDataGridColumn.ActualWidthProperty,
-                    columnHeader.GetObservable(Visual.BoundsProperty).Select(_ => columnDefinition.ActualWidth));
+                column.BindOneWay(TemplatedDataGridColumn.ActualWidthProperty, columnHeader.GetObservable(Visual.BoundsProperty).Select(_ => columnDefinition.ActualWidth));
 
                 if (i < columns.Count)
                 {
@@ -274,11 +235,7 @@ namespace TemplatedDataGrid.Primitives
                     [Grid.ColumnProperty] = columnIndex
                 };
 
-                verticalGridSplitter.OneWayBind(
-                    GridSplitter.IsEnabledProperty, 
-                    this, 
-                    TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, 
-                    _rootDisposables);
+                verticalGridSplitter.BindOneWay(GridSplitter.IsEnabledProperty, this, TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, _rootDisposables);
 
                 _rootChildren.Add(verticalGridSplitter);
             }

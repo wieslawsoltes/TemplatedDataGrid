@@ -18,7 +18,7 @@ namespace TemplatedDataGrid
             return item;
         }
 
-        public static IDisposable OneWayBind(this IAvaloniaObject target, AvaloniaProperty targetProperty, IAvaloniaObject source, AvaloniaProperty sourceProperty, CompositeDisposable? compositeDisposable = null)
+        public static IDisposable BindOneWay(this IAvaloniaObject target, AvaloniaProperty targetProperty, IAvaloniaObject source, AvaloniaProperty sourceProperty, CompositeDisposable? compositeDisposable = null)
         {
             var disposable = target.Bind(targetProperty, new Binding(sourceProperty.Name, BindingMode.OneWay) { Source = source });
             if (compositeDisposable is { })
@@ -28,7 +28,7 @@ namespace TemplatedDataGrid
             return disposable;
         }
 
-        public static IDisposable TwoWayBind(this IAvaloniaObject target, AvaloniaProperty targetProperty, IAvaloniaObject source, AvaloniaProperty sourceProperty, CompositeDisposable? compositeDisposable = null)
+        public static IDisposable BindTwoWay(this IAvaloniaObject target, AvaloniaProperty targetProperty, IAvaloniaObject source, AvaloniaProperty sourceProperty, CompositeDisposable? compositeDisposable = null)
         {
             var disposable = target.Bind(targetProperty, new Binding(sourceProperty.Name, BindingMode.TwoWay) { Source = source });
             if (compositeDisposable is { })
@@ -38,7 +38,7 @@ namespace TemplatedDataGrid
             return disposable;
         }
         
-        public static IDisposable OneWayBind<T>(this IAvaloniaObject target, AvaloniaProperty targetProperty, IObservable<T> observable, CompositeDisposable? compositeDisposable = null)
+        public static IDisposable BindOneWay<T>(this IAvaloniaObject target, AvaloniaProperty targetProperty, IObservable<T> observable, CompositeDisposable? compositeDisposable = null)
         {
             var disposable = target.Bind(targetProperty, observable.ToBinding());
 
