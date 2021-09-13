@@ -221,7 +221,9 @@ namespace TemplatedDataGrid.Primitives
                 _columnHeaders.Add(columnHeader);
                 _rootChildren.Add(columnHeader);
 
-                column.BindOneWay(TemplatedDataGridColumn.ActualWidthProperty, columnHeader.GetObservable(Visual.BoundsProperty).Select(_ => new BindingValue<double>(columnDefinition.ActualWidth)));
+                column.BindOneWay(
+                    TemplatedDataGridColumn.ActualWidthProperty, 
+                    columnHeader.GetObservable(Visual.BoundsProperty).Select(_ => new BindingValue<double>(columnDefinition.ActualWidth)));
 
                 if (i < columns.Count)
                 {
