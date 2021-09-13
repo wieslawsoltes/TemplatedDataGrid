@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -128,13 +129,15 @@ namespace TemplatedDataGrid.Primitives
 
             if (_listBox is { })
             {
-                _listBox[!ItemsControl.ItemsProperty] = this[!ItemsProperty];
-                _listBox[!SelectingItemsControl.AutoScrollToSelectedItemProperty] = this[!AutoScrollToSelectedItemProperty];
-                _listBox[!ItemsControl.ItemTemplateProperty] = this[!ItemTemplateProperty];
+                var listBoxDisposables = new CompositeDisposable();
 
-                this[!!SelectedItemProperty] = _listBox[!!SelectingItemsControl.SelectedItemProperty];
-                this[!ScrollProperty] = _listBox[!ListBox.ScrollProperty];
+                _listBox.BindOneWay(ItemsControl.ItemsProperty, this, ItemsProperty, listBoxDisposables);
+                _listBox.BindOneWay(SelectingItemsControl.AutoScrollToSelectedItemProperty, this, AutoScrollToSelectedItemProperty, listBoxDisposables);
+                _listBox.BindOneWay(ItemsControl.ItemTemplateProperty, this, ItemTemplateProperty, listBoxDisposables);
 
+                this.BindTwoWay(SelectedItemProperty, _listBox, SelectingItemsControl.SelectedItemProperty, listBoxDisposables);
+                this.BindOneWay(ScrollProperty, _listBox, ListBox.ScrollProperty, listBoxDisposables);
+                
 #if DEBUG
                 _listBox.ItemContainerGenerator.Materialized += (sender, args) =>
                 {
@@ -205,23 +208,25 @@ namespace TemplatedDataGrid.Primitives
                 _ => true,
                 (_, _) =>
                 {
-                    var row = new TemplatedDataGridRow
-                    {
-#if DEBUG
-                        Tag = _rowId++,
-#endif
-                        [!!TemplatedDataGridRow.SelectedItemProperty] = this[!!TemplatedDataGridRowsPresenter.SelectedItemProperty],
-                        [!!TemplatedDataGridRow.SelectedCellProperty] = this[!!TemplatedDataGridRowsPresenter.SelectedCellProperty],
-                        [!TemplatedDataGridRow.ColumnsProperty] = this[!TemplatedDataGridRowsPresenter.ColumnsProperty],
-                        [!TemplatedDataGridRow.GridLinesVisibilityProperty] = this[!TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty]
-                    };
+                    var row = new TemplatedDataGridRow();
+
+                    var disposables = new CompositeDisposable();
+
+                    row.BindTwoWay(TemplatedDataGridRow.SelectedItemProperty, this, TemplatedDataGridRowsPresenter.SelectedItemProperty, disposables);
+                    row.BindTwoWay(TemplatedDataGridRow.SelectedCellProperty, this, TemplatedDataGridRowsPresenter.SelectedCellProperty, disposables);
+                    row.BindOneWay(TemplatedDataGridRow.ColumnsProperty, this, TemplatedDataGridRowsPresenter.ColumnsProperty, disposables);
+                    row.BindOneWay(TemplatedDataGridRow.GridLinesVisibilityProperty, this, TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty, disposables);
+
+                    row.TemplateDisposables = disposables;
 
 #if DEBUG
+                    row.Tag = _rowId++;
+
                     row.DataContextChanged += (_, _) =>
                     {
                         //Console.WriteLine($"[DataContextChanged] Row='{row.Tag}', DataContext='{row.DataContext}'");
                     };
-                    
+
                     row.AttachedToVisualTree += (_, _) =>
                     {
                         //Console.WriteLine($"[AttachedToVisualTree] Row='{row.Tag}'");

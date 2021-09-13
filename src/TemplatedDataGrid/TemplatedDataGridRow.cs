@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Collections;
@@ -120,6 +121,8 @@ namespace TemplatedDataGrid
             set => SetValue(GridLinesVisibilityProperty, value);
         }
 
+        internal CompositeDisposable? TemplateDisposables { get; set; }
+
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -143,6 +146,15 @@ namespace TemplatedDataGrid
 
             if (change.Property == ItemProperty)
             {
+                var oldValue = change.OldValue.GetValueOrDefault<object?>();
+                var newValue = change.NewValue.GetValueOrDefault<object?>();
+
+                if (newValue is null)
+                {
+                    TemplateDisposables?.Dispose();
+                    TemplateDisposables = null;
+                }
+                
 #if DEBUG
                 //Console.WriteLine($"[TemplatedDataGridRow.Item] old='{change.OldValue.GetValueOrDefault<object?>()}' new='{change.NewValue.GetValueOrDefault<object?>()}', DataContext='{DataContext}'");
 #endif
