@@ -82,7 +82,7 @@
   <Style Selector="TemplatedDataGridRowsPresenter">
     <Setter Property="Template">
       <ControlTemplate>
-        <ListBox Name="PART_ListBox" />
+        <TemplatedListBox Name="PART_ListBox" />
       </ControlTemplate>
     </Setter>
   </Style>

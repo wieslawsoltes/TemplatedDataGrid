@@ -28,17 +28,6 @@
     <Style Selector="TemplatedDataGridColumnHeader">
       <Setter Property="Padding" Value="6"/>
     </Style>
-    <!--<Style Selector="TemplatedDataGridRowsPresenter">
-      <Setter Property="Template">
-        <ControlTemplate>
-          <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <ItemsRepeater Name="PART_ItemsRepeater" 
-                           Items="{TemplateBinding Items}" 
-                           ItemTemplate="{TemplateBinding ItemTemplate}"/>
-          </ScrollViewer>
-        </ControlTemplate>
-      </Setter>
-    </Style>-->
   </Window.Styles>
 
   <DockPanel>

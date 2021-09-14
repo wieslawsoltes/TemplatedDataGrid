@@ -57,5 +57,10 @@ namespace TemplatedDataGridDemo.ViewModels
             _column5 = column5;
             _margin = margin;
         }
+
+        public override string ToString()
+        {
+            return $"{_column5}";
+        }
     }
 }

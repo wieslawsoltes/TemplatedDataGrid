@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
+using TemplatedDataGrid.Internal;
 
 namespace TemplatedDataGrid.Primitives
 {
@@ -128,44 +130,55 @@ namespace TemplatedDataGrid.Primitives
 
             if (_listBox is { })
             {
-                _listBox[!ItemsControl.ItemsProperty] = this[!ItemsProperty];
-                _listBox[!SelectingItemsControl.AutoScrollToSelectedItemProperty] = this[!AutoScrollToSelectedItemProperty];
-                _listBox[!ItemsControl.ItemTemplateProperty] = this[!ItemTemplateProperty];
+                var listBoxDisposables = new CompositeDisposable();
 
-                this[!!SelectedItemProperty] = _listBox[!!SelectingItemsControl.SelectedItemProperty];
-                this[!ScrollProperty] = _listBox[!ListBox.ScrollProperty];
+                _listBox.OneWayBind(ItemsControl.ItemsProperty, this, ItemsProperty, listBoxDisposables);
+                _listBox.OneWayBind(SelectingItemsControl.AutoScrollToSelectedItemProperty, this, AutoScrollToSelectedItemProperty, listBoxDisposables);
+                _listBox.OneWayBind(ItemsControl.ItemTemplateProperty, this, ItemTemplateProperty, listBoxDisposables);
 
+                this.TwoWayBind(SelectedItemProperty, _listBox, SelectingItemsControl.SelectedItemProperty, listBoxDisposables);
+                this.OneWayBind(ScrollProperty, _listBox, ListBox.ScrollProperty, listBoxDisposables);
+                
 #if DEBUG
                 _listBox.ItemContainerGenerator.Materialized += (sender, args) =>
                 {
-                    //Console.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    Console.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
                     foreach (var container in args.Containers)
                     {
                         TemplatedDataGridRow.SetItem(container.ContainerControl, container.Item);
                         TemplatedDataGridRow.SetIndex(container.ContainerControl, container.Index);
-                        //Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}', container.ContainerControl='{container.ContainerControl}'");
+                        Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
                     }
                 };
 
                 _listBox.ItemContainerGenerator.Dematerialized += (sender, args) =>
                 {
-                    //Console.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    Console.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
                     foreach (var container in args.Containers)
                     {
+                        Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
+
+                        
+                        //var listBoxItem = container.ContainerControl as ListBoxItem;
+                        //var presenter = listBoxItem?.Presenter;
+                        //var row = presenter?.Child as TemplatedDataGridRow;
+                        //row?.Detach();
+
+                        
                         TemplatedDataGridRow.SetItem(container.ContainerControl, null);
                         TemplatedDataGridRow.SetIndex(container.ContainerControl, -1);
-                        //Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}', container.ContainerControl='{container.ContainerControl}'");
+                        
                     }
                 };
 
                 _listBox.ItemContainerGenerator.Recycled += (sender, args) =>
                 {
-                    //Console.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
+                    Console.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
                     foreach (var container in args.Containers)
                     {
                         TemplatedDataGridRow.SetItem(container.ContainerControl, container.Item);
                         TemplatedDataGridRow.SetIndex(container.ContainerControl, container.Index);
-                        //Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}', container.ContainerControl='{container.ContainerControl}'");
+                        Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
                     }
                 };
 #endif
@@ -205,23 +218,25 @@ namespace TemplatedDataGrid.Primitives
                 _ => true,
                 (_, _) =>
                 {
-                    var row = new TemplatedDataGridRow
-                    {
-#if DEBUG
-                        Tag = _rowId++,
-#endif
-                        [!!TemplatedDataGridRow.SelectedItemProperty] = this[!!TemplatedDataGridRowsPresenter.SelectedItemProperty],
-                        [!!TemplatedDataGridRow.SelectedCellProperty] = this[!!TemplatedDataGridRowsPresenter.SelectedCellProperty],
-                        [!TemplatedDataGridRow.ColumnsProperty] = this[!TemplatedDataGridRowsPresenter.ColumnsProperty],
-                        [!TemplatedDataGridRow.GridLinesVisibilityProperty] = this[!TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty]
-                    };
+                    var row = new TemplatedDataGridRow();
+
+                    var disposables = new CompositeDisposable();
+
+                    row.TwoWayBind(TemplatedDataGridRow.SelectedItemProperty, this, TemplatedDataGridRowsPresenter.SelectedItemProperty, disposables);
+                    row.TwoWayBind(TemplatedDataGridRow.SelectedCellProperty, this, TemplatedDataGridRowsPresenter.SelectedCellProperty, disposables);
+                    row.OneWayBind(TemplatedDataGridRow.ColumnsProperty, this, TemplatedDataGridRowsPresenter.ColumnsProperty, disposables);
+                    row.OneWayBind(TemplatedDataGridRow.GridLinesVisibilityProperty, this, TemplatedDataGridRowsPresenter.GridLinesVisibilityProperty, disposables);
+
+                    row.TemplateDisposables = disposables;
 
 #if DEBUG
+                    row.Tag = _rowId++;
+
                     row.DataContextChanged += (_, _) =>
                     {
                         //Console.WriteLine($"[DataContextChanged] Row='{row.Tag}', DataContext='{row.DataContext}'");
                     };
-                    
+
                     row.AttachedToVisualTree += (_, _) =>
                     {
                         //Console.WriteLine($"[AttachedToVisualTree] Row='{row.Tag}'");
