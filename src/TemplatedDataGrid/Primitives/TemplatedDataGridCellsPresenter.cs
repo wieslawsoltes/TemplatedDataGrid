@@ -158,7 +158,8 @@ namespace TemplatedDataGrid.Primitives
                 if (isStarWidth)
                 {
                     columnDefinition.OneWayBind(ColumnDefinition.WidthProperty, 
-                        column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty).Select(x => new BindingValue<GridLength>(new GridLength(x, GridUnitType.Pixel))), 
+                        column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty)
+                                    .Select(x => new BindingValue<GridLength>(new GridLength(x, GridUnitType.Pixel))), 
                         RootDisposables);
                 }
 

@@ -227,7 +227,8 @@ namespace TemplatedDataGrid
                 {
                     columnDefinition.OneWayBind(
                         ColumnDefinition.WidthProperty, 
-                        column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty).Select(x => new BindingValue<GridLength>(new GridLength(x, GridUnitType.Pixel))), 
+                        column.GetObservable(TemplatedDataGridColumn.ActualWidthProperty)
+                                    .Select(x => new BindingValue<GridLength>(new GridLength(x, GridUnitType.Pixel))), 
                         RootDisposables);
                 }
 
@@ -276,7 +277,8 @@ namespace TemplatedDataGrid
 
                 verticalRowGridLine.OneWayBind(
                     Rectangle.IsVisibleProperty, 
-                    this.GetObservable(TemplatedDataGrid.GridLinesVisibilityProperty).Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Vertical))), 
+                    this.GetObservable(TemplatedDataGrid.GridLinesVisibilityProperty)
+                              .Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Vertical))), 
                     RootDisposables);
 
                 ((IPseudoClasses)verticalRowGridLine.Classes).Add(":vertical");

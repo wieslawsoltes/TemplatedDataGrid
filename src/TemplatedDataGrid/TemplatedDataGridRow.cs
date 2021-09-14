@@ -244,7 +244,8 @@ namespace TemplatedDataGrid
             
             _bottomGridLine.OneWayBind(
                 Visual.IsVisibleProperty, 
-                this.GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty).Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal))), 
+                this.GetObservable(TemplatedDataGridRow.GridLinesVisibilityProperty)
+                          .Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Horizontal))), 
                 BottomGridLineDisposables);
         }
 

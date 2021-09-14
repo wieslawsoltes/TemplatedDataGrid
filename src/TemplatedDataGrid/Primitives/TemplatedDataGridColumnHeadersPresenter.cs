@@ -224,7 +224,8 @@ namespace TemplatedDataGrid.Primitives
 
                 column.OneWayBind(
                     TemplatedDataGridColumn.ActualWidthProperty, 
-                    columnHeader.GetObservable(Visual.BoundsProperty).Select(_ => new BindingValue<double>(columnDefinition.ActualWidth)), 
+                    columnHeader.GetObservable(Visual.BoundsProperty)
+                                      .Select(_ => new BindingValue<double>(columnDefinition.ActualWidth)), 
                     RootDisposables);
 
                 if (i < columns.Count)
