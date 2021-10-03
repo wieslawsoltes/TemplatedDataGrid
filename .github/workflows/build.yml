@@ -21,8 +21,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.100
     - name: Build Release
       run: dotnet build --configuration Release
     - name: Test Release
@@ -35,8 +33,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.100
     - name: Pack NuGet
       if: github.event_name != 'pull_request'
       run: dotnet pack -c Release -o ./artifacts/NuGet ./src/TemplatedDataGrid/TemplatedDataGrid.csproj
@@ -54,8 +50,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.100
     - name: Publish
       if: github.event_name != 'pull_request'
       run: dotnet publish -c Release -f net5.0 -r win7-x64 -o ./artifacts/TemplatedDataGridDemo-win7-x64 ./samples/TemplatedDataGridDemo/TemplatedDataGridDemo.csproj
@@ -73,8 +67,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.100
     - name: Publish
       if: github.event_name != 'pull_request'
       run: dotnet publish -c Release -f net5.0 -r ubuntu.14.04-x64 -o ./artifacts/TemplatedDataGridDemo-ubuntu.14.04-x64 ./samples/TemplatedDataGridDemo/TemplatedDataGridDemo.csproj
@@ -92,8 +84,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.100
     - name: Publish
       if: github.event_name != 'pull_request'
       run: dotnet publish -c Release -f net5.0 -r osx.10.12-x64 -o ./artifacts/TemplatedDataGridDemo-osx.10.12-x64 ./samples/TemplatedDataGridDemo/TemplatedDataGridDemo.csproj
