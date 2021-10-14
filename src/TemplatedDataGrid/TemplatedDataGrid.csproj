@@ -22,4 +22,7 @@
   <Import Project="..\..\build\ReferenceAssemblies.props" />
   <Import Project="..\..\build\Avalonia.props" />
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(MSBuildProjectName).UnitTests , PublicKey =$(TemplatedDataGridPublicKey)" />
+  </ItemGroup>
 </Project>

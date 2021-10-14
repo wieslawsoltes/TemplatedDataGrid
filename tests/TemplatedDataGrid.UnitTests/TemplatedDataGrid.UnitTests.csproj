@@ -11,6 +11,8 @@
 
   <Import Project="..\..\build\Avalonia.props" />
   <Import Project="..\..\build\XUnit.props" />
+  <Import Project="..\..\build\SignAssembly.props" />
+
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\TemplatedDataGrid\TemplatedDataGrid.csproj" />
