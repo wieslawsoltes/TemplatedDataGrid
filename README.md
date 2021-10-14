@@ -1,6 +1,6 @@
 # TemplatedDataGrid
 
-[![Build status](https://dev.azure.com/wieslawsoltes/GitHub/_apis/build/status/Sources/TemplatedDataGrid)](https://dev.azure.com/wieslawsoltes/GitHub/_build/latest?definitionId=-1)
+[![Build status](https://dev.azure.com/wieslawsoltes/GitHub/_apis/build/status/Sources/TemplatedDataGrid)](https://dev.azure.com/wieslawsoltes/GitHub/_build/latest?definitionId=85)
 [![CI](https://github.com/wieslawsoltes/TemplatedDataGrid/actions/workflows/build.yml/badge.svg)](https://github.com/wieslawsoltes/TemplatedDataGrid/actions/workflows/build.yml)
 
 [![NuGet](https://img.shields.io/nuget/v/TemplatedDataGrid.svg)](https://www.nuget.org/packages/TemplatedDataGrid)
