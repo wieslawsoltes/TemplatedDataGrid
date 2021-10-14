@@ -138,14 +138,17 @@ namespace TemplatedDataGrid.Primitives
             {
                 return;
             }
- 
+
             // Generate ColumnDefinitions
+
+            var (MaxDeep, Items) = TemplatedDataGridColumnTopology.GetTopology(columns);
 
             var columnDefinitions = new List<ColumnDefinition>();
 
-            for (var i = 0; i < columns.Count; i++)
+            for (var i = 0; i < Items.Count; i++)
             {
-                var column = columns[i];
+                var info = Items[i];
+                var column = info.Column!;
                 var isStarWidth = column.Width.IsStar;
                 var isAutoWidth = column.Width.IsAuto;
                 var isPixelWidth = column.Width.IsAbsolute;
@@ -196,7 +199,7 @@ namespace TemplatedDataGrid.Primitives
                 _cells.Add(cell);
                 _rootChildren.Add(cell);
 
-                if (i < columns.Count)
+                if (i < Items.Count)
                 {
                     columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
                 }

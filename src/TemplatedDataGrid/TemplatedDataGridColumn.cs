@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
@@ -8,6 +9,7 @@ using Avalonia.Metadata;
 
 namespace TemplatedDataGrid
 {
+    [DebuggerDisplay("{Header}")]
     public abstract class TemplatedDataGridColumn : AvaloniaObject
     {
         public static readonly StyledProperty<IDataTemplate?> CellTemplateProperty = 
