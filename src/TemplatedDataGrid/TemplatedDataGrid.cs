@@ -241,6 +241,12 @@ namespace TemplatedDataGrid
                 {
                     columnDefinition.OneWayBind(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
+                    
+                    RootDisposables.Add(Disposable.Create(() =>
+                    {
+                        columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, default);
+                    }));
+                    
                     isSharedSizeScope = true;
                 }
 
@@ -308,6 +314,17 @@ namespace TemplatedDataGrid
             {
                 _root.Children.Add(child);
             }
+            
+            RootDisposables.Add(Disposable.Create(() =>
+            {
+                foreach (var child in _rootChildren)
+                {
+                    _root.Children.Remove(child);
+                }
+
+                _root.RowDefinitions.Clear();
+                _root.ColumnDefinitions.Clear();
+            }));
         }
 
         private void InvalidateColumnHeadersPresenter()
