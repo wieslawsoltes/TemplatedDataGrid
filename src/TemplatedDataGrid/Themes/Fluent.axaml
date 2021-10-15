@@ -104,6 +104,9 @@
       </Setter.Value>
     </Setter>
   </Style>
+  <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox /template/ ScrollViewer#PART_ScrollViewer">
+    <Setter Property="AllowAutoHide" Value="True"/>
+  </Style>
   <Style Selector="TemplatedDataGridRowsPresenter /template/ ListBox#PART_ListBox > ListBoxItem">
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     <Setter Property="Margin" Value="0"/>
