@@ -155,6 +155,11 @@ namespace TemplatedDataGrid.Primitives
                 {
                     columnDefinition.TwoWayBind(ColumnDefinition.WidthProperty, column, TemplatedDataGridColumn.WidthProperty, RootDisposables);
                     columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, $"Column{i}");
+                    
+                    RootDisposables.Add(Disposable.Create(() =>
+                    {
+                        columnDefinition.SetValue(DefinitionBase.SharedSizeGroupProperty, default);
+                    }));
                 }
 
                 if (isPixelWidth)
@@ -232,6 +237,17 @@ namespace TemplatedDataGrid.Primitives
             {
                 _root.Children.Add(child);
             }
+
+            RootDisposables.Add(Disposable.Create(() =>
+            {
+                foreach (var child in _rootChildren)
+                {
+                    _root.Children.Remove(child);
+                }
+
+                _root.RowDefinitions.Clear();
+                _root.ColumnDefinitions.Clear();
+            }));
         }
     }
 }
