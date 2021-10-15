@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -66,6 +67,7 @@ namespace TemplatedDataGrid
         private Grid? _root;
         private readonly List<Control> _rootChildren = new List<Control>();
         private TemplatedDataGridColumnHeadersPresenter? _columnHeadersPresenter;
+        private ScrollViewer? _columnHeadersPresenterScrollViewer;
         private TemplatedDataGridRowsPresenter? _rowsPresenter;
 
         public TemplatedDataGrid()
@@ -138,6 +140,8 @@ namespace TemplatedDataGrid
         internal CompositeDisposable? ColumnHeadersDisposables { get; set; }
 
         internal CompositeDisposable? RowsDisposables { get; set; }
+        
+        internal IDisposable? RowsPresenterScrollDisposable { get; set; }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
@@ -146,6 +150,7 @@ namespace TemplatedDataGrid
             _panel = e.NameScope.Find<Panel>("PART_Panel");
             _root = e.NameScope.Find<Grid>("PART_Root");
             _columnHeadersPresenter = e.NameScope.Find<TemplatedDataGridColumnHeadersPresenter>("PART_ColumnHeadersPresenter");
+            _columnHeadersPresenterScrollViewer = e.NameScope.Find<ScrollViewer>("PART_ColumnHeadersPresenterScrollViewer");
             _rowsPresenter = e.NameScope.Find<TemplatedDataGridRowsPresenter>("PART_RowsPresenter");
 
             InvalidateRoot();
@@ -310,15 +315,37 @@ namespace TemplatedDataGrid
             ColumnHeadersDisposables?.Dispose();
             ColumnHeadersDisposables = null;
 
-            if (_columnHeadersPresenter is { } && _rowsPresenter is { })
+            if (_columnHeadersPresenter is { } && _rowsPresenter is { } && _columnHeadersPresenterScrollViewer is { })
             {
                 ColumnHeadersDisposables = new CompositeDisposable();
 
                 _columnHeadersPresenter.OneWayBind(TemplatedDataGridColumnHeadersPresenter.ColumnsProperty, this, TemplatedDataGrid.ColumnsProperty, ColumnHeadersDisposables);
-                _columnHeadersPresenter.OneWayBind(TemplatedDataGridColumnHeadersPresenter.ScrollProperty, _rowsPresenter, TemplatedDataGridRowsPresenter.ScrollProperty, ColumnHeadersDisposables);
                 _columnHeadersPresenter.OneWayBind(TemplatedDataGridColumnHeadersPresenter.CanUserSortColumnsProperty, this, TemplatedDataGrid.CanUserSortColumnsProperty, ColumnHeadersDisposables);
                 _columnHeadersPresenter.OneWayBind(TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, this, TemplatedDataGrid.CanUserResizeColumnsProperty, ColumnHeadersDisposables);
+
+                var scrollDisposable = _rowsPresenter.GetObservable(TemplatedDataGridRowsPresenter.ScrollProperty).Subscribe(_ =>
+                {
+                    RowsPresenterScrollDisposable?.Dispose();
+
+                    if (_rowsPresenter?.Scroll is ScrollViewer scrollViewer)
+                    {
+                        scrollViewer.ScrollChanged += ScrollViewer_OnScrollChanged;
+
+                        RowsPresenterScrollDisposable = Disposable.Create(
+                                () => scrollViewer.ScrollChanged -= ScrollViewer_OnScrollChanged);
+                    }
+                });
+                ColumnHeadersDisposables.Add(scrollDisposable);
             };
+        }
+
+        private void ScrollViewer_OnScrollChanged(object? sender, ScrollChangedEventArgs e)
+        {
+            if (_rowsPresenter?.Scroll is ScrollViewer scrollViewer && _columnHeadersPresenterScrollViewer is { })
+            {
+                var (x, _) = scrollViewer.Offset;
+                _columnHeadersPresenterScrollViewer.Offset = new Vector(x, 0);
+            }
         }
 
         private void InvalidateRowsPresenter()

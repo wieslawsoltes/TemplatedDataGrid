@@ -51,7 +51,12 @@
       <ControlTemplate>
         <Panel Name="PART_Panel">
           <DockPanel>
-            <TemplatedDataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter" DockPanel.Dock="Top"/>
+            <ScrollViewer Name="PART_ColumnHeadersPresenterScrollViewer"
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Disabled"
+                          DockPanel.Dock="Top">
+              <TemplatedDataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"/>
+            </ScrollViewer>
             <Rectangle Name="PART_ColumnHeadersAndRowsSeparator" DockPanel.Dock="Top" />
             <Panel>
               <TemplatedDataGridRowsPresenter Name="PART_RowsPresenter"/>
