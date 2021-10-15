@@ -66,7 +66,7 @@ namespace TemplatedDataGrid.Primitives
         private object? _selectedItem;
         private object? _selectedCell;
         private AvaloniaList<TemplatedDataGridRow> _rows = new ();
-        private ListBox? _listBox;
+        private ItemsRepeater? _listBox;
 
         internal IDataTemplate ItemTemplate
         {
@@ -126,7 +126,7 @@ namespace TemplatedDataGrid.Primitives
         {
             base.OnApplyTemplate(e);
 
-            _listBox = e.NameScope.Find<ListBox>("PART_ListBox");
+            _listBox = e.NameScope.Find<ItemsRepeater>("PART_ListBox");
 
             if (_listBox is { })
             {
@@ -136,10 +136,25 @@ namespace TemplatedDataGrid.Primitives
                 _listBox.OneWayBind(SelectingItemsControl.AutoScrollToSelectedItemProperty, this, AutoScrollToSelectedItemProperty, listBoxDisposables);
                 _listBox.OneWayBind(ItemsControl.ItemTemplateProperty, this, ItemTemplateProperty, listBoxDisposables);
 
-                this.TwoWayBind(SelectedItemProperty, _listBox, SelectingItemsControl.SelectedItemProperty, listBoxDisposables);
-                this.OneWayBind(ScrollProperty, _listBox, ListBox.ScrollProperty, listBoxDisposables);
+                //this.TwoWayBind(SelectedItemProperty, _listBox, SelectingItemsControl.SelectedItemProperty, listBoxDisposables);
+                //this.OneWayBind(ScrollProperty, _listBox, ListBox.ScrollProperty, listBoxDisposables);
                 
 #if DEBUG
+                _listBox.ElementPrepared += (sender, args) =>
+                {
+                    TemplatedDataGridRow.SetIndex(args.Element, args.Index);
+                };
+                
+                _listBox.ElementClearing += (sender, args) =>
+                {
+                    TemplatedDataGridRow.SetIndex(args.Element, -1);
+                };
+                
+                _listBox.ElementIndexChanged += (sender, args) =>
+                {
+                    TemplatedDataGridRow.SetIndex(args.Element, args.NewIndex);
+                };
+                /*
                 _listBox.ItemContainerGenerator.Materialized += (sender, args) =>
                 {
                     Console.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
@@ -180,7 +195,7 @@ namespace TemplatedDataGrid.Primitives
                         TemplatedDataGridRow.SetIndex(container.ContainerControl, container.Index);
                         Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
                     }
-                };
+                };*/
 #endif
 
             }

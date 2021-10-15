@@ -87,7 +87,11 @@
   <Style Selector="TemplatedDataGridRowsPresenter">
     <Setter Property="Template">
       <ControlTemplate>
-        <TemplatedListBox Name="PART_ListBox" />
+        <!-- <TemplatedListBox Name="PART_ListBox" /> -->
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+          <ItemsRepeater Name="PART_ListBox" />
+        </ScrollViewer>
       </ControlTemplate>
     </Setter>
   </Style>
@@ -223,7 +227,7 @@
     <Setter Property="Template">
       <ControlTemplate>
         <Grid Name="PART_Root" RowDefinitions="*,Auto">
-          <Rectangle Grid.Row="0" Name="BackgroundRectangle" />
+          <!-- <Rectangle Grid.Row="0" Name="BackgroundRectangle" /> -->
           <TemplatedDataGridCellsPresenter Grid.Row="0" Name="PART_CellsPresenter"/>
           <Rectangle Grid.Row="1" Name="PART_BottomGridLine"/>
         </Grid>
