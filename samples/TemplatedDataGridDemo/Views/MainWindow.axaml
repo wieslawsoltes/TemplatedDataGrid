@@ -55,10 +55,28 @@
       <Button Content="Select First Item" Command="{Binding SelectFirstItemCommand}" DockPanel.Dock="Left"/>
     </DockPanel>
 
-    <TemplatedDataGrid Items="{Binding Items}" 
-                SelectedItem="{Binding SelectedItem}"
-                CanUserResizeColumns="True"
-                GridLinesVisibility="All">
+    <!--<DockPanel DockPanel.Dock="Left">
+      
+      <ListBox Items="{Binding #TemplatedDataGrid.Columns}"
+               Width="200">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel>
+              <TextBlock Text="{Binding Header, StringFormat={}Header: {0}}"/>
+              <TextBlock Text="{Binding Width, StringFormat={}Width: {0}}"/>
+              <TextBlock Text="{Binding ActualWidth, StringFormat={}ActualWidth: {0}}"/>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      
+    </DockPanel>-->
+    
+    <TemplatedDataGrid Name="TemplatedDataGrid"
+                       Items="{Binding Items}" 
+                       SelectedItem="{Binding SelectedItem}"
+                       CanUserResizeColumns="True"
+                       GridLinesVisibility="All">
       <TemplatedDataGrid.Columns>
         <TemplatedDataGridTemplateColumn Header="Column1" 
                                          SortMemberPath="Column1" 
