@@ -14,9 +14,8 @@
     <PackageId>TemplatedDataGrid</PackageId>
     <Description>A DataGrid control based on ListBox and Grid panels.</Description>
     <PackageTags>datagrid;panel;control;xaml;axaml;avalonia;avaloniaui</PackageTags>
-    <AssemblyOriginatorKeyFile>templateddatagrid.public.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  
+
   <Import Project="..\..\build\Base.props" />
   <Import Project="..\..\build\SignAssembly.props" />
   <Import Project="..\..\build\SourceLink.props" />
