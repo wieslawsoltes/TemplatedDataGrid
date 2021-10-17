@@ -10,6 +10,7 @@ ProjectSection(SolutionItems) = preProject
 	build.sh = build.sh
 	global.json = global.json
 	build\templateddatagrid.public.snk = build\templateddatagrid.public.snk
+	azure-pipelines.yml = azure-pipelines.yml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{BFD1765A-82DE-42D3-9359-771EC12D7281}"
