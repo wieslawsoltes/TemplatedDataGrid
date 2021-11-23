@@ -5,5 +5,6 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\templateddatagrid.public.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <TemplatedDataGridPublicKey>002400000480000094000000060200000024000052534131000400000100010025d0edf068529bcace1b07bc535b91260681e842e6dec9209239b3773133860867b51f290c63f966671966ba80b4a442b4537dae9b7723ae98aff70dd70adfe11571e6cbaa4caf773951a36d773bf59c8f7ac41008b3b10964ab312c28a23390239b4dc54ec06bad7fb9a70a54336f98233bf9e0e86ab02afb47a5b9e0570db7</TemplatedDataGridPublicKey>
   </PropertyGroup>
 </Project>

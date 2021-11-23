@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>netstandard2.0;net461;net5.0;net6.0</TargetFrameworks>
@@ -22,4 +22,7 @@
   <Import Project="..\..\build\ReferenceAssemblies.props" />
   <Import Project="..\..\build\Avalonia.props" />
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(MSBuildProjectName).UnitTests , PublicKey =$(TemplatedDataGridPublicKey)" />
+  </ItemGroup>
 </Project>

@@ -123,24 +123,30 @@ namespace TemplatedDataGrid.Primitives
                 return;
             }
 
+            var (MaxDeep, Items) = TemplatedDataGridColumnTopology.GetTopology(columns);
+
             //  Generate RowDefinitions
 
-            var rowDefinitions = new List<RowDefinition>();
+            var rowDefinitions = new List<RowDefinition>(MaxDeep + 1);
 
-            rowDefinitions.Add(new RowDefinition(GridLength.Auto));
+            for (int i = 0; i < MaxDeep + 1; i++)
+            {
+                rowDefinitions.Add(new RowDefinition(GridLength.Auto));
+            }
+            
 
             // Generate ColumnDefinitions
 
             var columnDefinitions = new List<ColumnDefinition>();
-            var splitterColumnIndexes = new List<int>();
 
-            for (var i = 0; i < columns.Count; i++)
+            for (var i = 0; i < Items.Count; i++)
             {
-                var column = columns[i];
+                var info = Items[i];
+                var column = info.Column!;
                 var isStarWidth = column.Width.IsStar;
                 var isAutoWidth = column.Width.IsAuto;
                 var isPixelWidth = column.Width.IsAbsolute;
-
+                var rowSpan = MaxDeep - info.Row + 1;
                 var columnDefinition = new ColumnDefinition();
 
                 columnDefinition.TwoWayBind(ColumnDefinition.MinWidthProperty, column, TemplatedDataGridColumn.MinWidthProperty, RootDisposables);
@@ -172,8 +178,9 @@ namespace TemplatedDataGrid.Primitives
                 // Generate DataGridColumnHeader's
                 var columnHeader = new TemplatedDataGridColumnHeader
                 {
-                    [Grid.RowProperty] = 0,
+                    [Grid.RowProperty] = info.Row,
                     [Grid.ColumnProperty] = columnDefinitions.Count - 1,
+                    [Grid.RowSpanProperty] = rowSpan,
                     [TemplatedDataGridColumnHeader.ColumnProperty] = column
                 };
                 
@@ -185,47 +192,84 @@ namespace TemplatedDataGrid.Primitives
                 _columnHeaders.Add(columnHeader);
                 _rootChildren.Add(columnHeader);
 
+
+                // If the current column has a parent, recursively generate the parent's DataGridColumnHeader if it doesn't already exist.
+                var pi = info.Parent;
+                while (pi is { })
+                {
+                    var parentColumnHeader = pi.Header;
+                    if (parentColumnHeader == null)
+                    {
+                        parentColumnHeader = new TemplatedDataGridColumnHeader
+                        {
+                            [Grid.RowProperty] = pi.Row,
+                            [Grid.ColumnProperty] = columnDefinitions.Count - 1,
+                            [Grid.RowSpanProperty] = 1,
+                            [TemplatedDataGridColumnHeader.ColumnProperty] = pi.Column!,
+                        };
+                        pi.Header = parentColumnHeader;
+                        parentColumnHeader.OneWayBind(TemplatedDataGridColumnHeader.HeaderProperty, pi.Column!, TemplatedDataGridColumn.HeaderProperty, RootDisposables);
+                        parentColumnHeader.OneWayBind(TemplatedDataGridColumnHeader.CanUserSortColumnsProperty, this, TemplatedDataGridColumnHeadersPresenter.CanUserSortColumnsProperty, RootDisposables);
+                        parentColumnHeader.OneWayBind(TemplatedDataGridColumnHeader.CanUserResizeColumnsProperty, this, TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, RootDisposables);
+                        parentColumnHeader.OneWayBind(TemplatedDataGridColumnHeader.ColumnHeadersProperty, this, TemplatedDataGridColumnHeadersPresenter.ColumnHeadersProperty, RootDisposables);
+
+                        _columnHeaders.Add(parentColumnHeader); // Boo
+                        _rootChildren.Add(parentColumnHeader);
+                    }
+                    var currentColumnNumber = columnDefinitions.Count - 1;
+                    // Adjusts the ColumnSpan of the grouped column
+                    parentColumnHeader[Grid.ColumnSpanProperty] = currentColumnNumber - Grid.GetColumn(parentColumnHeader)  + 1;
+                    pi = pi.Parent;
+                }
+
                 column.OneWayBind(
                     TemplatedDataGridColumn.ActualWidthProperty, 
                     columnHeader.GetObservable(Visual.BoundsProperty)
                                       .Select(_ => new BindingValue<double>(columnDefinition.ActualWidth)), 
                     RootDisposables);
 
-                if (i < columns.Count)
+                if (i < Items.Count)
                 {
                     columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
-                    splitterColumnIndexes.Add(columnDefinitions.Count - 1);
+
+                    // Generate Vertical Grid Lines
+                    // Generate GridSplitter's
+
+                    var rowSplitter = info.Row;
+                    var rowSpanSplitter = rowSpan;
+                    var splitterColumnIndex = columnDefinitions.Count - 1;
+
+                    if (info.IsLastGroupColumn)
+                    {
+                        rowSplitter--;
+                        rowSpanSplitter++;
+                    }
+
+                    var verticalColumnGridLine = new Rectangle
+                    {
+                        [Grid.RowProperty] = rowSplitter,
+                        [Grid.RowSpanProperty] = rowSpanSplitter,
+                        [Grid.ColumnProperty] = splitterColumnIndex,
+                        [Rectangle.IsHitTestVisibleProperty] = false
+                    };
+                    ((IPseudoClasses)verticalColumnGridLine.Classes).Add(":vertical");
+                    _rootChildren.Add(verticalColumnGridLine);
+
+                    var verticalGridSplitter = new GridSplitter
+                    {
+                        [Grid.RowProperty] = rowSplitter,
+                        [Grid.RowSpanProperty] = rowSpanSplitter,
+                        [Grid.ColumnProperty] = splitterColumnIndex
+                    };
+
+                    verticalGridSplitter.OneWayBind(GridSplitter.IsEnabledProperty, this, TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, RootDisposables);
+
+                    _rootChildren.Add(verticalGridSplitter);
                 }
             }
 
             columnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
 
-            // Generate Vertical Grid Lines
-            // Generate GridSplitter's
-
-            foreach (var columnIndex in splitterColumnIndexes)
-            {
-                var verticalColumnGridLine = new Rectangle
-                {
-                    [Grid.RowProperty] = 0,
-                    [Grid.RowSpanProperty] = 1,
-                    [Grid.ColumnProperty] = columnIndex,
-                    [Rectangle.IsHitTestVisibleProperty] = false
-                };
-                ((IPseudoClasses)verticalColumnGridLine.Classes).Add(":vertical");
-                _rootChildren.Add(verticalColumnGridLine);
-
-                var verticalGridSplitter = new GridSplitter
-                {
-                    [Grid.RowProperty] = 0,
-                    [Grid.RowSpanProperty] = 1,
-                    [Grid.ColumnProperty] = columnIndex
-                };
-
-                verticalGridSplitter.OneWayBind(GridSplitter.IsEnabledProperty, this, TemplatedDataGridColumnHeadersPresenter.CanUserResizeColumnsProperty, RootDisposables);
-
-                _rootChildren.Add(verticalGridSplitter);
-            }
 
             _root.RowDefinitions.Clear();
             _root.RowDefinitions.AddRange(rowDefinitions);

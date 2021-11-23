@@ -190,7 +190,9 @@ namespace TemplatedDataGrid
             RootDisposables?.Dispose();
             RootDisposables = null;
 
-            if (_root is null || _panel is null)
+            var columns = Columns;
+
+            if (_root is null || _panel is null || columns is null)
             {
                 return;
             }
@@ -202,7 +204,9 @@ namespace TemplatedDataGrid
                 _root.Children.Remove(child);
             }
 
-            var columns = Columns;
+
+            var layoutInfo = TemplatedDataGridColumnTopology.GetTopology(columns);
+
 
             //  Generate RowDefinitions
 
@@ -213,12 +217,14 @@ namespace TemplatedDataGrid
             // Generate ColumnDefinitions
 
             var columnDefinitions = new List<ColumnDefinition>();
-            var splitterColumnIndexes = new List<int>();
             var isSharedSizeScope = false;
 
-            for (var i = 0; i < columns.Count; i++)
+            for (var i = 0; i < layoutInfo.Items.Count; i++)
             {
-                var column = columns[i];
+                var info = layoutInfo.Items[i];
+                var column = info.Column!;
+                var rowSpan = layoutInfo.MaxDeep + info.Row;
+
                 var isStarWidth = column.Width.IsStar;
                 var isAutoWidth = column.Width.IsAuto;
                 var isPixelWidth = column.Width.IsAbsolute;
@@ -260,7 +266,28 @@ namespace TemplatedDataGrid
                 if (i < columns.Count)
                 {
                     columnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Pixel)));
-                    splitterColumnIndexes.Add(columnDefinitions.Count - 1);
+
+                    // Generate Vertical Grid Lines
+
+                    var splitterColumnIndex = columnDefinitions.Count - 1;
+
+                    var verticalRowGridLine = new Rectangle
+                    {
+                        [Grid.RowProperty] = info.Row,
+                        [Grid.RowSpanProperty] = rowSpan,
+                        [Grid.ColumnProperty] = splitterColumnIndex,
+                        [Rectangle.IsHitTestVisibleProperty] = false
+                    };
+
+                    verticalRowGridLine.OneWayBind(
+                        Rectangle.IsVisibleProperty,
+                        this.GetObservable(TemplatedDataGrid.GridLinesVisibilityProperty)
+                                  .Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Vertical))),
+                        RootDisposables);
+
+                    ((IPseudoClasses)verticalRowGridLine.Classes).Add(":vertical");
+
+                    _rootChildren.Add(verticalRowGridLine);
                 }
             }
 
@@ -274,27 +301,7 @@ namespace TemplatedDataGrid
             _root.ColumnDefinitions.Clear();
             _root.ColumnDefinitions.AddRange(columnDefinitions);
 
-            // Generate Vertical Grid Lines
 
-            foreach (var columnIndex in splitterColumnIndexes)
-            {
-                var verticalRowGridLine = new Rectangle
-                {
-                    [Grid.RowProperty] = 1,
-                    [Grid.RowSpanProperty] = 1,
-                    [Grid.ColumnProperty] = columnIndex,
-                    [Rectangle.IsHitTestVisibleProperty] = false
-                };
-
-                verticalRowGridLine.OneWayBind(
-                    Rectangle.IsVisibleProperty, 
-                    this.GetObservable(TemplatedDataGrid.GridLinesVisibilityProperty)
-                              .Select(x => new BindingValue<bool>(x.HasFlag(TemplatedDataGridGridLinesVisibility.Vertical))), 
-                    RootDisposables);
-
-                ((IPseudoClasses)verticalRowGridLine.Classes).Add(":vertical");
-                _rootChildren.Add(verticalRowGridLine);
-            }
 
             if (_columnHeadersPresenter is { })
             {
