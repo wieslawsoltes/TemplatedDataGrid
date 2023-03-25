@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Rendering;
 
 namespace TemplatedDataGridDemo.Views
 {
@@ -10,7 +11,7 @@ namespace TemplatedDataGridDemo.Views
         {
             InitializeComponent();
             this.AttachDevTools();
-            Renderer.DrawFps = true;
+            Renderer.Diagnostics.DebugOverlays = RendererDebugOverlays.Fps;
         }
 
         private void InitializeComponent()

@@ -9,12 +9,9 @@ namespace TemplatedDataGrid.Controls
     {
         Type IStyleable.StyleKey => typeof(ListBox);
 
-        protected override IItemContainerGenerator CreateItemContainerGenerator()
+        protected override Control CreateContainerForItemOverride()
         {
-            return new ItemContainerGenerator<TemplatedListBoxItem>(
-                this,
-                ContentControl.ContentProperty,
-                ContentControl.ContentTemplateProperty);
+            return new TemplatedListBoxItem();
         }
     }
 }

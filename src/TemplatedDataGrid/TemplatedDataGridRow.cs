@@ -39,27 +39,27 @@ namespace TemplatedDataGrid
             AvaloniaProperty.Register<TemplatedDataGridRow, TemplatedDataGridGridLinesVisibility>(nameof(GridLinesVisibility));
 
         internal static readonly AttachedProperty<object?> ItemProperty = 
-            AvaloniaProperty.RegisterAttached<IControl, object?>("Item", typeof(TemplatedDataGridRowsPresenter), null, true);
+            AvaloniaProperty.RegisterAttached<Control, object?>("Item", typeof(TemplatedDataGridRowsPresenter), null, true);
 
         internal static readonly AttachedProperty<int> IndexProperty = 
-            AvaloniaProperty.RegisterAttached<IControl, int>("Index", typeof(TemplatedDataGridRowsPresenter), -1, true);
+            AvaloniaProperty.RegisterAttached<Control, int>("Index", typeof(TemplatedDataGridRowsPresenter), -1, true);
 
-        internal static object? GetItem(IControl control)
+        internal static object? GetItem(Control control)
         {
             return control.GetValue(ItemProperty);
         }
 
-        internal static void SetItem(IControl control, object? value)
+        internal static void SetItem(Control control, object? value)
         {
             control.SetValue(ItemProperty, value);
         }
 
-        internal static int GetIndex(IControl control)
+        internal static int GetIndex(Control control)
         {
             return control.GetValue(IndexProperty);
         }
 
-        internal static void SetIndex(IControl control, int value)
+        internal static void SetIndex(Control control, int value)
         {
             control.SetValue(IndexProperty, value);
         }
@@ -162,15 +162,15 @@ namespace TemplatedDataGrid
             Detach();
         }
 
-        protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
 
             if (change.Property == ItemProperty)
             {
 #if DEBUG
-                var oldValue = change.OldValue.GetValueOrDefault<object?>();
-                var newValue = change.NewValue.GetValueOrDefault<object?>();
+                var oldValue = change.GetOldValue<object?>();
+                var newValue = change.GetNewValue<object?>();
                 //Console.WriteLine($"[TemplatedDataGridRow.Item] OldValue='{oldValue}' NewValue='{newValue}', DataContext='{DataContext}'");
 #endif
             }
@@ -178,18 +178,18 @@ namespace TemplatedDataGrid
             if (change.Property == IndexProperty)
             {
 #if DEBUG
-                //Console.WriteLine($"[TemplatedDataGridRow.Index] old='{change.OldValue.GetValueOrDefault<int>()}' new='{change.NewValue.GetValueOrDefault<int>()}', DataContext='{DataContext}'");
+                //Console.WriteLine($"[TemplatedDataGridRow.Index] old='{change.OldValue.GetValueOrDefault<int>()}' new='{change.GetNewValue<int>()}', DataContext='{DataContext}'");
 #endif
             }          
 
             if (change.Property == DataContextProperty)
             {
-                UpdatePseudoClassesSelectedItem(SelectedItem, change.NewValue.GetValueOrDefault<object?>());
+                UpdatePseudoClassesSelectedItem(SelectedItem, change.GetNewValue<object?>());
             }
 
             if (change.Property == SelectedItemProperty)
             {
-                UpdatePseudoClassesSelectedItem(change.NewValue.GetValueOrDefault<object?>(), DataContext);
+                UpdatePseudoClassesSelectedItem(change.GetNewValue<object?>(), DataContext);
             }
 
             if (change.Property == SelectedCellProperty)

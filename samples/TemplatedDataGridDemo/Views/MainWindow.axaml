@@ -106,7 +106,7 @@
                                          SortMemberPath="Column3" 
                                          SortCommand="{Binding SortCommand}" 
                                          SortingState="{Binding SortingStateColumn3}" 
-                                         Width="Auto"
+                                         Width="*"
                                          MinWidth="100">
           <TemplatedDataGridTemplateColumn.CellTemplate>
             <DataTemplate DataType="vm:ItemViewModel">

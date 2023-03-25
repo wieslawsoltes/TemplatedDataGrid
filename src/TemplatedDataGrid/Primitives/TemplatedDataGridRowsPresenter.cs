@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
+using TemplatedDataGrid.Controls;
 using TemplatedDataGrid.Internal;
 
 namespace TemplatedDataGrid.Primitives
@@ -138,57 +139,51 @@ namespace TemplatedDataGrid.Primitives
 
                 this.TwoWayBind(SelectedItemProperty, _listBox, SelectingItemsControl.SelectedItemProperty, listBoxDisposables);
                 this.OneWayBind(ScrollProperty, _listBox, ListBox.ScrollProperty, listBoxDisposables);
-                
+
+                _listBox.ContainerPrepared += (sender, args) =>
+                {
+                    var container = args.Container;
+                    var item = args.Container.DataContext;
+                    var index = args.Index;
 #if DEBUG
-                _listBox.ItemContainerGenerator.Materialized += (sender, args) =>
-                {
-                    Console.WriteLine($"[ItemContainerGenerator.Materialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
-                    foreach (var container in args.Containers)
-                    {
-                        TemplatedDataGridRow.SetItem(container.ContainerControl, container.Item);
-                        TemplatedDataGridRow.SetIndex(container.ContainerControl, container.Index);
-                        Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
-                    }
-                };
-
-                _listBox.ItemContainerGenerator.Dematerialized += (sender, args) =>
-                {
-                    Console.WriteLine($"[ItemContainerGenerator.Dematerialized] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
-                    foreach (var container in args.Containers)
-                    {
-                        Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
-
-                        
-                        //var listBoxItem = container.ContainerControl as ListBoxItem;
-                        //var presenter = listBoxItem?.Presenter;
-                        //var row = presenter?.Child as TemplatedDataGridRow;
-                        //row?.Detach();
-
-                        
-                        TemplatedDataGridRow.SetItem(container.ContainerControl, null);
-                        TemplatedDataGridRow.SetIndex(container.ContainerControl, -1);
-                        
-                    }
-                };
-
-                _listBox.ItemContainerGenerator.Recycled += (sender, args) =>
-                {
-                    Console.WriteLine($"[ItemContainerGenerator.Recycled] Containers.Count='{args.Containers.Count}' StartingIndex='{args.StartingIndex}'");
-                    foreach (var container in args.Containers)
-                    {
-                        TemplatedDataGridRow.SetItem(container.ContainerControl, container.Item);
-                        TemplatedDataGridRow.SetIndex(container.ContainerControl, container.Index);
-                        Console.WriteLine($"- container.Index='{container.Index}', container.Item='{container.Item}'");
-                    }
-                };
+                    Console.WriteLine($"[ContainerPrepared] item='{item}', index='{index}'");
 #endif
+                    TemplatedDataGridRow.SetItem(container, container.DataContext);
+                    TemplatedDataGridRow.SetIndex(container, index);
+                };
 
+                _listBox.ContainerClearing += (sender, args) =>
+                {
+                    var container = args.Container;
+                    var item = args.Container.DataContext;
+#if DEBUG
+                    Console.WriteLine($"[ContainerPrepared] item='{item}'");
+#endif
+                    // var listBoxItem = container.ContainerControl as ListBoxItem;
+                    // var presenter = listBoxItem?.Presenter;
+                    // var row = presenter?.Child as TemplatedDataGridRow;
+                    // row?.Detach();
+                    TemplatedDataGridRow.SetItem(container, null);
+                    TemplatedDataGridRow.SetIndex(container, -1);
+                };
+
+                _listBox.ContainerIndexChanged += (sender, args) =>
+                {
+                    var container = args.Container;
+                    var item = args.Container.DataContext;
+                    var index = args.NewIndex;
+#if DEBUG
+                    Console.WriteLine($"[ContainerIndexChanged] item='{item}', index='{index}'");
+#endif
+                    TemplatedDataGridRow.SetItem(container, item);
+                    TemplatedDataGridRow.SetIndex(container, index);
+                };
             }
 
             InvalidateItemTemplate();
         }
 
-        protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
 

@@ -96,7 +96,7 @@ namespace TemplatedDataGrid
             }
         }
 
-        protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
 
@@ -107,12 +107,12 @@ namespace TemplatedDataGrid
 
             if (change.Property == SelectedItemProperty)
             {
-                UpdatePseudoClassesSelectedItem(change.NewValue.GetValueOrDefault<object?>());
+                UpdatePseudoClassesSelectedItem(change.GetNewValue<object?>());
             }
 
             if (change.Property == SelectedCellProperty)
             {
-                UpdatePseudoClassesSelectedCell(change.NewValue.GetValueOrDefault<object?>());
+                UpdatePseudoClassesSelectedCell(change.GetNewValue<object?>());
             }
         }
 

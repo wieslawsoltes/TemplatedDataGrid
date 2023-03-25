@@ -8,9 +8,9 @@ namespace TemplatedDataGrid.Internal
     internal static class AvaloniaObjectExtensions
     {
         public static void OneWayBind(
-            this IAvaloniaObject target, 
+            this AvaloniaObject target, 
             AvaloniaProperty targetProperty, 
-            IAvaloniaObject source, 
+            AvaloniaObject source, 
             AvaloniaProperty sourceProperty, 
             CompositeDisposable compositeDisposable)
         {
@@ -19,9 +19,9 @@ namespace TemplatedDataGrid.Internal
         }
 
         public static void TwoWayBind(
-            this IAvaloniaObject target,
+            this AvaloniaObject target,
             AvaloniaProperty targetProperty, 
-            IAvaloniaObject source, 
+            AvaloniaObject source, 
             AvaloniaProperty sourceProperty, 
             CompositeDisposable compositeDisposable)
         {
@@ -32,7 +32,7 @@ namespace TemplatedDataGrid.Internal
         }
         
         public static void OneWayBind<T>(
-            this IAvaloniaObject target, 
+            this AvaloniaObject target, 
             AvaloniaProperty<T> targetProperty, 
             IObservable<BindingValue<T>> source, 
             CompositeDisposable compositeDisposable)

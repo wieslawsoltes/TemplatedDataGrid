@@ -34,6 +34,9 @@ ProjectSection(SolutionItems) = preProject
 	build\SignAssembly.props = build\SignAssembly.props
 	build\SourceLink.props = build\SourceLink.props
 	build\XUnit.props = build\XUnit.props
+	build\System.Reactive.props = build\System.Reactive.props
+	build\Avalonia.Themes.Fluent.props = build\Avalonia.Themes.Fluent.props
+	build\Avalonia.Fonts.Inter.props = build\Avalonia.Fonts.Inter.props
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_build", "build\build\_build.csproj", "{52F8BE66-BC84-4909-AFD2-AE15AFDFF69A}"
