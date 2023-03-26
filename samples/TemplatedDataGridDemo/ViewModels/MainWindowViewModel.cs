@@ -77,7 +77,7 @@ namespace TemplatedDataGridDemo.ViewModels
             var itemsSourceList = new SourceList<ItemViewModel>();
             var comparerSubject = new Subject<IComparer<ItemViewModel>>();
             var isSortingEnabled = false;
-            var totalItems = 100_000;
+            var totalItems = 1_000;
             var enableRandom = false;
             var randomSize = 100;
             var rand = new Random();
