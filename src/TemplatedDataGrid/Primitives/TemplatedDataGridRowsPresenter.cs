@@ -133,7 +133,7 @@ namespace TemplatedDataGrid.Primitives
             {
                 var listBoxDisposables = new CompositeDisposable();
 
-                _listBox.OneWayBind(ItemsControl.ItemsProperty, this, ItemsProperty, listBoxDisposables);
+                _listBox.OneWayBind(ItemsControl.ItemsSourceProperty, this, ItemsProperty, listBoxDisposables);
                 _listBox.OneWayBind(SelectingItemsControl.AutoScrollToSelectedItemProperty, this, AutoScrollToSelectedItemProperty, listBoxDisposables);
                 _listBox.OneWayBind(ItemsControl.ItemTemplateProperty, this, ItemTemplateProperty, listBoxDisposables);
 
