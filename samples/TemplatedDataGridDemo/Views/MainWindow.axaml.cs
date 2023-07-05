@@ -11,8 +11,8 @@ namespace TemplatedDataGridDemo.Views
         {
             InitializeComponent();
             this.AttachDevTools();
-            Renderer.Diagnostics.DebugOverlays = RendererDebugOverlays.Fps;
-            // Renderer.Diagnostics.DebugOverlays = RendererDebugOverlays.Fps | RendererDebugOverlays.LayoutTimeGraph | RendererDebugOverlays.RenderTimeGraph;
+            RendererDiagnostics.DebugOverlays = RendererDebugOverlays.Fps;
+            // RendererDiagnostics.DebugOverlays = RendererDebugOverlays.Fps | RendererDebugOverlays.LayoutTimeGraph | RendererDebugOverlays.RenderTimeGraph;
         }
 
         private void InitializeComponent()
