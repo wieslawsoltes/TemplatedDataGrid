@@ -1,3 +1,5 @@
+# Deprecated in favour of https://github.com/wieslawsoltes/ProDataGrid
+
 # TemplatedDataGrid
 
 [![Build Status](https://dev.azure.com/wieslawsoltes/GitHub/_apis/build/status/wieslawsoltes.TemplatedDataGrid?branchName=main)](https://dev.azure.com/wieslawsoltes/GitHub/_build/latest?definitionId=91&branchName=main)
